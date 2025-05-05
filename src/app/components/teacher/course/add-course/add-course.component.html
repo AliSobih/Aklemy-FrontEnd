@@ -1,0 +1,485 @@
+<div class="container modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="addCourseModalLabel" style="font-family:var(--font-stack-heading-serif) ; font-size: 24px; font-weight: 600;">{{isEditMode ?  "Updet Course" : "Add Course"}}</h5>
+  </div>
+
+  @if (!isEditMode || courseLoaded === true) {
+    @defer (on immediate) {
+      <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" style="font-family: var(--font-stack-heading-serif) ; font-size: 20px; color: black;">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="titleEnglish" class=" mt-4">Title (English):</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="titleEnglish"
+              placeholder="Enter course title in English"
+            />
+            <div
+              *ngIf="
+                courseForm.get('titleEnglish')?.invalid &&
+                (courseForm.get('titleEnglish')?.touched ||
+                  courseForm.get('titleEnglish')?.dirty)
+              "
+            >
+              <small class="text-danger">Title in English is required.</small>
+            </div>
+
+            <label for="titleArabic" class=" mt-4">Title (Arabic):</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="titleArabic"
+              placeholder="Enter course title in Arabic"
+            />
+            <div
+              *ngIf="
+                courseForm.get('titleArabic')?.invalid &&
+                (courseForm.get('titleArabic')?.touched ||
+                  courseForm.get('titleArabic')?.dirty)
+              "
+            >
+              <small class="text-danger">Title in Arabic is required.</small>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6" >
+            <div
+              class="addCourse-img"
+
+            >
+              @if (imagePreview) {
+              <p (click)="removeImage()" style="cursor: pointer ">
+                <i class="fa-regular fa-circle-xmark text-danger"></i>
+              </p>
+              }
+              <div
+                class="drag-drop-box mb-3 col-6 offset-3"
+                [class.dragging]="isDragging"
+                (dragover)="onDragOver($event)"
+                (dragleave)="onDragLeave($event)"
+                (drop)="onDrop($event)"
+              >
+                <ng-container *ngIf="imagePreview; else uploadPrompt">
+                  <img
+                    [src]="imagePreview"
+                    alt="Image Preview"
+                    class="uploaded-photo w-100 h-100"
+
+                  />
+                </ng-container>
+                <ng-template #uploadPrompt>
+                  <div style="display: block; margin: auto">
+                    <p>Drag and drop a file here</p>
+                    <div>
+                      <button
+                        type="button"
+                        class="btn btn-light"
+                        (click)="fileInput.click()"
+                      >
+                        Choose File
+                      </button>
+                    </div>
+                  </div>
+                  <input
+                    type="file"
+                    (change)="onFileSelect($event)"
+                    style="display: none"
+                    #fileInput
+                  />
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row mt-2">
+          <div class="form-group col-md-6">
+            <label for="descriptionEnglish">Description (English):</label>
+            <textarea
+              class="form-control"
+              formControlName="descriptionEnglish"
+              rows="3"
+              placeholder="Enter course description in English"
+            ></textarea>
+            <div
+              *ngIf="
+                courseForm.get('descriptionEnglish')?.invalid &&
+                (courseForm.get('descriptionEnglish')?.touched ||
+                  courseForm.get('descriptionEnglish')?.dirty)
+              "
+            >
+              <small class="text-danger">Description in English is required.</small>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="descriptionArabic">Description (Arabic):</label>
+            <textarea
+              class="form-control"
+              formControlName="descriptionArabic"
+              rows="3"
+              placeholder="Enter course description in Arabic"
+            ></textarea>
+            <div
+              *ngIf="
+                courseForm.get('descriptionArabic')?.invalid &&
+                (courseForm.get('descriptionArabic')?.touched ||
+                  courseForm.get('descriptionArabic')?.dirty)
+              "
+            >
+              <small class="text-danger">Description in Arabic is required.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="language">Language:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="language"
+              placeholder="Language"
+            />
+            <div
+              *ngIf="
+                courseForm.get('language')?.invalid &&
+                (courseForm.get('language')?.touched ||
+                  courseForm.get('language')?.dirty)
+              "
+            >
+              <small class="text-danger">Language is required.</small>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="price">Price:</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="price"
+              min="0"
+              step="any"
+              placeholder="Enter course price"
+            />
+            <div
+              *ngIf="
+                courseForm.get('price')?.invalid &&
+                (courseForm.get('price')?.touched || courseForm.get('price')?.dirty)
+              "
+            >
+              <small class="text-danger"
+                >Price is required and must be non-negative.</small
+              >
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="price">Price Before Discount:</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="fixedPrice"
+              min="0"
+              step="any"
+              placeholder="Enter course fixed price"
+            />
+            <div
+              *ngIf="
+                courseForm.get('price')?.invalid &&
+                (courseForm.get('price')?.touched || courseForm.get('price')?.dirty)
+              "
+            >
+              <small class="text-danger"
+                >Price is required and must be non-negative.</small
+              >
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="category">Category:</label>
+            <select class="form-control" formControlName="categoryId">
+              <option *ngFor="let category of categoryList" [value]="category.id">
+                {{ category.name }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                courseForm.get('categoryId')?.invalid &&
+                (courseForm.get('categoryId')?.touched ||
+                  courseForm.get('categoryId')?.dirty)
+              "
+            >
+              <small class="text-danger">Category is required.</small>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn all-btn btn-primary mr-3 mt-3 mb-3">
+          {{ isEditMode ? "Update Course" : "Add Course" }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-success all-btn border-0 mt-3 mb-3"
+          (click)="addSection()"
+          style="font-family: var(--font-stack-heading-serif) ; font-size: 20px;"
+        >
+          Add Section
+        </button>
+
+        <!-- Sections -->
+        <mat-accordion formArrayName="sections" style="font-family: var(--font-stack-heading-serif) ; font-size: 20px;">
+          <div
+            *ngFor="let section of sections.controls; let i = index"
+            [formGroupName]="i"
+
+          >
+            <mat-expansion-panel [expanded]="i == expandedSectionIndex" >
+              <mat-expansion-panel-header>
+                <mat-panel-title class="mt-3 mb-3"  style="font-family:  var(   --font-stack-heading) ; font-size: 20px;">
+                  Section {{ i + 1 }}: {{ section.value.englishTitle }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="modal-body"  style="font-family: var(--font-stack-heading-serif) ; font-size: 20px;">
+                <!-- Section fields -->
+                <div class="form-group">
+                  <input type="number" formControlName="id" style="display: none" />
+                  <input
+                    type="number"
+                    formArrayName="courseId"
+                    style="display: none"
+                  />
+
+                  <label for="englishTitle">English Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="englishTitle"
+                    placeholder="Enter Section title in English"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="arabicTitle">Arabic Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="arabicTitle"
+                    placeholder="Enter Section title in Arabic"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="position">Position</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    formControlName="position"
+                    min="1"
+                    placeholder="Enter Position"
+                    readonly
+                    required
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-primary all-btn mr-3"
+                  (click)="addLesson(i)"
+                >
+                  Add Video Or PDF
+                </button>
+                <button
+                  type="button"
+                  class="btn all-red-btn border-0 mr-3"
+                  (click)="removeSection(i, section.value.id)"
+                  style="padding: 6px 10px;
+                  font-size: 16px;"
+                >
+                  Remove Section
+                  <i class="fa-regular fa-trash-can"></i>
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-secondary mr-3"
+                  (click)="moveSectionUp(i)"
+                  [disabled]="i == 0"
+                  [ngClass]="{ 'hidden-button': i == 0, 'visible-button': i != 0 }"
+                >
+                  <i class="fa-regular fa-circle-up"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary mr-3"
+                  (click)="moveSectionDown(i)"
+                  [ngClass]="{
+                    'hidden-button': i == sections.length - 1,
+                    'visible-button': i != sections.length - 1
+                  }"
+                  [disabled]="i == sections.length - 1"
+                >
+                  <i class="fa-regular fa-circle-down"> </i>
+                </button>
+              </div>
+
+              <!-- Lessons -->
+              <mat-accordion formArrayName="lessons"  style="font-family: var(--font-stack-heading-serif) ; font-size: 20px;">
+                <div
+                  *ngFor="let lesson of getLessons(i).controls; let j = index"
+                  [formGroupName]="j"
+                >
+                  <mat-expansion-panel [expanded]="expandedLessonIndexes[i] === j">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title class="mt-3 mb-3" style="font-family: var(--font-stack-heading-serif) ; font-size: 20px; color: black;">
+                        Lesson {{ j + 1 }}: {{ lesson.value.englishTitle }}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="modal-body" style="font-family: var(--font-stack-heading-serif) ; font-size: 20px; color: black;">
+                      <!-- Lesson fields -->
+                      <div class="form-row">
+                        <input
+                          type="number"
+                          formControlName="id"
+                          style="display: none"
+                        />
+                        <input
+                          type="number"
+                          formControlName="sectionId"
+                          style="display: none"
+                        />
+                        <div class="form-group col-md-12">
+                          <div class="form-group col-md-12">
+                            <label for="titleEnglish">Title (English):</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="titleEnglish"
+                              placeholder="Enter Lesson title in English"
+                              required
+                            />
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="titleArabic">Title (Arabic):</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="titleArabic"
+                              placeholder="Enter Lesson title in Arabic"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <!-- <app-add-vedeo formControlName="video"> </app-add-vedeo> -->
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="durationTime">Duration Time</label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            formControlName="duration"
+                            placeholder="Enter Duration Time"
+                            required
+                          />
+                        </div>
+                        <div class="form-group col-md-2">
+                          <label for="position">Position</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="position"
+                            placeholder="Enter Position"
+                            required
+                            readonly
+                          />
+                        </div>
+
+                        <div class="form-group col-md-4">
+                          <label for="courseType">File Status</label>
+                          <select
+                            class="form-control"
+                            id="courseType"
+                            formControlName="courseType"
+                            required
+                          >
+                            <option value="free">Visible</option>
+                            <option value="paid">Invisible</option>
+                          </select>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-danger all-red-btn mr-3"
+                        (click)="removeLesson(i, j, lesson.value.id)"
+                        style="padding: 6px 10px;
+                  font-size: 16px;"
+                      >
+                        Remove Lesson <i class="fa-regular fa-trash-can"></i>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-secondary border-0 mr-3"
+                        (click)="removeLesson(i, j, lesson.value.id)"
+                        [disabled]="i == 0"
+                        [ngClass]="{
+                          'hidden-button': i == 0,
+                          'visible-button': i != 0
+                        }"
+                      >
+                        <i class="fa-regular fa-circle-up"></i>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-secondary mr-3"
+                        [disabled]="j == 0"
+                        [ngClass]="{
+                          'hidden-button': j == 0,
+                          'visible-button': j != 0
+                        }"
+                        (click)="moveLessonUp(i, j)"
+                      >
+                        <i class="fa-regular fa-circle-up"></i>
+                      </button>
+
+                      <button
+                        (click)="moveLessonDown(i, j)"
+                        type="button"
+                        class="btn btn-secondary mr-3"
+                        [ngClass]="{
+                          'hidden-button': j === getLessons(i).controls.length - 1,
+                          'visible-button': j !== getLessons(i).controls.length - 1
+                        }"
+                        [disabled]="j === getLessons(i).controls.length - 1"
+                        (click)="moveSectionDown(i)"
+                      >
+                        <i class="fa-regular fa-circle-down"></i>
+                      </button>
+                    </div>
+                  </mat-expansion-panel>
+                </div>
+              </mat-accordion>
+              <!-- End Lessons -->
+            </mat-expansion-panel>
+          </div>
+        </mat-accordion>
+        <!-- End Sections -->
+      </form>
+    }@placeholder {
+      <div class="slider-placeholder">
+        <p-skeleton width="100%" height="200px" />
+      </div>
+    } @error {
+      <p style="width: fit-content; margin: auto;">An error occurred while loading the courses. Please try again later.</p>
+    }
+  } @else if (!courseLoaded && !courseError) {
+    <div class="slider-placeholder">
+      <p-skeleton width="100%" height="200px" />
+    </div>
+  } @else if (courseError) {
+    <div class="empty-container">
+      <p>Error In Server</p>
+    </div>
+  }
+</div>

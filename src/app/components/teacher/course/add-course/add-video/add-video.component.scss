@@ -1,0 +1,24 @@
+body {
+  background-color: #f8f9fa;
+}
+
+#dropZone {
+  background-color: #e9ecef;
+  cursor: pointer;
+  height: 200px;
+}
+
+#dropZone.dragover {
+  background-color: #d4edda;
+  border-color: #28a745;
+}
+
+.btn-orange {
+  background-color: #ff8800;
+  color: white;
+}
+
+.btn-orange:hover {
+  background-color: #e67600;
+  color: white;
+}

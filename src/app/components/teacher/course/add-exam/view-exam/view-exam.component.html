@@ -1,0 +1,106 @@
+<!-- Check if examsSection is defined -->
+<div class="row">
+
+  <div class="container col-md-12 mt-5"  style="font-family: var(--font-stack-heading-serif) ; font-size: 16px; color: black;">
+    @if (examsLoaded === true && exams.length > 0) {
+      @defer (on immediate) {
+        <table class="table table-bordered table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Title (Arabic)</th>
+              <th scope="col">Title (English)</th>
+              <th scope="col">Description (Arabic)</th>
+              <th scope="col">Description (English)</th>
+              <th scope="col">Time</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of exams; let $index = index">
+              <tr>
+                <td>{{ item?.id }}</td>
+                <td>{{ item?.title }}</td>
+                <td>{{ item?.titleAr }}</td>
+                <td>{{ item?.description }}</td>
+                <td>{{ item?.descriptionAr }}</td>
+                <td>{{ (item?.time ?? 0) | secondsToTime }}</td>
+                <td class="actions-cell">
+                  <button
+                    class="btn btn-sm text-warning btn-edit"
+                    (click)="updateExam(item)"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                    class="btn btn-sm text-info"
+                    (click)="toggleQuestions($index)"
+                  >
+                    <i
+                      class="fas fa-eye"
+                      [ngClass]="{ 'text-primary': selectedIndex === $index }"
+                    ></i>
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="selectedIndex === $index && oppning">
+                <td colspan="7">
+                  <table class="table table-sm">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>ID</th>
+                        <th>Question</th>
+                        <th>Level</th>
+                        <th>Subject</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container
+                        *ngFor="let question of item.questions; let $qindex = index"
+                      >
+                        <tr>
+                          <td>{{ $qindex + 1 }}</td>
+                          <td>{{ question.question }}</td>
+                          <td>{{ question.level }}</td>
+                          <td>{{ question.subject }}</td>
+                          <td>{{ question.status }}</td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+
+
+      } @error {
+        <p style="width: fit-content; margin: auto;">An error occurred while loading the courses. Please try again later.</p>
+      }
+    } @else if (!examsError && examsLoaded && exams.length === 0) {
+      <div class="empty-container">
+        <p>No Content Available</p>
+      </div>
+    } @else if (!examsLoaded && !examsError) {
+      <div class="slider-placeholder">
+        <p-skeleton width="100%" height="200px" />
+      </div>
+    } @else if (examsError) {
+      <div class="empty-container">
+        <p>Error In Server</p>
+      </div>
+    }
+     <mat-paginator
+          [length]="totalExams"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 20]"
+          (page)="onPageChange($event)">
+        </mat-paginator>
+
+
+  </div>
+</div>
+
+

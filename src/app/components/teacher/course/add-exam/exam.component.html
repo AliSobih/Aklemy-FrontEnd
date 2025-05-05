@@ -1,0 +1,89 @@
+<section class="main-section">
+  <div class="container">
+    <h2 class="main-section-title mt-5"style="font-family:var(--font-stack-heading-serif) ; font-size: 24px; font-weight: 600;" >ِAdd Exam</h2>
+    <div class="main-section-header">
+
+
+
+       <div class="btn-group custom-btn-group">
+    <button type="button" class="btn btn-sm" (click)="viewQuestion()">View Question</button>
+    <button type="button" class="btn btn-sm" (click)="viewExamCourse()">View Course Exam</button>
+    <button type="button" class="btn btn-sm" (click)="addquestion()">Add Question</button>
+    <button type="button" class="btn btn-sm" (click)="addExamCourse()">Add Course Exam</button>
+</div>
+
+    </div>
+    <div class="col-md-12 " style="font-family: var(--font-stack-heading-serif) ; font-size: 20px; color: black;">
+      <div style="z-index: -1">
+        <div class="row mt-3">
+          <div class="col-12">
+            @if (courseLoaded === true && Course?.sections!.length > 0) {
+              @defer (on immediate) {
+                <mat-accordion>
+                  @for (item of Course?.sections; track item; let index = $index) {
+                  <mat-expansion-panel
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false"
+                  >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Section {{ index + 1 }}: {{ item.title }}
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        <div  class="btn-group custom-btn-group">
+                          <button
+                            type="button" class="btn btn-sm"
+                            (click)="viewExamsections(item)"
+                          >
+                            View Exam Sections
+                          </button>
+
+                          <button
+                            type="button" class="btn btn-sm"
+                            (click)="addExam(item)"
+                          >
+                            Add Exam Sections
+                          </button>
+                        </div>
+                      </mat-panel-description>
+
+                    </mat-expansion-panel-header>
+                    @for (itemLesson of item.lessons; track $index) {
+
+                    <div style="cursor: pointer;">
+                      <h6 >
+                        <a style="font-size: 16px"
+                          ><i class="fas fa-video mr-2"></i
+                          >{{ itemLesson.title }}</a
+                        >
+                      </h6>
+                    </div>
+
+                    }
+                  </mat-expansion-panel>
+                  }
+                </mat-accordion>
+              } @error {
+                <p style="width: fit-content; margin: auto;">An error occurred while loading the courses. Please try again later.</p>
+              }
+            } @else if (!courseError && courseLoaded && Course?.sections!.length === 0) {
+              <div class="empty-container">
+                <p>No Content Available</p>
+              </div>
+            } @else if (!courseLoaded && !courseError) {
+              <div class="slider-placeholder">
+                <p-skeleton width="100%" height="200px" />
+              </div>
+            } @else if (courseError) {
+              <div class="empty-container">
+                <p>Error In Server</p>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

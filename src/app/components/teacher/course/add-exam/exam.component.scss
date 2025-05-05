@@ -1,0 +1,46 @@
+   .custom-btn-group .btn {
+     color:var(--main-color);
+     border: none;
+     border-bottom: 3px solid transparent;
+     margin: 5px;
+     background: none;
+     font-weight: bold;
+     transition: color 0.3s, border-bottom-color 0.3s;
+   }
+
+   .custom-btn-group .btn:hover,
+   .custom-btn-group .btn:focus {
+     color: #218838;
+     border-bottom-color: var(--main-color2);
+     outline: none;
+   }
+.custom-btn-group {
+  display: flex;
+  gap: 10px;
+  /* المسافة بين الأزرار */
+}
+
+.custom-btn-group .btn {
+  font-family: var(--font-stack-heading-serif);
+  font-size: 20px;
+  padding: 10px 15px;
+  /* يمكنك ضبط القيمة حسب الحاجة */
+  border-radius: 5px;
+  /* يمكنك ضبط القيمة حسب الحاجة */
+  transition: background-color 0.3s, transform 0.3s;
+  /* تأثير الانتقال */
+}
+
+.custom-btn-group .btn:hover {
+  background-color: var(--main-color2);
+  /* تغيير لون الخلفية عند التمرير */
+  color: white;
+  /* تغيير لون النص عند التمرير */
+  transform: scale(1.05);
+  /* تكبير الزر قليلاً عند التمرير */
+}
+
+.custom-btn-group .btn:active {
+  transform: scale(0.95);
+  /* تقليل حجم الزر قليلاً عند النقر */
+}

@@ -1,0 +1,61 @@
+@if(loaddata===true && Category && Category.length > 0) {
+
+
+<ul class="responsive-table">
+  <li class="table-header"  style="font-family:  var(   --font-stack-heading) ; font-size: 20px;">
+    <div class="column column-1">ID</div>
+    <div class="column column-2">Name</div>
+    <div class="column column-3">Name Ar</div>
+    <div class="column column-4">Description</div>
+    <div class="column column-3">Description Ar</div>
+    <div class="column column-3">Actions</div>
+
+  </li>
+  @for (item of Category;  track $index) {
+  <li class="table-row" style="font-family:  var(   --font-stack-heading) ; font-size: 16px; color: black;">
+    <div class="column column-1" data-label="الكود">{{  $index + 1}}</div>
+    <div class="column column-2" data-label="الأسم">{{ item.name }}</div>
+    <div class="column column-3" data-label="الأسم">{{ item.nameAr }}</div>
+
+    <div class="column column-4" data-label="الوصف">{{ item.description }}</div>
+    <div class="column column-3" data-label="الوصف">{{ item.descriptionAr }}</div>
+
+
+    <div class="column column-3 action">
+      <a
+        class="btn btn-sm text-warning ml-1"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Edit"
+        (click)="onUpdate(item)"
+      >
+        <i class="fas fa-edit"></i>
+      </a>
+      <a
+        class="btn btn-sm text-danger ml-1"
+        (click)="confirmDelete(item.id)"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Delete"
+      >
+        <i class="fas fa-trash"></i>
+      </a>
+    </div>
+  </li>
+  }
+</ul>
+}@else if (!loadError && loaddata && Category && Category.length==0) {
+<div class="empty-container">
+  <p>No Content Available</p>
+</div>
+}
+@else if (!loaddata && !loadError) {
+<div class="slider-placeholder">
+  <p-skeleton width="100%" height="200px" />
+</div>
+}
+@else if (loadError) {
+<div class="empty-container">
+  <p>Error In Server</p>
+</div>
+}

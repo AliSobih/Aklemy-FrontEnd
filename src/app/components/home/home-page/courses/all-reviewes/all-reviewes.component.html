@@ -1,0 +1,136 @@
+<div class="course-landing content container">
+  <div class="container Reviews mt-4">
+    <h1 class="mt-5 mb-3 text-center" style="font-weight: 600">
+      {{ "REVIEWS" | translate }}
+    </h1>
+  </div>
+  @if(loaddata===true && reviewData.length > 0){
+  <style>
+    .review-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #cecece;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-right: 15px;
+      text-transform: uppercase;
+    }
+
+    .review-container {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+      display: flex;
+      align-items: flex-start;
+      direction: ltr;
+    }
+
+    .review-container:last-child {
+      border-bottom: none;
+    }
+      .review-author {
+            margin-bottom: 5px;
+            color: #7c7c7c;
+            font-family: Roboto;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 35.16px;
+            letter-spacing: 0.01em;
+            text-align: left;
+          }
+           .review-text {
+            margin-bottom: 10px;
+            color: #7c7c7c;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 35px;
+            text-align: left;
+          }
+
+  </style>
+  <!-- Deferred loading of reviews -->
+  @defer (on viewport; prefetch on idle) {
+  <div class="container Reviews mt-2">
+    <div *ngFor="let item of reviewData" class="review-item">
+      <div class="d-flex review-container">
+        <div class="review-avatar ml-3">
+          {{ item.userName?.substring(0, 2) }}
+        </div>
+        <div class="">
+          <h5 class="review-author" style="width: fit-content">
+            {{ item.userName }}
+          </h5>
+          <div class="stars mb-1" style="width: fit-content">
+            <span class="stars">
+              <ng-container *ngFor="let starClass of getStars(item.rating)">
+                <i [class]="starClass"></i>
+              </ng-container>
+            </span>
+          </div>
+          <p class="review-text"
+            style="
+              width: fit-content;
+
+            "
+          >
+            {{ item.comment }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <ng-container *ngIf="totalPages! > 1">
+        <a
+          *ngIf="showMoreButton"
+          (click)="loadMore()"
+          style="display: block; margin-bottom: 15px"
+        >
+          <i
+            class="fa-solid fa-angles-down"
+            style="color: var(--secondary); cursor: pointer; font-size: 30px"
+          ></i>
+        </a>
+      </ng-container>
+    </div>
+  </div>
+
+  } @placeholder {
+  <!-- Placeholder for reviews during loading -->
+  <div class="container Reviews mt-4">
+    <div class="review-item" *ngFor="let _ of [1, 2, 3, 4, 5]">
+      <div class="d-flex">
+        <div class="avatar m-2"><p-skeleton width="40px" height="40px" /></div>
+        <div class="m-2">
+          <h5 style="width: fit-content"><p-skeleton width="100px" /></h5>
+          <div class="stars mb-2" style="width: fit-content">
+            <span class="stars"><p-skeleton width="60px" /></span>
+          </div>
+          <p style="width: fit-content"><p-skeleton width="200px" /></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  } @error {
+  <!-- Error message if loading fails -->
+  <div class="container Reviews mt-4">
+    <p>Error loading reviews. Please try again later.</p>
+  </div>
+  } } @else if (!loadError && loaddata &&reviewData.length===0) {
+  <div class="empty-container">
+    <p>No Content Available</p>
+  </div>
+  } @else if (!loaddata && !loadError) {
+  <div class="slider-placeholder">
+    <p-skeleton width="100%" height="200px" />
+  </div>
+  } @else if (loadError) {
+  <div class="container Reviews mt-4">
+    <p>Error In Server</p>
+  </div>
+  }
+</div>

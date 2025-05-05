@@ -1,0 +1,11 @@
+.add-btn {
+  background-color: var(--main-color);
+  color: white;
+}
+
+.container-fluid {
+  padding: 0 50px;
+  margin: 0 40px;
+  width: calc(100vw - 80px);
+  overflow-x: hidden;
+}

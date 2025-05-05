@@ -1,0 +1,39 @@
+<!-- add-slider-image.component.html -->
+<div class="container p-4">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center text-head mb-4">Add Slider Image</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <div
+          class="drag-drop-box"
+          [class.dragging]="isDragging"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)"
+        >
+          <ng-container *ngIf="imagePreview; else uploadPrompt">
+            <img [src]="imagePreview" alt="Image Preview" class="uploaded-photo" />
+          </ng-container>
+          <ng-template #uploadPrompt>
+            <p>Drag and drop a file here</p>
+          </ng-template>
+        </div>
+        <input
+          type="file"
+          (change)="onFileSelect($event)"
+          #fileInput
+          style="display: none"
+          accept="image/*"
+        />
+        <button type="button" class="btn btn-dark" (click)="fileInput.click()">Browse files</button>
+      </div>
+      <button type="button" class="btn btn-success" (click)="onSubmit()">Upload</button>
+      <button type="button" style="margin-left: 5px;" class="btn btn-danger" (click)="onclose()">Close</button>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,274 @@
+<div class="exam-result-responsive" style="margin-top: 70px;" appPreventCopyPaste>
+  <div class="col-md-12 justify-content-center align-items-center">
+
+@if (isPass) {
+
+  <div class="container mt-5">
+ <div class="card">
+   <div class="card-header">
+     <i class="fas fa-star"></i>
+     Congratulations!
+   </div>
+   <div class="card-body">
+     <div class="circle percentage-circle">
+       <span>{{ total | number : "1.2-2" }}%<br>{{"Percentage"|translate}}</span>
+     </div>
+     <div class="circle correct-circle">
+       <span>{{userExam?.correctAnswers }}/{{(userExam?.correctAnswers ?? 0) + (userExam?.wrongAnswers ?? 0)}}<br>Correct</span>
+     </div>
+     <div class="circle time-circle">
+       <span>{{userExam?.netTime ?? 0 | secondsToTime}}<br>{{"Time"|translate}}</span>
+     </div>
+     <p class="congrats">{{"excellent_score"|translate}}</p>
+     <div class="stars">
+       <!-- إضافة نجوم بشكل عشوائي داخل .stars -->
+       <div class="star" style="top: 10%; left: 20%;"></div>
+       <div class="star" style="top: 30%; left: 40%;"></div>
+       <div class="star" style="top: 60%; left: 10%;"></div>
+       <div class="star" style="top: 70%; left: 80%;"></div>
+       <div class="star" style="top: 50%; left: 90%;"></div>
+       <div class="star" style="top: 20%; left: 70%;"></div>
+       <div class="star" style="top: 40%; left: 30%;"></div>
+     </div>
+   </div>
+ </div>
+</div>
+}@else if (!isPass) {
+
+  <div class="container next-time  mt-5">
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-exclamation-triangle"></i>
+        {{"Better_Luck"|translate}}
+      </div>
+      <div class="card-body">
+        <div class="circle percentage-circle">
+          <span>{{ (total ?? 0) | number : "1.2-2" }}%<br>{{"Percentage"|translate}}</span>
+        </div>
+        <div class="circle correct-circle">
+          <span>{{userExam?.correctAnswers }}/{{(userExam?.correctAnswers ?? 0) + (userExam?.wrongAnswers ?? 0)}}<br>Correct</span>
+        </div>
+        <div class="circle time-circle">
+          <span>{{(userExam?.netTime??0) | secondsToTime}}<br>{{"Time"|translate}}</span>
+        </div>
+        <p class="message">{{"improve_trying"|translate}}</p>
+      </div>
+    </div>
+  </div>
+
+}
+
+    <div
+      class="container main-content"
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        direction: ltr;
+        font-family: var(--font-stack-heading-serif);
+      "
+    >
+      <button
+        class=""
+        (click)="showExamAnswers()"
+        style="width: fit-content;
+        border-radius: 15px;
+        padding: 15px 20px;
+         background-color: var(--main-color);
+         border: none;
+         color: white;
+         font-size: 16px;
+         margin: 20px;
+         cursor: pointer;"
+      >
+        {{"SHOW_EXAM_ANSWERS"|translate}}
+      </button>
+      <div>
+
+      </div>
+
+
+    </div>
+
+    @if (showMyAnswers) {
+      @if (examLoaded === true) {
+        @defer (on immediate) {
+          <div
+          class="container main-content"
+          style="font-family: var(--font-stack-heading-serif);"
+          [ngClass]="{'arabic_direction': language === 'ar'}"
+        >
+          <div class="text-center mb-4">
+            <h2>
+              {{ getUserExamTitle() }}
+            </h2>
+          </div>
+          @for (userQuestion of userExam?.userExamQuestions; track $index) { @if
+          (userQuestion?.status === 'SINGLE') {
+          <div
+            class="quiz-container bg-light p-4 rounded"
+            [ngClass]="{
+              'quiz-container-correct': userQuestion.isCorrect,
+              'quiz-container-inCorrect': userQuestion.isCorrect == false
+            }"
+          >
+            <h5 style="text-align: initial;">{{ getQuestionText(userQuestion!) }}</h5>
+            @if (userQuestion.imagePath != null) {
+            <div style="width: fit-content; margin: 20px auto">
+              <img [src]="getImagePath(userQuestion.imagePath)" height="200px" />
+            </div>
+            } @for (answer of userQuestion.userExamAnswers; track $index) {
+            <div
+              class="form-check"
+              [ngClass]="{
+                correct: answer.isCorrect || (answer.isCorrect && answer.mark),
+                incorrect: !answer.isCorrect && answer.mark
+              }"
+            >
+              <label style="text-align: initial;" class="form-check-label"> {{ getAnswerText(answer) }} </label>
+            </div>
+            } @if(!userQuestion.isCorrect) {
+            <div style="text-align: initial;" class="feedback incorrect">
+              <p style="color: var(--correct-text-color)">
+                {{"USER_ANSWER"|translate}}: @for (answer of userQuestion.userExamAnswers; track
+                $index) { @if (answer.mark) {
+                <span>{{ getAnswerText(answer) }} </span>
+                } }
+              </p>
+              <p>
+                {{"CORRECT_ANSWER"|translate}}: @for (answer of userQuestion.userExamAnswers; track
+                $index) { @if (answer.isCorrect) {
+                <span>{{ getAnswerText(answer) }} </span>
+                } }
+              </p>
+            </div>
+            }
+          </div>
+          } @if (userQuestion?.status === 'MULTIPLE') {
+          <div
+            class="quiz-container bg-light p-4 rounded"
+            [ngClass]="{
+              'quiz-container-correct': userQuestion.isCorrect,
+              'quiz-container-inCorrect': userQuestion.isCorrect == false
+            }"
+          >
+            <h5 style="text-align: initial;">{{ getQuestionText(userQuestion!) }}</h5>
+            @if (userQuestion.imagePath != null) {
+            <div style="width: fit-content; margin: 20px auto">
+              <img [src]="getImagePath(userQuestion.imagePath)" height="200px" />
+            </div>
+            } @for (answer of userQuestion.userExamAnswers; track $index) {
+            <div
+              class="form-check"
+              [ngClass]="{
+                correct: answer.isCorrect || (answer.isCorrect && answer.mark),
+                incorrect: !answer.isCorrect && answer.mark
+              }"
+            >
+              <label style="text-align: initial;" class="form-check-label"> {{ getAnswerText(answer) }} </label>
+            </div>
+            } @if(!userQuestion.isCorrect) {
+            <div style="text-align: initial;" class="feedback incorrect">
+              <p style="color: var(--correct-text-color)">
+                {{"USER_ANSWER"|translate}}: @for (answer of userQuestion.userExamAnswers; track
+                $index) { @if (answer.mark) {
+                <span>{{ getAnswerText(answer) }}, </span>
+                } }
+              </p>
+              <p>
+                {{"CORRECT_ANSWER"|translate}}: @for (answer of userQuestion.userExamAnswers; track
+                $index) { @if (answer.isCorrect) {
+                <span>{{ getAnswerText(answer) }}, </span>
+                } }
+              </p>
+            </div>
+            }
+          </div>
+          } @if (userQuestion?.status === 'DRAG_DROP') {
+          <div
+            class="quiz-container bg-light p-4 rounded"
+            [ngClass]="{
+              'quiz-container-correct': userQuestion.isCorrect,
+              'quiz-container-inCorrect': userQuestion.isCorrect == false
+            }"
+          >
+            <h5 style="text-align: initial;">{{ getQuestionText(userQuestion!) }}</h5>
+            @if (userQuestion.imagePath != null) {
+            <div style="width: fit-content; margin: 20px auto">
+              <img [src]="getImagePath(userQuestion.imagePath)" height="200px" />
+            </div>
+            }
+            <div class="dropzone">
+              <div class="row">
+                <div class="col-md-6">
+                  <div id="answers" class="d-flex flex-column">
+                    @for (question of userQuestion.userExamDragAndDrops; track
+                    $index) {
+                    <div style="text-align: initial;" class="answer" data-answer="1">
+                      {{
+                        getDragItemText({
+                          dragItem: question.dragItem!,
+                          dragItemAr: question.dragItemAr!
+                        })
+                      }}
+                    </div>
+                    }
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  @for (answer of userQuestion.userExamDragAndDrops; track $index) {
+                  <div style="text-align: initial;" class="dropzone" data-correct="1">
+                    {{
+                      getDraDropAnswerText({
+                        answer: answer.answer!,
+                        answerAr: answer.answerAr!
+                      })
+                    }}
+                  </div>
+                  }
+                </div>
+              </div>
+            </div>
+            @if(!userQuestion.isCorrect) { @for (dragDrop of
+            userQuestion.userExamDragAndDrops; track $index) {
+            <div style="text-align: initial;" class="answer">
+              <span>
+                {{
+                  getDragItemText({
+                    dragItem: dragDrop.dragItem!,
+                    dragItemAr: dragDrop.dragItemAr!
+                  })
+                }}
+              </span>
+              =
+              <span>
+                {{
+                  getDraDropAnswerText({
+                    answer: dragDrop.dropItem!,
+                    answerAr: dragDrop.dropItemAr!
+                  })
+                }}
+              </span>
+            </div>
+            } }
+          </div>
+          } }
+        </div>
+        } @error {
+          <p style="width: fit-content; margin: auto;">An error occurred while loading the courses. Please try again later.</p>
+        }
+      } @else if (!examLoaded && !examError) {
+        <div class="slider-placeholder">
+          <p-skeleton width="100%" height="200px" />
+        </div>
+      } @else if (examError) {
+        <div class="empty-container">
+          <p>Error In Server</p>
+        </div>
+      }
+
+
+
+    }
+  </div>
+</div>

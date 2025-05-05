@@ -1,0 +1,113 @@
+@if (coursesLoaded === true && courses.length > 0) {
+
+<div class="home-card">
+  @for (item of courses; track $index) { @if (CourseId != item.id) {
+
+  <div class="card">
+    <div
+      class="card-header"
+      style="background-color: transparent; direction: ltr"
+      [ngStyle]="{ direction: language === 'ar' ? 'rtl' : 'ltr' }"
+    >
+      <!-- <div class="avatar">
+        <span
+          [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+          >{{ item.instructorNameEn?.charAt(0) }}</span
+        >
+      </div> -->
+      <div class="prof-name mx-2">
+        <!-- <span
+          [ngStyle]="{ ' text-align': language === 'ar' ? 'right' : 'left' }"
+          >{{ "Prof" | translate }}.{{ item.instructorNameEn }}</span
+        > -->
+      </div>
+    </div>
+    <div class="card-body">
+      <a (click)="viewCard(item)">
+        <img
+          [src]="item.imageDownload"
+          alt="UI/UX & Web Design"
+          class="card-image"
+        />
+      </a>
+
+      <div class="" style="padding: 10px">
+        <h2 [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }">
+          {{ language === "ar" ? item.titleAr : item.title }}
+        </h2>
+        <div class="rating-price">
+          <div class="rating">
+            <span class="stars"
+              ><ng-container
+                *ngFor="let starClass of getStars(item.averageRating!)"
+              >
+                <i [class]="starClass"></i>
+              </ng-container>
+            </span>
+            <span class="rating-value">
+              {{ item.averageRating }}
+            </span>
+          </div>
+          <div class="price-info">
+            <span class="old-price"
+              >{{
+                language === "ar"
+                  ? item.formattedAmountArBeforeDiscount
+                  : item.formattedAmountEnBeforeDiscount
+              }}
+            </span>
+            <span
+              class="new-price"
+              *ngIf="
+                item.formattedAmountEn !== item.formattedAmountEnBeforeDiscount
+              "
+              >{{
+                language === "ar"
+                  ? item.formattedAmountAr
+                  : item.formattedAmountEn
+              }}</span
+            >
+          </div>
+        </div>
+        <div class="buttons">
+          <button
+            class="enroll-btn"
+            (click)="enroll(item); $event.stopPropagation()"
+          >
+            {{ "Enroll_Now" | translate }}
+          </button>
+          <button
+            class="details-btn"
+            (click)="viewCard(item); $event.stopPropagation()"
+          >
+            {{ "View_Details" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  } }
+</div>
+
+} @else if (!coursesError && coursesLoaded && courses.length === 0) {
+<div class="empty-container">
+  <p>No Content Available</p>
+</div>
+} @else if (!coursesLoaded && !coursesError) {
+<div class="slider-placeholder">
+  <p-skeleton width="100%" height="495px" />
+</div>
+} @else if (coursesError) {
+<div class="empty-container">
+  <p>Error In Server</p>
+</div>
+} @if (totalCourses > 5) {
+<ng-container>
+  <mat-paginator
+    [length]="totalCourses"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[6, 12, 18]"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+</ng-container>
+}

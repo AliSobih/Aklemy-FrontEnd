@@ -1,0 +1,34 @@
+<section>
+  <div class="container-fluid">
+    <!-- Sidebar with hover effects -->
+    <div class="col-1 col-md-2">
+      <app-sidebar
+        (mouseenter)="onSidebarHover()"
+        (mouseleave)="onSidebarLeave()"
+      ></app-sidebar>
+    </div>
+
+    @defer (on viewport; prefetch on idle) {
+    <div
+      [ngClass]="{ 'offset-lg-2 ': isSidebarHovered }"
+      style="transition: 0.3s"
+    >
+      <router-outlet></router-outlet>
+    </div>
+    } @placeholder {
+    <div
+      [ngClass]="{ 'offset-lg-2 ': isSidebarHovered }"
+      style="transition: 0.3s"
+    >
+      <p-skeleton width="100%" height="500px" />
+    </div>
+    } @error {
+    <div
+      [ngClass]="{ 'offset-lg-2 ': isSidebarHovered }"
+      style="transition: 0.3s"
+    >
+      <p>Error loading content.</p>
+    </div>
+    }
+  </div>
+</section>

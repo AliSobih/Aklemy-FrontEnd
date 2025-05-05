@@ -1,0 +1,320 @@
+.container {
+  max-width: 100%;
+  margin: auto;
+
+  .main-section-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+  }
+
+  .mat-expansion-panel {
+    margin-bottom: 1rem;
+
+    .mat-expansion-panel-header {
+      background-color: var(--gray-dark) ;
+      color:var(--black-color);
+
+      .mat-panel-title {
+        font-size: 1.25rem;
+      }
+    }
+
+    .card-body {
+      padding: 1rem;
+
+      table {
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+
+      th, td {
+        padding: 0.75rem;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      th {
+        background-color: #f8f9fa;
+      }
+    }
+  }
+}
+// .add-btn {
+//   background-color: var(--main-color);
+//   color: white;
+// }
+// .add-btn {
+//   background-color: var(--main-color);
+//   color: white;
+// }
+/* ---------------------------------------------------
+    TABLE STYLE
+----------------------------------------------------- */
+.responsive-table {
+  box-shadow: 0px 7px 13px 0px rgb(0 0 0 / 10%);
+}
+
+.responsive-table li {
+  border-radius: 3px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.responsive-table .table-header {
+  background-color: var(--gray-dark);
+  color: var(--black-color);
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.responsive-table .table-footer {
+  background-color: var(--second-light-color);
+  color: var(--white);
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.responsive-table .table-row {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 10%);
+  font-size: 0.8em;
+}
+
+.responsive-table .column-1 {
+  flex-basis: 10%;
+}
+
+.responsive-table .column-2 {
+  flex-basis: 20%;
+}
+
+.responsive-table .column-3 {
+  flex-basis: 30%;
+}
+
+.responsive-table .column-4 {
+  flex-basis: 40%;
+}
+
+.responsive-table .column i {
+  font-size: 1.1rem;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+@media all and (max-width: 767px) {
+  .responsive-table .table-header {
+    display: none;
+  }
+
+  .responsive-table li {
+    display: block;
+    margin-bottom: 7px;
+  }
+
+  .responsive-table .column {
+    flex-basis: 100%;
+  }
+
+  .responsive-table .column {
+    display: flex;
+    padding: 10px 0;
+    align-items: center;
+  }
+
+  .responsive-table .column:before {
+    color: #6c7a89;
+    padding-right: 10px;
+    content: attr(data-label);
+    flex-basis: 50%;
+    text-align: right;
+  }
+}
+
+
+
+
+             .table-container {
+               box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+               border-radius: 5px;
+               overflow: hidden;
+               background-color: #fff;
+             }
+
+             .table thead th {
+               background-color: var(--gray-dark);
+               color: var(--black-color);
+             }
+
+             .btn-update {
+               background-color: var(--main-color);
+               color: white;
+               transition: all 0.3s;
+             }
+
+             .btn-update:hover {
+               background-color: var(--main-color2);
+               color: white;
+             }
+
+             .btn-delete {
+               background-color: red;
+               color: white;
+             }
+
+             .btn-delete:hover {
+               background-color: #dc3545;
+               color: white;
+             }
+
+             .section-title {
+               color: var(--main-color);
+               font-weight: bold;
+             }
+
+             .nested-table-container {
+               background-color: #ffffff;
+               margin: 0;
+               padding: 0;
+             }
+
+             .nested-table thead th {
+               background-color: #e9ecef;
+               color: #000;
+             }
+
+             .nested-table {
+               width: 100%;
+             }
+
+             .nested-table td,
+             .nested-table th {
+               padding: 8px;
+             }
+
+             .actions {
+               display: flex;
+               gap: 5px;
+             }
+
+
+             /* Ensure table cells handle long text correctly */
+.table td, .table th {
+  word-wrap: break-word; /* Ensure words break within the cell */
+  white-space: normal; /* Allow the text to wrap to the next line */
+  /* Hide any overflow text */
+  text-overflow: ellipsis; /* Add ellipsis (...) for overflow text */
+  vertical-align: top; /* Align text to the top of the cell */
+}
+
+/* Set specific widths for columns */
+.table th:nth-child(1), .table td:nth-child(1) {
+  width: 10%; /* Smaller width for 'Code' column */
+}
+
+.table th:nth-child(2), .table td:nth-child(2) {
+  width: 25%; /* Equal width for 'Description (English)' column */
+}
+
+.table th:nth-child(3), .table td:nth-child(3) {
+  width: 25%; /* Equal width for 'Description (Arabic)' column */
+}
+
+.table th:nth-child(4), .table td:nth-child(4) {
+  width: 40%; /* Larger width for 'Actions' column */
+}
+
+/* Additional styling for table cells */
+.table td {
+  padding: 8px; /* Add some padding for better readability */
+}
+/* Ensure table cells handle long text correctly */
+.table td,
+.table th {
+  word-wrap: break-word;
+  /* Ensure words break within the cell */
+  white-space: normal;
+  /* Allow the text to wrap to the next line */
+
+  /* Hide any overflow text */
+  text-overflow: ellipsis;
+  /* Add ellipsis (...) for overflow text */
+  vertical-align: top;
+  /* Align text to the top of the cell */
+}
+
+/* Additional styling for table cells */
+.table td {
+  max-width: 200px;
+  /* Set a maximum width for table cells */
+  padding: 8px;
+  /* Add some padding for better readability */
+}
+
+/* Optional: Adjust specific column widths */
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  width: 30%;
+  /* Set width for the 'Description (English)' column */
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3) {
+  width: 30%;
+  /* Set width for the 'Description (Arabic)' column */
+}
+
+.table th:nth-child(4),
+.table td:nth-child(4) {
+  width: 20%;
+  /* Set width for the 'Actions' column */
+}
+
+.table th:nth-child(4),
+.table td:nth-child(4) {
+  width: 20%;
+  /* زاد العرض من 20% إلى 25% */
+  max-width: none;
+  /* إزالة الحد الأقصى للعرض إذا تم تطبيقه */
+}
+
+
+/* تعديل عرض الأعمدة الأخرى لتتناسب مع التعديل الجديد */
+.table th:nth-child(2),
+.table td:nth-child(2),
+.table th:nth-child(3),
+.table td:nth-child(3) {
+  width: 30%;
+  /* تعديل العرض للأعمدة الأخرى لتوازن النسبة */
+}
+.table th:nth-child(4),
+.table td:nth-child(4) {
+  width: 25%;
+  /* زاد العرض من 20% إلى 25% */
+  max-width: none;
+  /* إزالة الحد الأقصى للعرض إذا تم تطبيقه */
+}
+
+    .scrollable-table {
+      overflow-x: auto;
+    }
+
+    @media (max-width: 1000px) {
+      .scrollable-table {
+        overflow-x: scroll;
+      }
+    }
+
+
+        .table-container {
+          width: 100%;
+          overflow-x: auto;
+        }
+
+        .scrollable-table {
+          min-width: 1100px;
+        }
+

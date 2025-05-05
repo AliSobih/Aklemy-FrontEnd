@@ -1,0 +1,98 @@
+.btn-toggle-sidebar {
+  background-color: #28A745;
+  color: white;
+  border: none;
+  padding: 5px;
+  /* تقليل التباعد الداخلي */
+  border-radius: 5px;
+  font-size: 16px;
+  /* حجم أيقونة أصغر */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  /* عرض أصغر للزر */
+  height: 40px;
+  /* ارتفاع أصغر للزر */
+  transition: background-color 0.3s ease;
+  position: absolute;
+  /* لجعله ثابت بجانب الشريط الجانبي */
+  top: 10px;
+  /* المسافة من الأعلى */
+  left: 10px;
+  /* لجعله ملامسًا للشريط الجانبي */
+  z-index: 1000;
+  /* لضمان أنه فوق محتوى الشريط الجانبي */
+}
+
+.btn-toggle-sidebar:hover {
+  background-color: #218838;
+  /* لون أغمق قليلاً عند التمرير */
+}
+
+.btn-toggle-sidebar:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5);
+  /* تأثير التركيز */
+}
+
+.btn-toggle-sidebar i {
+  margin: 0;
+  /* إزالة أي مسافات بين الأيقونة */
+}
+
+.btn-toggle-home {
+
+      background-color: #28A745;
+      color: white;
+      border: none;
+      padding: 5px;
+      /* تقليل التباعد الداخلي */
+      border-radius: 5px;
+      font-size: 16px;
+      /* حجم أيقونة أصغر */
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      /* عرض أصغر للزر */
+      height: 40px;
+      /* ارتفاع أصغر للزر */
+      transition: background-color 0.3s ease;
+      position: absolute;
+      /* لجعله ثابت بجانب الشريط الجانبي */
+      top: 10px;
+      /* المسافة من الأعلى */
+      left: 60px;
+      /* لجعله ملامسًا للشريط الجانبي */
+      z-index: 1000;
+      /* لضمان أنه فوق محتوى الشريط الجانبي */
+
+
+}
+
+/* Apply transition to both the sidebar and the content */
+.sidebar {
+  transition: all 0.5s ease;
+  opacity: 1;
+}
+
+
+/* Hide the sidebar smoothly when not displayed */
+:host ::ng-deep .sidebar.ng-leave {
+  opacity: 1;
+}
+
+:host ::ng-deep .sidebar.ng-leave-active {
+  opacity: 0;
+}
+
+// :host ::ng-deep .content {
+//   transition: all 0.1s ease;
+// }
+
+:host ::ng-deep .content.col-md-12 {
+  transition: all 0.5s ease;
+}

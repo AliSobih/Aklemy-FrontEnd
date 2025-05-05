@@ -1,0 +1,88 @@
+<div [ngClass]="language === 'ar' ? 'rtl' : 'ltr'" class="container mt-5">
+  <h1 class="font-weight-bold">
+    {{ language === "ar" ? category?.nameAr : category?.name }}
+  </h1>
+  <p>
+    {{ language === "ar" ? category?.descriptionAr : category?.description }}
+  </p>
+  <!-- dont remove this empty list -->
+  <ul class="nav nav-tabs mb-2"></ul>
+
+   <div class="card-container">
+        @for (item of courses; track $index) {
+        <div class="card">
+            <div class="card-header" style="background-color: transparent; direction: ltr;" [ngStyle]="{ 'direction': language==='ar' ? 'rtl' : 'ltr' }" >
+                <div class="avatar" >
+                    <span [ngStyle]="{ 'text-align': language==='ar' ? 'right' : 'left' }" >{{ item.instructorNameEn?.charAt(0) }}</span>
+                </div>
+                <div class="prof-name mx-2">
+                    <span [ngStyle]="{ ' text-align': language==='ar' ? 'right' : 'left' }" >{{"Prof"|translate}}.{{ item.instructorNameEn }}</span>
+                </div>
+            </div>
+            <div class="card-body">
+              <a (click)="viewCard(item)">
+
+                <img  [src]="item.imageDownload" alt="UI/UX & Web Design" class="card-image">
+              </a>
+
+                <div class="" style="padding: 10px;">
+
+                    <h2 [ngStyle]="{ 'text-align': language==='ar' ? 'right' : 'left' }" > {{ language === "ar" ? item.titleAr : item.title }}</h2>
+                    <div class="rating-price">
+                        <div class="rating">
+                          <span class="stars"><ng-container
+                            *ngFor="let starClass of getStars(item.averageRating!)"
+                          >
+                            <i [class]="starClass"></i>
+                          </ng-container>
+                                </span>
+                            <span class="rating-value">
+                              {{
+                                item.averageRating
+                              }}
+                              </span>
+                        </div>
+                        <div class="price-info">
+                            <span class="old-price">{{
+                              language === "ar"
+                                ? item.formattedAmountArBeforeDiscount
+                                : item.formattedAmountEnBeforeDiscount
+                              }}
+                            </span>
+                            <span class="new-price" *ngIf="
+                item.formattedAmountEn !== item.formattedAmountEnBeforeDiscount
+              ">{{
+                language === "ar"
+                  ? item.formattedAmountAr
+                  : item.formattedAmountEn
+              }}</span>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button class="enroll-btn"  (click)="enroll(item); $event.stopPropagation()">{{"Enroll_Now"|translate}}</button>
+                        <button class="details-btn" (click)="viewCard(item); $event.stopPropagation()">{{"View_Details"|translate}} </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      }
+
+
+        <!-- Duplicate this card for more cards -->
+
+        <!-- You can add more cards here -->
+    </div>
+
+
+
+  @if (totalCourses > pageSize) {
+  <ng-container *ngIf="totalCourses > pageSize">
+    <mat-paginator
+      [length]="totalCourses"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="onPageChange($event)"
+    ></mat-paginator>
+  </ng-container>
+  }
+</div>

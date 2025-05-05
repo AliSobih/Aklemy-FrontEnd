@@ -1,0 +1,30 @@
+.lesson {
+  padding: 5px;
+  transition: background-color 0.3s;
+}
+
+.lesson:hover {
+  background-color: #f0f0f0;
+}
+
+.lesson h6 {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.lesson h6 a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.lesson h6 a i {
+  margin-right: 8px;
+}
+
+.m-2 {
+  display: flex;
+  align-items: center;
+}

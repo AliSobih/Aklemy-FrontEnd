@@ -1,0 +1,1108 @@
+<section class="body">
+  <div class="container">
+    <div class="row">
+      <!-- Left Side (Course Info) -->
+      <div class="col-md-8">
+        <h1
+          [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+          class="mb-4"
+        >
+          {{ language === "ar" ? course?.titleAr : course?.title }}
+        </h1>
+
+        <div class="course-info">
+          <div class="row text-right">
+            <div class="col-6 col-md-5 col-lg-4 mb-3">
+              <div class="teacher-info d-flex align-items-center">
+                <div class="avatar">
+                  <span>{{ course?.instructorNameEn?.substring(0, 2) }}</span>
+                </div>
+                <div
+                  [ngStyle]="
+                    language === 'ar'
+                      ? { 'margin-right': '10px' }
+                      : { 'margin-left': '10px' }
+                  "
+                >
+                  <div
+                    class=""
+                    [ngStyle]="{
+                      'text-align': language === 'ar' ? 'right' : 'left'
+                    }"
+                  >
+                    <strong>{{ "Teacher" | translate }}</strong
+                    ><br />
+                    {{ course?.instructorNameEn }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3 mb-3">
+              <div
+                [ngStyle]="{
+                  'text-align': language === 'ar' ? 'right' : 'left'
+                }"
+              >
+                <strong>{{ "Category" | translate }}</strong
+                ><br />
+                {{ language == "en" ? category?.name : category?.nameAr }}
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-2 mb-3">
+              <div
+                [ngStyle]="{
+                  'text-align': language === 'ar' ? 'right' : 'left'
+                }"
+              >
+                <strong>{{ "Last_Updated" | translate }}</strong>
+                <br />
+                {{ course?.updatedDate | date : "MM/yyyy" }}
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3 mb-3">
+              <div>
+                <span class="stars">
+                  <fa-icon
+                    *ngFor="let star of getStars(course?.averageRating!)"
+                    [icon]="star"
+                  ></fa-icon> </span
+                ><br />
+                {{ "RATING" | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <style>
+          .course-details ul li {
+            margin-right: 100px;
+          }
+          .course-detailsAr ul li {
+            margin-left: 100px;
+            text-align: right;
+            align-items: right;
+          }
+          .course-detailsAr ul li {
+            text-align: right;
+            align-items: right;
+            margin-right: 0;
+            padding-right: 0;
+          }
+        </style>
+        <!-- Replaced Course Details Section -->
+        <div
+          class="course-details"
+          [ngClass]="language === 'ar' ? 'course-detailsAr' : 'course-details'"
+        >
+          <ul style="margin: 40px 0">
+            <li>
+              <span
+                [ngStyle]="{
+                  'text-align': language === 'ar' ? 'right' : 'left'
+                }"
+                >{{ "All_Courses_Available_Online" | translate }}</span
+              >
+              <span
+                class="span2"
+                [ngStyle]="{
+                  'text-align': language === 'en' ? 'right' : 'left'
+                }"
+                ><svg
+                  width="24"
+                  height="20"
+                  viewBox="0 0 29 26"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.72749 15.6284C2.10407 14.9877 1.091 14.9877 0.46757 15.6284C-0.155857 16.2691 -0.155857 17.3103 0.46757 17.951L7.8318 25.5195C8.14352 25.8398 8.53316 26 8.96177 26C9.00073 26 9.00073 26 9.03969 26C9.4683 25.96 9.89691 25.7597 10.2086 25.3993L28.6387 2.69393C29.1842 2.01317 29.1063 0.972007 28.4439 0.371336C27.7815 -0.189291 26.7684 -0.109202 26.1839 0.571559L8.84487 21.9154L2.72749 15.6284Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </li>
+            <li>
+              <span
+                [ngStyle]="{
+                  'text-align': language === 'ar' ? 'right' : 'left'
+                }"
+                >{{ "Hours_of_Classes" | translate }}</span
+              >
+              <span
+                class="span2"
+                [ngStyle]="{
+                  'text-align': language === 'en' ? 'right' : 'left'
+                }"
+                >{{ course?.totalHours }}</span
+              >
+            </li>
+
+            <li>
+              <span
+                [ngStyle]="{
+                  'text-align': language === 'ar' ? 'right' : 'left'
+                }"
+                >{{ "CERTIFICATE" | translate }}</span
+              >
+              <span
+                class="span2"
+                [ngStyle]="{
+                  'text-align': language === 'en' ? 'right' : 'left'
+                }"
+                ><svg
+                  width="24"
+                  height="20"
+                  viewBox="0 0 29 26"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.72749 15.6284C2.10407 14.9877 1.091 14.9877 0.46757 15.6284C-0.155857 16.2691 -0.155857 17.3103 0.46757 17.951L7.8318 25.5195C8.14352 25.8398 8.53316 26 8.96177 26C9.00073 26 9.00073 26 9.03969 26C9.4683 25.96 9.89691 25.7597 10.2086 25.3993L28.6387 2.69393C29.1842 2.01317 29.1063 0.972007 28.4439 0.371336C27.7815 -0.189291 26.7684 -0.109202 26.1839 0.571559L8.84487 21.9154L2.72749 15.6284Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </li>
+
+            <li>
+              <span
+                [ngStyle]="{
+                  'text-align': language === 'ar' ? 'right' : 'left'
+                }"
+                >{{ "Lifetime_Access" | translate }}</span
+              >
+              <span
+                class="span2"
+                [ngStyle]="{
+                  'text-align': language === 'en' ? 'right' : 'left'
+                }"
+                ><svg
+                  width="24"
+                  height="20"
+                  viewBox="0 0 29 26"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.72749 15.6284C2.10407 14.9877 1.091 14.9877 0.46757 15.6284C-0.155857 16.2691 -0.155857 17.3103 0.46757 17.951L7.8318 25.5195C8.14352 25.8398 8.53316 26 8.96177 26C9.00073 26 9.00073 26 9.03969 26C9.4683 25.96 9.89691 25.7597 10.2086 25.3993L28.6387 2.69393C29.1842 2.01317 29.1063 0.972007 28.4439 0.371336C27.7815 -0.189291 26.7684 -0.109202 26.1839 0.571559L8.84487 21.9154L2.72749 15.6284Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="course-card your-card">
+          <img
+            (click)="viewCoursePreview()"
+            [src]="path + course?.imageURL"
+            class="img-fluid rounded mb-3 course-image"
+            alt="Course Image"
+          />
+          <div
+            class="price"
+            [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+          >
+            {{
+              language === "ar"
+                ? course?.formattedAmountAr
+                : course?.formattedAmountEn
+            }}
+          </div>
+          <div
+            class="d-flex justify-content-between"
+            *ngIf="
+              course?.formattedAmountEn !==
+              course?.formattedAmountEnBeforeDiscount
+            "
+          >
+            <div class="text-decoration-line-through mb-3">
+              {{
+                language === "ar"
+                  ? course?.formattedAmountArBeforeDiscount
+                  : course?.formattedAmountEnBeforeDiscount
+              }}
+            </div>
+          </div>
+          <button
+            class="btn btn-white btn-lg w-100 mb-2"
+            (click)="addProductToCart()"
+          >
+            {{ "Add_to_Cart" | translate }}
+          </button>
+          <button class="btn btn-green btn-lg w-100">
+            {{ "Buy_Course" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  /* عندما يكون عرض الشاشة أقل من 770 بكسل */
+  @media (max-width: 770px) {
+    .course-card {
+      position: relative; /* تغيير البوزيشن إلى relative */
+      right: auto;
+      width: 100%; /* أو تعديل العرض حسب الحاجة */
+    }
+  }
+
+  .about-course-details h2,
+  .course-curriculum-section h2,
+  .review-details h2,
+  .reviews-section h2 {
+    color: #5d5d5d;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-align: left;
+    margin: 15px 0;
+  }
+
+  .about-course-details p,
+  .about-course-details li {
+    color: #7c7c7c;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    margin: 10px 0;
+  }
+
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    font-weight: 600;
+    padding: 5px 20px;
+  }
+
+  .btn-outline-success {
+    padding: 5px 20px;
+    color: #28a745;
+    border-color: #28a745;
+    font-weight: 600;
+    border: none;
+  }
+
+  .btn-outline-success:hover {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-course-info {
+    padding: 10px 0;
+    box-shadow: 0px 0px 4px 0px #0000001a;
+    border: 1px solid #d9d9d9;
+  }
+  ul {
+    list-style-type: none; /* يزيل النقط أو الرموز */
+    margin: 0; /* يزيل المسافات الخارجية */
+    padding: 0; /* يزيل المسافات الداخلية */
+  }
+
+  li {
+    margin: 0;
+    padding: 0;
+  }
+
+  @media screen and (max-width: 770px) {
+    .course-details-res {
+      margin-top: 50px;
+    }
+  }
+  @media (max-width: 576px) {
+    .btn-course-info {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn-course-info button {
+      width: 100%; /* Make buttons full width */
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+</style>
+<section class="container course-details-res mt-4">
+  <div class="row">
+    <div class="col-md-8">
+      <!-- Navigation Buttons -->
+      <div
+        class="d-flex flex-wrap justify-content-between btn-course-info mb-4"
+      >
+        <button
+          class="btn btn-success mx-2 my-1"
+          (click)="scrollToSection('courseInfo')"
+        >
+          {{ "Course_Information" | translate }}
+        </button>
+        <button
+          class="btn btn-outline-success mx-2 my-1"
+          (click)="scrollToSection('curriculum')"
+        >
+          {{ "Curriculum" | translate }}
+        </button>
+        <button
+          class="btn btn-outline-success mx-2 my-1"
+          (click)="scrollToSection('instructors')"
+        >
+          {{ "INSTRUCTOR" | translate }}
+        </button>
+        <button
+          class="btn btn-outline-success mx-2 my-1"
+          (click)="scrollToSection('reviews')"
+        >
+          {{ "REVIEWS" | translate }}
+        </button>
+      </div>
+
+      <!-- About Course Section -->
+      <section class="about-course-details">
+        <h2
+          class=""
+          [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+        >
+          {{ "About_Course" | translate }}
+        </h2>
+        <p
+          class="text-muted"
+          [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+        >
+          {{ language === "ar" ? course?.descriptionAr : course?.description }}
+        </p>
+      </section>
+
+      <!-- What will you Learn Section -->
+      <section class="about-course-details text-left">
+        @for (item of descriptionMasterList; track $index) {
+        <h2
+          class=""
+          [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+        >
+          {{ language === "ar" ? item.noteAr : item.note }}
+        </h2>
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="text-muted">
+              @for (details of getFirstHalf(item.details); track $index) {
+              <li
+                [ngStyle]="{
+                  'text-align': language === 'ar' ? 'right' : 'left'
+                }"
+              >
+                <span style="font-size: 18px; color: #7c7c7c; margin-right: 5px"
+                  >&#10004;</span
+                >
+                {{ language === "ar" ? details.noteAr : details.note }}
+              </li>
+              }
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="text-muted">
+              @for (details of getSecondHalf(item.details); track $index) {
+              <li
+                [ngStyle]="{
+                  'text-align': language === 'ar' ? 'right' : 'left'
+                }"
+              >
+                <span style="font-size: 18px; color: #7c7c7c; margin-right: 5px"
+                  >&#10004;</span
+                >
+
+                {{ language === "ar" ? details.noteAr : details.note }}
+              </li>
+              }
+            </ul>
+          </div>
+        </div>
+        }
+      </section>
+
+      <style>
+        body {
+          font-family: "Roboto", sans-serif;
+        }
+
+        .course-curriculum-section .module {
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          padding: 15px;
+          margin-bottom: 10px;
+          box-shadow: 0px 0px 5px 1px #00000026;
+
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
+
+        .course-curriculum-section .module:hover {
+          background-color: #f9f9f9;
+        }
+
+        .course-curriculum-section .module.active {
+          background-color: #f8f8f8;
+        }
+
+        .course-curriculum-section .module-title {
+          font-weight: bold;
+          color: #444444;
+          font-family: Roboto;
+          font-size: 18px;
+          font-weight: 600;
+          line-height: 36px;
+          letter-spacing: 0.01em;
+          text-align: left;
+        }
+
+        .course-curriculum-section .module-details {
+          font-size: 14px;
+          color: #7c7c7c;
+          padding: 0 10px;
+
+          font-family: Roboto;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 36px;
+          letter-spacing: 0.01em;
+          text-align: left;
+          border: 1px solid #d9d9d9;
+          border-radius: 20px;
+        }
+
+        .course-curriculum-section .lesson {
+          padding-left: 30px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 14px;
+          color: #5d5d5d;
+        }
+
+        .course-curriculum-section .lesson .preview {
+          background-color: #e6f9ea;
+          color: #28a745;
+          padding: 2px 10px;
+          border-radius: 15px;
+          font-size: 12px;
+        }
+
+        .course-curriculum-section .lesson i {
+          font-size: 18px;
+          margin-right: 10px;
+          color: #5d5d5d;
+        }
+
+        .course-curriculum-section .instructor-section h2 {
+          color: #5d5d5d;
+        }
+
+        .course-curriculum-section .instructor-name {
+          color: #28a745;
+
+          font-family: Roboto;
+          font-size: 18px;
+          font-weight: 500;
+          text-align: left;
+        }
+
+        .course-curriculum-section .instructor-title {
+          color: #444444;
+
+          font-family: Roboto;
+          font-size: 16px;
+          font-weight: 400;
+
+          text-align: left;
+        }
+        .instructor-p {
+          font-family: Roboto;
+          font-size: 14px;
+          font-weight: 400;
+          text-align: left;
+          color: #7c7c7c;
+        }
+
+        .social-icons i {
+          font-size: 24px;
+          color: #28a745;
+          border: 2px solid #28a745;
+          border-radius: 50%;
+          padding: 10px;
+          margin: 5px;
+          transition: all 0.3s ease;
+        }
+
+        .course-curriculum-section .social-icons i:hover {
+          color: #0b8828;
+          border: 2px solid #0b8828;
+        }
+        .course-curriculum-section {
+          margin: 0;
+          padding: 0;
+        }
+      </style>
+
+      <div class="container course-curriculum-section" id="curriculum">
+        <!-- Course Curriculum Section -->
+        <h2 [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }">
+          {{ "Course_Curriculum" | translate }}
+        </h2>
+
+        <!-- Module 3 (Expanded) -->
+        @for (item of course?.sections; track $index) {
+        <div
+          style="box-shadow: 0px 0px 5px 1px #00000026"
+          [class.active]="activeIndex === $index"
+          (click)="toggleDropdown($index)"
+        >
+          <div class="module">
+            <div
+              class="module-title"
+              style="
+                color: #28a745;
+                max-width: 500px;
+                display: inline-block;
+                white-space: nowrap;
+              "
+              [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+            >
+              @if (activeIndex === $index) {
+              <svg
+                width="24"
+                height="4"
+                style="margin-right: 5px"
+                viewBox="0 0 24 4"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 2H22"
+                  stroke="#444444"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              } @else {
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 12H22M12 2V22"
+                  stroke="#444444"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              }
+              {{ language === "ar" ? item.titleAr : item.title }}
+            </div>
+            <div class="module-details">
+              {{ item.lessons.length }} {{ "Lessons" | translate }}
+            </div>
+          </div>
+          <!-- Lessons inside the expanded module -->
+          <div *ngIf="activeIndex === $index">
+            @for (lessons of item.lessons; track $index) {
+            <div class="lesson px-2">
+              <div>
+                @if (lessons.contentType.includes('video')) {
+                <svg
+                  width="22"
+                  height="16"
+                  viewBox="0 0 28 22"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M22.305 0.28857C19.7203 0.0961899 16.8074 0 13.6757 0C10.544 0 7.63104 0.0961899 5.04634 0.28857C3.67259 0.39587 2.38974 1.02014 1.45419 2.03661C0.518647 3.05308 -0.000674707 4.38687 2.4765e-05 5.77139V16.2149C-0.00412608 17.6018 0.513652 18.939 1.44954 19.9583C2.38542 20.9777 3.67023 21.604 5.04634 21.7114C7.63104 21.9038 10.5166 22 13.6757 22C16.8348 22 19.7203 21.9038 22.305 21.7114C23.6811 21.604 24.9659 20.9777 25.9018 19.9583C26.8377 18.939 27.3555 17.6018 27.3513 16.2149V5.77139C27.352 4.38687 26.8327 3.05308 25.8972 2.03661C24.9616 1.02014 23.6788 0.39587 22.305 0.28857Z"
+                    fill="#7C7C7C"
+                  />
+                  <path
+                    d="M11 8.11642V13.8835C10.9993 14.0045 11.0314 14.1236 11.0929 14.2283C11.1544 14.3331 11.2432 14.4197 11.3501 14.4793C11.4569 14.5389 11.578 14.5694 11.7008 14.5674C11.8235 14.5655 11.9435 14.5313 12.0484 14.4683L16.918 11.5848C17.0177 11.5221 17.0997 11.4357 17.1566 11.3334C17.2134 11.2312 17.2432 11.1165 17.2432 10.9999C17.2432 10.8834 17.2134 10.7687 17.1566 10.6664C17.0997 10.5642 17.0177 10.4778 16.918 10.4151L12.0484 7.53156C11.9435 7.46861 11.8235 7.4344 11.7008 7.43246C11.578 7.43052 11.4569 7.46093 11.3501 7.52054C11.2432 7.58016 11.1544 7.66681 11.0929 7.77157C11.0314 7.87632 10.9993 7.99537 11 8.11642Z"
+                    fill="white"
+                  />
+                </svg>
+
+                } @else {
+                <svg
+                  width="15"
+                  height="21"
+                  viewBox="0 0 21 29"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.87039 29H17.1296C19.7141 29 21 27.5797 21 24.7663V12.4846H11.9608C10.3627 12.4846 9.61353 11.6595 9.61353 9.92816V0H3.87039C1.29846 0 0 1.43378 0 4.24722V24.7663C0 27.5933 1.29846 29 3.87039 29ZM11.9982 10.6315H20.8627C20.7753 10.0769 20.4132 9.53589 19.8264 8.87313L12.9346 1.28495C12.3603 0.635749 11.8359 0.243485 11.3115 0.14878V9.90115C11.3115 10.3881 11.5487 10.6315 11.9982 10.6315ZM5.69323 18.3414C5.18131 18.3414 4.81923 17.9492 4.81923 17.4216C4.81923 16.8941 5.18131 16.5018 5.69323 16.5018H15.3193C15.8187 16.5018 16.2057 16.8941 16.2057 17.4216C16.2057 17.9492 15.8187 18.3414 15.3193 18.3414H5.69323ZM5.69323 23.4948C5.18131 23.4948 4.81923 23.1026 4.81923 22.5751C4.81923 22.0476 5.18131 21.6553 5.69323 21.6553H15.3193C15.8187 21.6553 16.2057 22.0476 16.2057 22.5751C16.2057 23.1026 15.8187 23.4948 15.3193 23.4948H5.69323Z"
+                    fill="#7C7C7C"
+                  />
+                </svg>
+
+                }
+                {{ language === "ar" ? lessons.titleAr : lessons.title }}
+              </div>
+              <div>
+                @if (lessons.isVisible) {
+                <span class="preview" (click)="viewCoursePreview()"
+                  ><svg
+                    width="24"
+                    height="16"
+                    viewBox="0 0 24 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 11C13.6569 11 15 9.88071 15 8.5C15 7.11929 13.6569 6 12 6C10.3431 6 9 7.11929 9 8.5C9 9.88071 10.3431 11 12 11Z"
+                      stroke="#28A745"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12 1C6.61396 1 2.5865 5.56056 1.23345 7.31947C0.922184 7.72407 0.922184 8.27593 1.23345 8.68053C2.5865 10.4394 6.61396 15 12 15C17.3859 15 21.4134 10.4394 22.7665 8.68053C23.0778 8.27593 23.0778 7.72407 22.7665 7.31947C21.4134 5.56056 17.3859 1 12 1Z"
+                      stroke="#28A745"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  {{ "PREVIEW" | translate }}</span
+                >
+                } @else if(lessons.isVisible === false) {
+                <svg
+                  width="16"
+                  height="17"
+                  viewBox="0 0 24 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M3.9 10.608V8.13253C3.9 3.64106 7.5265 0 12 0C16.4735 0 20.1 3.64106 20.1 8.13253V10.608C21.4378 10.7083 22.3088 10.9614 22.9456 11.6008C24 12.6595 24 14.3634 24 17.7711C24 21.1788 24 22.8827 22.9456 23.9413C21.8911 25 20.1941 25 16.8 25H7.2C3.80588 25 2.10883 25 1.05442 23.9413C0 22.8827 0 21.1788 0 17.7711C0 14.3634 0 12.6595 1.05442 11.6008C1.69117 10.9614 2.5623 10.7083 3.9 10.608ZM5.7 8.13253C5.7 4.63917 8.52061 1.80723 12 1.80723C15.4794 1.80723 18.3 4.63917 18.3 8.13253V10.5465C17.8404 10.5422 17.3418 10.5422 16.8 10.5422H7.2C6.65819 10.5422 6.15961 10.5422 5.7 10.5465V8.13253ZM14.4 17.7711C14.4 19.1019 13.3255 20.1807 12 20.1807C10.6745 20.1807 9.6 19.1019 9.6 17.7711C9.6 16.4402 10.6745 15.3614 12 15.3614C13.3255 15.3614 14.4 16.4402 14.4 17.7711Z"
+                    fill="#7C7C7C"
+                  />
+                </svg>
+
+                } @if (lessons.contentType.includes('video')) {
+                {{ lessons.duration | secondsToTime }}
+                }
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+        }
+
+        <!-- Instructor Section -->
+        <div class="instructor-section" id="instructors">
+          <h2
+            [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+            style="margin: 15px 0"
+          >
+            {{ "Your_Instructors" | translate }}
+          </h2>
+          <div
+            class="instructor-name"
+            [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+          >
+            {{ course?.instructorNameEn }}
+          </div>
+        </div>
+      </div>
+
+      <section>
+        <style>
+          body {
+            font-family: "Roboto", sans-serif;
+          }
+
+          .review-details .progress-bar {
+            height: 1.5rem;
+            background-color: #ffe923;
+          }
+
+          .featured-reviews h3 {
+            color: #444444;
+          }
+
+          .review-details .media-body h5 {
+            color: #444444;
+          }
+
+          .review-details .media-body p {
+            color: #a6a6a6;
+          }
+
+          .review-details .text-muted {
+            color: #a6a6a6;
+          }
+
+          .review-details a.text-primary {
+            color: #ffe923;
+          }
+
+          .review-details button.btn-outline-secondary {
+            border-color: #a6a6a6;
+            color: #444444;
+          }
+          .progress-box {
+            border-radius: 10px;
+            border: 1px solid #a6a6a6;
+          }
+        </style>
+
+        <div class="container review-details" id="reviews">
+          <h2
+            class="mb-2"
+            [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+          >
+            {{ "Rating_&_Reviews" | translate }}
+          </h2>
+          <div class="row justify-content-centet ml-2">
+            <div
+              class="col-md-4 progress-box text-center py-3"
+              style="border: 1px solid black"
+            >
+              <h1 class="display-4 font-weight-bold">
+                {{ course?.averageRating }}
+              </h1>
+              <span class="stars">
+                <fa-icon
+                  *ngFor="let star of getStars(course?.averageRating!)"
+                  [icon]="star"
+                ></fa-icon>
+              </span>
+              <p class="text-muted">
+                {{ "RATED" | translate }} {{ course?.averageRating }}
+                {{ "OF" | translate }} 5
+              </p>
+            </div>
+            <div
+              class="col-md-6 mx-2 progress-box"
+              style="border: 1px solid black; padding-top: 10px"
+            >
+              <div class="progress mb-2">
+                @if (!totalRatings) {
+
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  [style.width]="
+                    course && course.ratingCounts
+                      ? calculatePercentage(course.ratingCounts[4]) + '%'
+                      : '100%'
+                  "
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+                }@else {
+
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  [style.width]="
+                    course && course.ratingCounts
+                      ? calculatePercentage(course.ratingCounts[4]) + '%'
+                      : '0%'
+                  "
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+                }
+              </div>
+
+              <div class="progress mb-2">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  [style.width]="
+                    course && course.ratingCounts
+                      ? calculatePercentage(course.ratingCounts[3]) + '%'
+                      : '0%'
+                  "
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+              <div class="progress mb-2">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  [style.width]="
+                    course && course.ratingCounts
+                      ? calculatePercentage(course.ratingCounts[2]) + '%'
+                      : '0%'
+                  "
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+              <div class="progress mb-2">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  [style.width]="
+                    course && course.ratingCounts
+                      ? calculatePercentage(course.ratingCounts[1]) + '%'
+                      : '0%'
+                  "
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+              <div class="progress mb-2">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  [style.width]="
+                    course && course.ratingCounts
+                      ? calculatePercentage(course.ratingCounts[0]) + '%'
+                      : '0%'
+                  "
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <style>
+          .reviews-section {
+            font-family: "Roboto", sans-serif;
+            margin: 20px 0;
+            direction: ltr;
+            color: #7c7c7c;
+          }
+
+          .review-container {
+            border-bottom: 1px solid #ddd;
+            padding: 0px 0;
+            display: flex;
+            align-items: flex-start;
+            direction: ltr;
+          }
+
+          .review-container:last-child {
+            border-bottom: none;
+          }
+
+          .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #cecece;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-right: 15px;
+            text-transform: uppercase;
+          }
+
+          .review-content {
+            max-width: 600px; /* This ensures the content doesn't exceed a certain width */
+          }
+
+          .review-author {
+            margin-bottom: 5px;
+            color: #7c7c7c;
+            font-family: Roboto;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 35.16px;
+            letter-spacing: 0.01em;
+            text-align: left;
+          }
+
+          .review-stars {
+            color: #ffe923;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+          }
+
+          .review-text {
+            margin-bottom: 10px;
+            color: #7c7c7c;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 35px;
+            text-align: left;
+          }
+
+          .review-helpful {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #7c7c7c;
+            font-family: Roboto;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 35px;
+            text-align: left;
+          }
+
+          .like-dislike-container {
+            display: flex;
+            border: 2px solid #cecece;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100px;
+          }
+
+          .like-button,
+          .dislike-button {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+            border-right: 1px solid #cecece;
+            background-color: white;
+          }
+
+          .dislike-button {
+            border-right: none;
+          }
+
+          .like-button:hover,
+          .dislike-button:hover {
+            background-color: #f0f0f0;
+          }
+
+          .like-button i,
+          .dislike-button i {
+            font-size: 20px;
+            color: #7c7c7c;
+          }
+
+          .review-time {
+            font-family: Roboto;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 23.44px;
+            letter-spacing: 0.01em;
+            text-align: left;
+            color: #7c7c7c;
+            margin-left: 20px;
+          }
+
+          .custom-button {
+            width: 100%; /* جعل الزر يأخذ عرض 100% من الحاوية */
+            background: white; /* لون الخلفية */
+            color: #7c7c7c; /* لون النص */
+            font-family: "Roboto", sans-serif; /* نوع الخط */
+            font-size: 14px; /* حجم الخط */
+            border: 1px solid #7c7c7c; /* لون الحدود */
+            border-radius: 8px; /* الزوايا الدائرية */
+            padding: 10px 20px; /* المسافة الداخلية */
+            cursor: pointer; /* شكل المؤشر عند التمرير */
+            transition: background 0.3s ease; /* تأثير تغير لون الخلفية عند التمرير */
+            box-sizing: border-box; /* تضمين الحدود داخل عرض الزر */
+          }
+
+          .custom-button:hover {
+            background: #f0f0f0; /* لون الخلفية عند التمرير */
+          }
+        </style>
+
+        <div class="reviews-section">
+          <h2
+            [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+          >
+            {{ "FEATURED_REVIEWS" | translate }}
+          </h2>
+          @for (item of reviewData; track $index) {
+
+          <div
+            style="margin-top: 10px"
+            *ngIf="$index < 4"
+            class="review-container"
+            [ngStyle]="{ direction: language === 'en' ? 'ltr' : 'rtl' }"
+          >
+            <div class="review-avatar ml-3">
+              {{ item.userName?.substring(0, 2) }}
+            </div>
+
+            <div class="review-content" style="margin-left: 15px">
+              <div
+                class="review-author"
+                [ngStyle]="{
+                  'text-align': language === 'ar' ? 'right' : 'left'
+                }"
+
+              >
+                {{ item.userName }}
+              </div>
+              <div class="review-stars">
+                <span class="stars">
+                  <fa-icon
+                    *ngFor="let star of getStars(item.rating)"
+                    [icon]="star"
+                  ></fa-icon>
+                </span>
+                <span class="review-time mr-3">{{
+                  item.reviewDate | date : "MMM d, y"
+                }}</span>
+              </div>
+              <div
+                class="review-text"
+                [ngStyle]="{
+                  'text-align': language === 'ar' ? 'right' : 'left'
+                }"
+              >
+                {{ item.comment }}
+              </div>
+            </div>
+          </div>
+          }
+          <br />
+
+          <div>
+            <button class="custom-button" (click)="viewReviewes()">
+              {{ "Show_More_Reviews" | translate }}
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+<div #relatedCourses class="container">
+  <h3
+    style="
+      color: #28a745;
+      font-family: Poppins;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-align: initial;
+      margin: 0;
+    "
+  >
+    {{ "Related_Courses" | translate }}
+  </h3>
+
+  <div class="" style="margin-bottom: 60px; padding: 0">
+    <app-courses [CourseId]="courseId"></app-courses>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+
+<div class="container p-4 ">
+  <div class="row">
+    <div class="col-12">
+      <!-- Header -->
+      <h1 class="text-center text-head mb-4">{{nationalityToEdit ? "Updete Nationality" :"Add Nationality"}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <!-- Form -->
+      <form [formGroup]="myform" (ngSubmit)="onSubmit()">
+        <!-- Title -->
+        <div class="form-group">
+          <label for="Name">Name In English</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="name"
+            id="Name"
+            placeholder="Enter Name In English"
+          />
+        </div>
+        <div class="form-group">
+          <label for="NameAr">Name In Arabic</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nameAr"
+            id="NameAr"
+            placeholder="Enter Name In Arabic"
+          />
+        </div>
+        <!-- Description -->
+        <div class="form-group">
+          <label for="Currency">Currency In English</label>
+          <input
+            class="form-control"
+            formControlName="currency"
+            placeholder="Enter Currency In English"
+          >
+        </div>
+        <div class="form-group">
+          <label for="currencyAr">Currency In Arabic</label>
+          <input
+            class="form-control"
+            formControlName="currencyAr"
+            placeholder="Enter Currency In Arabic"
+          >
+        </div>
+        <div class="form-group">
+          <label for="factory">Factor In Arabic</label>
+          <input type="number"
+          class="form-control"
+            rows="3"
+            formControlName="factor"
+            placeholder="Enter Factory In Arabic">
+        </div>
+        <div class="form-group">
+          <label for="factory">Rate Exchange</label>
+          <input type="number"
+          class="form-control"
+            rows="3"
+            formControlName="rateExchange"
+            placeholder="Enter Rate Exchange">
+        </div>
+        <div class="form-group">
+          <label for="factory">country Code</label>
+          <input type="text"
+          class="form-control"
+            rows="3"
+            formControlName="countryCode"
+            placeholder="Enter country Code In English">
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn all-btn ">{{ nationalityToEdit ? 'Update' : 'Save' }}</button>
+          <button type="button" style="margin-left: 5px;" (click)="onclose()" class="btn all-red-btn">
+            close
+          </button>
+      </form>
+    </div>
+  </div>
+</div>
+

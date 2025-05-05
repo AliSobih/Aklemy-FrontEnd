@@ -1,0 +1,169 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.whatsapp-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  /* تعديل الموضع إلى اليمين */
+  width: 50px;
+  height: 50px;
+  z-index: 1000;
+}
+
+.whatsapp-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container {
+  background: white;
+  padding: 20px;
+  margin: 20px;
+}
+
+.btn-primary {
+  background-color: #6d0666;
+  /* Matching purple color */
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+}
+
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// :host ::ng-deep {
+//   [pDraggable] {
+//       cursor: move;
+//   }
+// }
+
+// .drag-card, .drop-card {
+//   border: 2px solid #28a745;
+//   border-radius: 10px;
+//   background-color: #f8f9fa;
+//   width: 20rem;
+//   padding: 1.5rem;
+//   margin-bottom: 1.5rem;
+//   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+//   position: relative;
+// }
+
+// .drag-card p, .drop-card p {
+//   text-align: center;
+//   border-bottom: 2px solid #28a745;
+//   padding-bottom: 0.5rem;
+//   margin-bottom: 1rem;
+//   font-weight: bold;
+//   color: #343a40;
+// }
+
+// .drag-card ul li, .drop-card ul li {
+//   padding: 0.75rem;
+//   border-radius: 5px;
+//   background-color: #ffffff;
+//   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+//   margin-bottom: 0.5rem;
+//   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+// }
+
+// .drag-card:hover, .drop-card:hover {
+//   transform: translateY(-5px);
+//   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+// }
+
+// .drag-card ul li:active, .drop-card ul li:active {
+//   transform: scale(1.05);
+//   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+// }
+
+// .drop-card button {
+//   background-color: #ff4800;
+//   color: #ffffff;
+//   border: none;
+//   border-radius: 50%;
+//   padding: 0.25rem 0.5rem;
+//   font-size: 1rem;
+//   cursor: pointer;
+//   position: absolute;
+//   top: -10px;
+//   right: -10px;
+//   transition: background-color 0.2s ease-in-out;
+// }
+
+// .drop-card button:hover {
+//   background-color: #d83700;
+// }
+
+
+// .drag-card, .drop-card {
+//   width: 25rem;
+//   max-width: 100%;
+// }
+
+
+// .drag-card p, .drop-card p {
+//   text-align: center;
+//   border-bottom: 2px solid #28a745;
+//   padding-bottom: 0.5rem;
+//   margin-bottom: 1rem;
+//   font-weight: bold;
+//   color: #343a40;
+//   word-wrap: break-word;
+//   overflow-wrap: break-word;
+//   white-space: normal;
+// }
+// .drag-card ul li , .drop-card ul li {
+//   word-wrap: break-word;
+//   overflow-wrap: break-word;
+//   white-space: normal;
+// }

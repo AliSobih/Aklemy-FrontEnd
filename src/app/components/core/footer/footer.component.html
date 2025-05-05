@@ -1,0 +1,122 @@
+
+<footer class="footer ">
+  <div class="container-fluid px-5">
+    <div class="row">
+      <div class="col-xl-3 col-md-3 col-6 EduQuest">
+        <h5
+          style="
+            font-size: 24px;
+            font-weight: 700;
+            font-family: Podkova;
+            color: var(--fourth-color);
+          "
+        >
+          AKLEMY
+        </h5>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
+          sapiente iure deleniti magnam, unde,
+        </p>
+        <a href="#" class="btn-contact-us mt-4"
+          >{{"Contact_Us"|translate}} <i class="fa-solid fa-arrow-right"></i
+        ></a>
+      </div>
+      <div class="col-xl-3 col-md-3 col-6">
+        <h5>{{ 'ABOUT' | translate }}</h5>
+        <ul class="list-unstyled">
+          <li><a href="#">{{ 'ABOUT_US' | translate }}</a></li>
+          <li ><a style="margin: 0; padding: 0;" [routerLink]="['join-us']" class="nav-link" >{{ 'JOIN_US' | translate }}</a></li>
+          <li><a href="#">{{ 'BLOG' | translate }}</a></li>
+        </ul>
+      </div>
+      <div class="col-xl-3 col-md-3 col-6">
+        <h5>{{ 'SUPPORT' | translate }}</h5>
+        <ul class="list-unstyled">
+          <li>
+            <a href="#">{{ "HELP_SUPPORT" | translate }}</a>
+          </li>
+          <li>
+            <a href="#">{{ "TRUST_SAFETY" | translate }}</a>
+          </li>
+          <li>
+            <a href="#">{{ "TERMS_USE" | translate }}</a>
+          </li>
+          <li>
+            <a href="#">{{ "PRIVACY_POLICY" | translate }}</a>
+          </li>
+
+        </ul>
+      </div>
+      <div class="col-xl-3 col-md-3 col-6">
+        <h5>{{"FOLLOW_US"|translate}}</h5>
+        <div class="social-icons">
+           <a href="{{basicInfoData?.facebook}}" target="_blank">
+             <img src="assets/img/IMG-20241010-WA0018.jpg" alt="">
+            <!-- <i class="fab fa-youtube" style="color: #cc0000;"></i> -->
+          </a>
+           <a href="{{basicInfoData?.twitter}}" target="_blank">
+            <!-- <i class="fab fa-instagram" style="color: #C13584;"></i> -->
+             <img src="assets/img/x.jpg" alt="">
+          </a>
+
+
+          <a href="{{basicInfoData?.instagram}}" target="_blank">
+             <img src="assets/img/IMG-20241010-WA0017.jpg" alt="">
+            <!-- <i class="fab fa-twitter" style="color: #00acee;"></i> -->
+          </a>
+
+          <a href="{{basicInfoData?.messenger}}" target="_blank">
+            <!-- <i class="fab fa-instagram" style="color: #C13584;"></i> -->
+             <img src="assets/img/IMG-20241010-WA0019.jpg" alt="">
+          </a>
+          <a href="{{basicInfoData?.whatsApp}}" target="_blank">
+             <img src="assets/img/IMG-20241010-WA0016.jpg" alt="">
+            <!-- <i class="fab fa-facebook" style="color: #3572f5;"></i> -->
+          </a>
+          <a href="{{basicInfoData?.telegram}}" target="_blank">
+            <!-- <i class="fab fa-instagram" style="color: #C13584;"></i> -->
+             <img src="assets/img/IMG-20241010-WA0020.jpg" alt="">
+          </a>
+           <a href="{{basicInfoData?.tiktok}}" target="_blank">
+            <!-- <i class="fab fa-instagram" style="color: #C13584;"></i> -->
+             <img src="assets/img/IMG-20241010-WA0015.jpg" alt="">
+          </a>
+          <a href="{{basicInfoData?.youtube}}" target="_blank">
+            <!-- <i class="fab fa-instagram" style="color: #C13584;"></i> -->
+             <img src="assets/img/you.jpg" alt="">
+          </a>
+
+
+
+        </div>
+        <div class="dropdown mt-3">
+          <button
+            class="btn btn-light btn-language dropdown-toggle"
+            type="button"
+            id="languageDropdown"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            {{ language === "en" ? "English" : "Arabic" }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="languageDropdown">
+            <a class="dropdown-item" (click)="switchLanguage('en')">{{
+              "ENGLISH" | translate
+            }}</a>
+            <a class="dropdown-item" (click)="switchLanguage('ar')">{{
+              "ARABIC" | translate
+            }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="copyright mt-5">
+    <div class="container">
+      &copy; copyright © 2024
+      <span style="font-weight: 600; font-size: 20px">AKLEMY</span> | All
+      rights reserved.
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,303 @@
+@if (showExamContent===false) {
+<app-header></app-header>
+
+<div class="button-container">
+  <div>
+    <button class="btn" (click)="viewExam()">
+      <i class="fas fa-file-alt"></i> Exam
+    </button>
+    <button class="btn" (click)="showVideo()">
+      <i class="fas fa-video"></i> Lectures
+    </button>
+  </div>
+</div>
+
+<app-footer></app-footer>
+
+}
+<section
+  class="body"
+  [ngStyle]="{ display: showExamContent ? 'block' : 'none' }"
+>
+  <div class="content-body" id="content" #contentVadeo>
+    <div class="video-content" style="height: 750px; padding-top: 40px">
+      <vg-player
+        (onPlayerReady)="onPlayerSet($event)"
+        [class.hidden]="!currentContentType.includes('video')"
+      >
+        <vg-overlay-play></vg-overlay-play>
+        <vg-buffering></vg-buffering>
+        <vg-scrub-bar>
+          <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+          <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
+        <vg-controls>
+          <vg-play-pause></vg-play-pause>
+
+          <button (click)="rewind()" class="control-button icon-control-button">
+            <span class="icon-wrapper"
+              ><i class="fa-solid fa-backward"></i></span>
+          </button>
+          <vg-playback-button></vg-playback-button>
+          <button (click)="skip()" class="control-button icon-control-button">
+            <span class="icon-wrapper"
+              ><i class="fa-solid fa-forward"></i></span>
+          </button>
+
+          <vg-time-display
+            vgProperty="current"
+            vgFormat="mm:ss"
+          ></vg-time-display>
+          <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+          <vg-scrub-bar style="pointer-events: none"></vg-scrub-bar>
+
+          <vg-mute></vg-mute>
+          <vg-volume style="direction: ltr"></vg-volume>
+
+          <vg-fullscreen></vg-fullscreen>
+        </vg-controls>
+        <video
+          [vgMedia]="$any(media)"
+          #media
+          id="singleVideo"
+          crossorigin
+        ></video>
+      </vg-player>
+      <pdf-viewer
+        [class.hidden]="!currentContentType.includes('pdf')"
+        [src]="currentContentSrc"
+        [render-text]="true"
+        [original-size]="false"
+        style="width: 100%; height: 450px"
+      ></pdf-viewer>
+
+      <div class="nav-video" style="direction: ltr">
+        <button class="back-btn">
+          <span class="btn-menu" id="toggleSidebarBtn" #toggleSidebarBtn>
+            <i class="fas fa-chevron-left"></i>
+          </span>
+          <span style="font-size: 14px">
+            {{ language == "en" ? course?.title : course?.titleAr }}
+          </span>
+        </button>
+        <span style="font-size: 14px" class=""
+          >{{ "Your_Progress" | translate }} {{ yourProgress }}
+          {{ "OF" | translate }} {{ lessonCount }}</span
+        >
+        <button class="cancel-btn" routerLink="/home">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <!-- New section for details and navigation -->
+
+      <div class="section-details">
+        <div class="section-info">
+          <div
+            class="section-title"
+            style="
+              font-family: Roboto;
+              font-size: 24px;
+              font-weight: 500;
+              line-height: 36px;
+            "
+            [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+          >
+            {{ language === "ar" ? currenLessonTitleAr : currenLessonTitle }}
+          </div>
+          <div
+            class="instructor-name"
+            style="
+              color: #7c7c7c;
+              font-family: Roboto;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 30px;
+            "
+            [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+          >
+            {{
+              language === "ar" ? currenSectionsTitleAr : currenSectionsTitle
+            }}
+          </div>
+        </div>
+      </div>
+      <div class="nav-buttons">
+        <button class="prev-btn" (click)="playPreviousContent()">
+          @if (language == 'en') {
+          <i class="fas fa-arrow-left" style="margin-right: 20px"></i>
+
+          } @else {
+          <i class="fas fa-arrow-right" style="margin-left: 20px"></i>
+          }
+          {{ "PREVIOUS" | translate }}
+        </button>
+        <button class="next-btn" (click)="playNextContent()">
+          {{ "NEXT" | translate }}
+          @if (language == 'en') {
+          <i class="fas fa-arrow-right" style="margin-left: 20px"></i>
+          } @else {
+          <i class="fas fa-arrow-left" style="margin-right: 20px"></i>
+          }
+        </button>
+      </div>
+      <div class="assessment-buttons">
+        <button class="assessment-btn" (click)="viewExam()">
+          {{ "EXAMS" | translate }}
+        </button>
+        <button class="certificate-btn certificate" (click)="gocertificate()">
+          {{ "CERTIFICATE" | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="sidebar" id="sidebar" #sidebarContet>
+      <div class="search-bar-video">
+        <input
+          type="text"
+          placeholder="Search Video"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="filterLessons(searchTerm)"
+        />
+        <button><i class="fas fa-search margin-right"></i></button>
+      </div>
+
+      <!-- list search  -->
+      @if (searchTerm) {
+
+      <div class="mt-5">
+        <div *ngIf="filteredLessons.length > 0; else noResults">
+          <div
+            *ngFor="let section of filteredLessons; trackBy: trackByFn"
+            class="custom-menu-item"
+          >
+            <div class="header-container">
+              <div class="header-title">
+                {{ language === "ar" ? section.titleAr : section.title }}
+              </div>
+              <div class="header-count">
+                {{ numberOfWatches(section.id!) }}/{{ section.lessons.length }}
+              </div>
+            </div>
+            <div class="dropdown-menu-video">
+              <div
+                *ngFor="let lesson of section.lessons"
+                class="dropdown-item-video"
+                (click)="selectLesson(section, lesson)"
+              >
+                <i
+                  class="fas item-icon Watched"
+                  [ngClass]="{
+                    'fa-play-circle': lesson.contentType.includes('video'),
+                    'fa-file-alt': !lesson.contentType.includes('video')
+                  }"
+                ></i>
+                <span
+                  class="item-title mr-2"
+                  [ngStyle]="{
+                    'text-align': language === 'ar' ? 'right' : 'left'
+                  }"
+                  >{{ language === "ar" ? lesson.titleAr : lesson.title }}</span
+                >
+                <div
+                  *ngIf="lesson.contentType.includes('video')"
+                  class="item-time Watched"
+                >
+                  {{ lesson.duration | secondsToTime }}
+                </div>
+                <a
+                  *ngIf="!lesson.contentType.includes('video')"
+                  (click)="downloadContent(lesson.contentURL)"
+                  class="item-download"
+                  >{{ "DOWNLOAD" | translate }}</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Display a message when no results are found -->
+        <ng-template #noResults>
+          <div class="no-results">{{ "No lessons found" | translate }}</div>
+        </ng-template>
+      </div>
+      }@else if (searchResults.length === 0 && searchResults) { @for (item of
+      course?.sections; track $index) {
+      <div class="custom-menu-item" [class.active]="activeIndex === $index">
+        <div class="header-container" (click)="toggleDropdown($index)">
+          <div class="header-title">
+            {{ language === "ar" ? item.titleAr : item.title }}
+          </div>
+          <div class="header-count">
+            {{ numberOfWatches(item.id!) }}/{{ item.lessons.length }}
+            @if (activeIndex === $index) {
+            <i class="fas fa-chevron-down"></i>
+            } @else {
+            <i class="fas fa-chevron-up"></i>
+            }
+          </div>
+        </div>
+        <div class="dropdown-menu-video" *ngIf="activeIndex === $index">
+          @for (lesson of item.lessons; track $index) {
+          <div class="dropdown-item-video" (click)="selectLesson(item, lesson)">
+            @if (lesson.contentType.includes('video')) {
+            <i
+              class="fas fa-play-circle item-icon"
+              [ngClass]="{ Watched: lesson.watched }"
+            ></i>
+            } @else {
+            <i
+              class="fas fa-file-alt item-icon"
+              [ngClass]="{ Watched: lesson.watched }"
+            ></i>
+            }
+            <span
+              [ngClass]="{ Watched: lesson.watched }"
+              class="item-title mr-2"
+              [ngStyle]="{ 'text-align': language === 'ar' ? 'right' : 'left' }"
+            >
+              {{ language === "ar" ? lesson.titleAr : lesson.title }}
+            </span>
+            @if (lesson.contentType.includes('video')) {
+
+            <div class="item-time" [ngClass]="{ Watched: lesson.watched }">
+              {{ lesson.duration | secondsToTime }}
+            </div>
+            } @else {
+            <a
+              (click)="downloadContent(lesson.contentURL)"
+              style="cursor: pointer; color: #28a745"
+              class="item-download"
+              >{{ "DOWNLOAD" | translate }}</a
+            >
+            }
+          </div>
+          }
+        </div>
+      </div>
+      } }
+    </div>
+    <section>
+      <app-review></app-review>
+    </section>
+
+    <div class=" " style="margin-top: 35px">
+      <h3
+        style="
+          color: #28a745;
+          font-family: Poppins;
+          font-size: 25px;
+          font-weight: 700;
+
+          letter-spacing: 0.03em;
+          text-align: initial;
+          margin-left: 20px;
+        "
+      >
+        {{ "Related_Courses" | translate }}
+      </h3>
+      <div style="margin-left: 15px">
+        <app-courses [CourseId]="courseId"> </app-courses>
+      </div>
+    </div>
+  </div>
+</section>

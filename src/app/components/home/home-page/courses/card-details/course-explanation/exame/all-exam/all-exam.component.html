@@ -1,0 +1,180 @@
+<nav class="navbar navbar-expand-lg navbar-custom" appPreventCopyPaste>
+  <div class="container">
+    <h1 class="navbar-brand mx-auto text-light">
+      {{ "ALL_QUESTIONS" | translate }}
+    </h1>
+  </div>
+</nav>
+
+<div class="container mb-3" style="min-height: 300px" appPreventCopyPaste>
+  @for (userQuestion of questionList; track $index) { @if((tagged &&
+  userQuestion.tag) || !tagged) {
+
+  <div (click)="selectQuestion($index)">
+    @if (userQuestion?.status === 'SINGLE' ) {
+    <div class="question-card container mb-4">
+      <div class="question-header">
+        <div class="question-content">
+          <div class="question-number-circle Flag-this-Question">
+            <h5>{{ $index + 1 }}</h5>
+          </div>
+          <h5>{{ getQuestionText(userQuestion!) }}</h5>
+        </div>
+        <div>
+          @if (userQuestion.tag) {
+
+          <span style="margin: 5px; color: var(--main-color2)">
+            <i class="fas fa-bookmark" style="font-size: 30px"></i>
+          </span>
+
+          }
+          @else if(hasMarkedAnswer([userQuestion])) {
+
+          <span style="margin: 5px; color: var(--main-color)">
+            <i class="fa-solid fa-check" style="font-size: 30px"></i>
+          </span>
+
+          }
+        </div>
+      </div>
+      @if (userQuestion.imagePath != null) {
+      <div style="margin: 20px auto; width: fit-content">
+        <img [src]="getImagePath(userQuestion.imagePath)" height="200px" />
+      </div>
+      }
+      <div class="question-options my-3">
+        @for (answer of userQuestion.userExamAnswers; track $index) {
+        <label>
+          <input
+            formControlName="answer"
+            type="radio"
+            name="answer"
+            name="answer"
+            id="answer{{ $index }}"
+          />
+          <span>{{ getEnglishLetter($index) }}</span>
+          {{ getAnswerText(answer) }}
+        </label>
+        }
+      </div>
+    </div>
+
+    } @else if (userQuestion?.status === 'MULTIPLE') {
+    <div class="question-card container mb-4 Multichoice">
+      <div class="question-header">
+        <div class="question-content">
+          <div class="question-number-circle Flag-this-Question">
+            <h5>{{ $index + 1 }}</h5>
+          </div>
+          <h5>{{ getQuestionText(userQuestion!) }}</h5>
+        </div>
+        <div>
+          @if (userQuestion.isCorrect) {
+          <span style="margin: 5px; color: var(--main-color2)">
+            <i class="fa-solid fa-check" style="font-size: 30px"></i>
+          </span>
+          } @if (userQuestion.tag) {
+
+          <span style="margin: 5px; color: var(--main-color2)">
+            <i class="fas fa-bookmark" style="font-size: 30px"></i>
+          </span>
+
+          } @else if(hasMarkedAnswer([userQuestion])) {
+
+          <span style="margin: 5px; color: var(--main-color)">
+            <i class="fa-solid fa-check" style="font-size: 30px"></i>
+          </span>
+
+          }
+        </div>
+      </div>
+      @if (userQuestion.imagePath != null) {
+      <img [src]="getImagePath(userQuestion.imagePath)" height="200px" />
+      }
+      <div class="question-options my-3" formArrayName="answers">
+        @for (answer of userQuestion.userExamAnswers; track $index) {
+        <label>
+          <input #checkbox type="checkbox" />
+          <span>{{ getEnglishLetter($index) }}</span>
+          {{ getAnswerText(answer) }}
+        </label>
+        }
+      </div>
+    </div>
+    } @else if (userQuestion?.status === 'DRAG_DROP') {
+    <div class="quiz-container bg-light p-4 rounded" id="question3">
+      <div class="question-header">
+        <div class="question-content">
+          <div class="question-number-circle Flag-this-Question">
+            <h5>{{ $index + 1 }}</h5>
+          </div>
+          <h5>{{ getQuestionText(userQuestion!) }}</h5>
+        </div>
+        <div>
+          @if (userQuestion.isCorrect) {
+          <span style="margin: 5px; color: var(--main-color2)">
+            <i class="fa-solid fa-check" style="font-size: 30px"></i>
+          </span>
+          } @if (userQuestion.tag) {
+
+          <span style="margin: 5px; color: var(--main-color2)">
+            <i class="fas fa-bookmark" style="font-size: 30px"></i>
+          </span>
+
+          } @else if(hasMarkedAnswer([userQuestion])) {
+
+          <span style="margin: 5px; color: var(--main-color)">
+            <i class="fa-solid fa-check" style="font-size: 30px"></i>
+          </span>
+
+          }
+        </div>
+      </div>
+      @if (userQuestion.imagePath != null) {
+      <img [src]="getImagePath(userQuestion.imagePath)" height="200px" />
+      }
+      <div class="dropzone">
+        <div class="row">
+          <div class="col-md-6">
+            <div id="answers" class="d-flex flex-column">
+              @for (question of userQuestion.userExamDragAndDrops; track $index)
+              {
+              <div
+                style="text-align: initial; background-color: #f2fff5"
+                class="answer"
+                data-answer="1"
+              >
+                {{
+                  getDragItemText({
+                    dragItem: question.dragItem!,
+                    dragItemAr: question.dragItemAr!
+                  })
+                }}
+              </div>
+              }
+            </div>
+          </div>
+          <div class="col-md-6">
+            @for (answer of userQuestion.userExamDragAndDrops; track $index) {
+            <div
+              style="text-align: initial; background-color: #f2fff5"
+              class="dropzone"
+              data-correct="1"
+            >
+              {{
+                getDropItemText({
+                  randomDropItem: answer.randomDropItem!,
+                  randomDropItemAr: answer.randomDropItemAr!
+                })
+              }}
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    }
+  </div>
+  } }
+</div>

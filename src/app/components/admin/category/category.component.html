@@ -1,0 +1,51 @@
+<div>
+
+  <h2 class="main-section-title">Category</h2>
+  <div>
+    <div class="main-section-header">
+      <!-- Search Content -->
+      <div class="search mb-2" style="border: 1px solid var(--main-color);">
+        <!-- <input type="text" placeholder="Search" /> -->
+      </div>
+      <div class="add-btn" data-toggle="modal" data-target="#categoryModal">
+        <button class="btn all-btn" style="color: white; background-color: var(--main-color);" (click)="openAddCourseModal()">+</button>
+      </div>
+    </div>
+    <!-- Deferred loading of the category table -->
+    @defer (on viewport; prefetch on idle) {
+      <app-category-table></app-category-table>
+    } @placeholder {
+      <!-- Placeholder while the table is loading -->
+      <div class="card">
+        <p-table [value]="[1, 2, 3, 4, 5]" responsiveLayout="scroll">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Name Ar</th>
+              <th>Description</th>
+              <th>Description Ar</th>
+              <th>Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body">
+            <tr>
+              <td><p-skeleton width="50%" /></td>
+              <td><p-skeleton width="100%" /></td>
+              <td><p-skeleton width="100%" /></td>
+              <td><p-skeleton width="100%" /></td>
+              <td><p-skeleton width="100%" /></td>
+              <td>
+                <p-skeleton width="20px" height="20px" class="mr-1" />
+                <p-skeleton width="20px" height="20px" />
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    } @error {
+      <!-- Error message if loading fails -->
+      <p>Error loading category table data.</p>
+    }
+  </div>
+</div>

@@ -1,0 +1,123 @@
+.container {
+  margin-top: 20px;
+}
+
+
+.btn-Exam {
+  width: 100%;
+  background-color: var(--main-color)!important;
+
+  color: white;
+
+
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  text-align: left;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  text-align: left;
+}
+
+.table th {
+  font-weight: bold;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover .fa-trash {
+  color: darkred;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-5 {
+  margin-top: 3rem;
+}
+
+
+
+
+
+
+
+
+
+.card {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+tr {
+  background-color: #f8f9fa;
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid #dee2e6;
+  height: 50px !important;
+  /* Set header height */
+  vertical-align: middle;
+  /* Center text vertically */
+}
+
+tbody>tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody>tr>td {
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  text-align: left;
+}
+
+.thead>tr>th,
+.tbody>tr>td {
+  width: auto;
+  border-left: 1px solid #dee2e6 ;
+  /* Add left border for columns */
+}
+
+.thead>tr>th:first-child,
+.tbody>tr>td:first-child {
+  border-left: none;
+  /* Remove left border from the first column */
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}

@@ -1,0 +1,19 @@
+<section>
+  <div class="container-fluid">
+    <div class="col-1 col-md-2">
+      <app-sidebar
+        (mouseenter)="onSidebarHover()"
+        (mouseleave)="onSidebarLeave()"
+      ></app-sidebar>
+    </div>
+    <div
+      [ngClass]="{ 'offset-lg-2 ': isSidebarHovered }"
+      style="transition: 0.3s"
+    >
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</section>
+
+
+

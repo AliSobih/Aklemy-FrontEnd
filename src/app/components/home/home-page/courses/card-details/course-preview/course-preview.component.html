@@ -1,0 +1,72 @@
+<div>
+  <vg-player (onPlayerReady)="onPlayerSet($event)">
+    <vg-overlay-play></vg-overlay-play>
+    <vg-buffering></vg-buffering>
+    <vg-scrub-bar>
+      <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+      <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+    </vg-scrub-bar>
+    <vg-controls>
+      <vg-play-pause></vg-play-pause>
+      <button (click)="rewind()" class="control-button">
+        <span class="icon-wrapper">
+          <i style="color: white" class="fa-solid fa-arrow-rotate-left"></i>
+        </span>
+      </button>
+      <vg-playback-button></vg-playback-button>
+      <button (click)="skip()" class="control-button">
+        <span class="icon-wrapper">
+          <i style="color: white" class="fa-solid fa-arrow-rotate-right"></i>
+        </span>
+      </button>
+      <vg-time-display vgProperty="current" vgFormat="hh:mm:ss"></vg-time-display>
+      <p>/</p>
+      <vg-time-display vgProperty="left" vgFormat="hh:mm:ss"></vg-time-display>
+      <vg-scrub-bar style="pointer-events: none"></vg-scrub-bar>
+      <!-- Add quality selector -->
+
+
+      <vg-mute></vg-mute>
+      <vg-volume style="direction: ltr"></vg-volume>
+      <vg-fullscreen></vg-fullscreen>
+    </vg-controls>
+
+    <video
+      [vgMedia]="$any(media)"
+      #media
+      [src]="path + activeVideo?.src"
+      id="singleVideo"
+      preload="auto"
+      crossorigin
+    ></video>
+  </vg-player>
+
+</div>
+
+
+
+
+
+
+    <div class="container mt-5 bg-white">
+        <h3 [ngStyle]="{ 'text-align': language==='ar' ? 'right' : 'left' }"  class="mb-4" style="font-size: 20px; font-weight: 500px;">{{ "FREE_SAMPLE_VIDEOS" | translate }}</h3>
+
+        <!-- Video 1 (active video) -->
+        <div class="row align-items-center video-item active-video mb-3 p-3"   *ngFor="let itemLesson of playlist; let i = index"
+      (click)="onClickPlaylistVideo(itemLesson, i)"
+      [class.active]="itemLesson === activeVideo">
+            <div class="col-2">
+              <i class="fa-solid fa-video"></i>
+                <!-- <img src="video-thumbnail1.png" alt="Video Thumbnail" class="img-fluid"> -->
+            </div>
+            <div class="col-8">
+                <h5 [ngStyle]="{ 'text-align': language==='ar' ? 'right' : 'left' }" >{{ language === "ar" ? itemLesson.titleAr : itemLesson.title }}</h5>
+            </div>
+            <div class="col-2 text-end">
+                <span>{{itemLesson.duration | secondsToTime}}</span>
+            </div>
+        </div>
+
+
+    </div>
+

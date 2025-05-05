@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-success">
+  <a class="navbar-brand text-light" href="#">Quiz</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</nav>
+<div class="container quiz-container">
+  <h2 class="text-center mb-4">Quiz</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <h5>Questions:</h5>
+      <div *ngFor="let question of questions" class="question" (click)="selectQuestion(question.id)"
+           [ngClass]="{'selected': selectedQuestionId === question.id, 'answered': isAnswered(question.id)}"
+           [ngStyle]="{'background-color': getQuestionBackgroundColor(question.id)}">
+        {{ question.question }}
+        <div *ngIf="isAnswered(question.id)" class="selected-answer">
+          Answered: {{ selectedAnswers[question.id] }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h5>Answers:</h5>
+      <div *ngFor="let answer of answers" class="answer" (click)="selectAnswer(answer.answer)"
+           [ngClass]="getAnswerClass(answer.answer)" [ngStyle]="{'background-color': getAnswerBackgroundColor(answer.answer)}">
+        {{ answer.answer }}
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between align-items-center mt-4">
+    <button class="btn btn-success" id="check" (click)="checkAnswers()">Check Answers</button>
+  </div>
+</div>

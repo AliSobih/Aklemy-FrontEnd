@@ -1,0 +1,179 @@
+.container-fluid {
+    padding: 0 50px;
+    margin: 0 40px;
+    // width: calc(100vw - 80px);
+    overflow-x: hidden;
+}
+
+/* ---------------------------------------------------
+    TABLE STYLE
+----------------------------------------------------- */
+.responsive-table {
+    box-shadow: 0px 7px 13px 0px rgb(0 0 0 / 10%);
+}
+
+.responsive-table li {
+    border-radius: 3px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.responsive-table .table-header {
+    background-color: var(--gray-dark);
+    color: var(--black-color);
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.responsive-table .table-footer {
+    background-color: var(--second-light-color);
+    color: var(--white);
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.responsive-table .table-row {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 10%);
+    font-size: 0.8em;
+}
+
+.responsive-table .column-1 {
+    flex-basis: 5%;
+}
+
+.responsive-table .column-2 {
+    flex-basis: 25%;
+}
+
+.responsive-table .column-3 {
+    flex-basis: 25%;
+}
+
+.responsive-table .column-4 {
+    flex-basis: 25%;
+}
+
+.responsive-table .column-5 {
+    flex-basis: 20%;
+}
+
+.responsive-table .column i {
+    font-size: 1.1rem;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+@media all and (max-width: 767px) {
+    .responsive-table .table-header {
+        display: none;
+    }
+
+    .responsive-table li {
+        display: block;
+        margin-bottom: 7px;
+    }
+
+    .responsive-table .column {
+        flex-basis: 100%;
+    }
+
+    .responsive-table .column {
+        display: flex;
+        padding: 10px 0;
+        align-items: center;
+    }
+
+    .responsive-table .column:before {
+        color: #000000;
+        padding-right: 10px;
+        content: attr(data-label);
+        flex-basis: 50%;
+        text-align: right;
+    }
+}
+
+/* Bootstrap 5 CSS and icons included */
+/* vanillajs-datepicker 1.1.4 CSS included */
+
+body {
+    /* Centring content */
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+  }
+
+  /* Adapts a floating label for use with a left-handed input group icon */
+  .form-floating > .bi-calendar-date + .datepicker_input + label {
+    padding-left: 3.5rem;
+    z-index: 3;
+  }
+
+
+
+    .form-floating {
+      position: relative;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+
+    .form-floating input[type="date"] {
+      padding: 0.75rem 1rem;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      width: 100%;
+      /* Ensure full width */
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .form-floating label {
+      position: absolute;
+      top: 0.5rem;
+      left: 1rem;
+      padding: 0 0.25rem;
+      background: #fff;
+      font-size: 14px ;
+      color: black;
+      transition: 0.2s;
+      pointer-events: none;
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    .form-floating input[type="date"]:focus+label,
+    .form-floating input[type="date"]:not(:placeholder-shown)+label {
+      top: -0.75rem;
+      left: 0.75rem;
+      font-size: 0.75rem;
+      color: #333;
+      background-color: white;
+    }
+
+    .form-floating input[type="date"]:focus {
+      border-color: green;
+    }
+
+    .d-flex {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .all-btn {
+      background-color: green;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    .all-btn:hover {
+      background-color:rgb(0, 77, 0);
+    }

@@ -1,0 +1,31 @@
+.question,
+.answer {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background-color: #f1f1f1;
+  /* لون البداية */
+}
+
+.selected {
+  background-color: #d1e7dd;
+  /* لون عند اختيار السؤال */
+}
+
+.answered {
+  background-color: #d1e1f1;
+  /* لون عند الإجابة على السؤال */
+}
+
+.selected-answer {
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: #28a745;
+}
+
+.disabled {
+  background-color: #e1e1e1;
+  pointer-events: none;
+  cursor: not-allowed;
+}

@@ -1,0 +1,75 @@
+<!--
+<div class="full-screen-image" >
+    <img src="../../../../../assets/img/WhatsApp Image 2024-09-16 at 11.19.12_889f6bc7.jpg" alt="Full Screen Image">
+</div> -->
+ <!-- <style>
+        .carousel-item img {
+            width: 100%;
+            height: 700px;
+            object-fit: fill;
+        }
+        .carousel-inner {
+            height: 700px;
+        }
+    </style> -->
+
+
+    <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+              @for (item of imagesUrl; track $index) {
+                <img [src]="item" class="d-block w-100" alt="Slide 1">
+              }
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div> -->
+
+
+<style>
+    .carousel-item img,
+    .full-screen-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .carousel-inner {
+        height: auto;
+        max-height: 700px;
+    }
+
+    @media (max-width: 768px) {
+        .carousel-inner,
+        .carousel-item img,
+        .full-screen-image img {
+            height: 300px;
+        }
+    }
+</style>
+
+<div class="card">
+    <p-galleria
+        [value]="imagesUrl"
+        [numVisible]="5"
+        [circular]="true"
+        [autoPlay]="true"
+        [showItemNavigators]="false"
+        [showThumbnails]="false"
+        [containerStyle]="{ 'max-width': '100%', 'height': 'auto' }">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item" style="width: 100%; display: block; object-fit: cover;" />
+            </ng-template>
+    </p-galleria>
+</div>

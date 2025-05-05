@@ -1,0 +1,231 @@
+.quiz-container {
+  // border: 1px solid var(--border-color);
+}
+
+.quiz-container .form-check {
+  position: relative;
+  padding-left: 2.5rem;
+  /* Adjust this value to your needs */
+  margin-bottom: 10px;
+}
+
+.quiz-container .form-check-label {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: block;
+  color: black;
+  font-family: var(--font-stack-heading-serif);
+  font-size: 16px;
+}
+
+h1 {
+  font-family: var(--font-stack-heading-serif);
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.quiz-container .form-check-input {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  /* Adjust this value to your needs */
+}
+
+.correct .form-check-label {
+  background-color: var(--correct-bg);
+  border-color: var(--correct-border);
+}
+
+.incorrect .form-check-label {
+  background-color: var(--incorrect-bg);
+  border-color: var(--incorrect-border);
+}
+
+.quiz-container .btn {
+  width: 100px;
+  transition: all 0.3s ease;
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-container .btn i {
+  margin: 0 5px;
+}
+
+.quiz-container .btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background-color: var(--hover-color);
+  border-color: var(--hover-color);
+}
+
+.quiz-container .btn:active {
+  transform: scale(0.9);
+}
+
+.progress-bar {
+  background-color: var(--correct-hover);
+}
+
+body {
+  background-color: var(--bg-color);
+}
+
+.quiz-container {
+  margin-top: 50px;
+}
+
+.answer,
+.dropzone {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+
+.dropzone {
+  min-height: 50px;
+}
+
+.answer {
+  cursor: pointer;
+}
+
+h5 {
+  font-family: var(--font-stack-heading-serif);
+  color: black;
+  font-size: 20px;
+}
+
+.correct {
+  background-color: var(--correct-bg);
+  border-color: var(--correct-border);
+}
+
+.incorrect {
+  background-color: var(--incorrect-bg);
+  border-color: var(--incorrect-border);
+}
+
+.quiz-container {
+  // border: 1px solid rgb(0, 0, 0);
+}
+
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 200px;
+  background-color: var(--sidebar-bg-color);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar h5 {
+  color: var(--sidebar-text-color);
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 10px 0;
+  text-align: center;
+  transition: transform 0.3s;
+  color: var(--sidebar-text-color);
+}
+
+.sidebar ul li.correct {
+  color: var(--main-color);
+}
+
+.sidebar ul li.incorrect {
+  color: var(--incorrect-border);
+}
+
+.sidebar ul li:hover {
+  transform: scale(1.1);
+}
+
+.sidebar ul li a {
+  color: var(--sidebar-text-color);
+  text-decoration: none;
+}
+
+
+.main-content {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.navbar-custom {
+  background-color: var(--main-color);
+  z-index: 1;
+}
+
+.navbar-custom .navbar-brand {
+  color: var(--text-color);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.feedback {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.feedback.correct {
+  background-color: var(--correct-bg);
+  border: 1px solid var(--correct-border);
+  color: var(--correct-text-color);
+}
+
+.feedback.incorrect {
+  background-color: var(--incorrect-bg);
+  border: 1px solid var(--incorrect-border);
+  color: var(--incorrect-text-color);
+}
+
+.question-number-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid black;
+  color: white;
+  background-color: #ff4800;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.question-number-circle h5 {
+  color: white;
+
+}
+.select-answer {
+  background-color: #B9FFC9 !important;
+  box-shadow: 0px 0px 4px 2px #28A74566 !important;
+}
+.incorrect {
+  background-color: #FF480066 !important;
+  border-color: #FF480066 !important;
+  box-shadow: 0px 0px 4px 2px #FF480033 !important;
+}

@@ -1,0 +1,98 @@
+<div *ngIf="!saved; else confirmationTemplate">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card my-5">
+          <div class="card-body sign-up">
+            <h2 class="text-center mb-4">Sign Up</h2>
+            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label for="user-name">Full Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="user-name"
+                  formControlName="userName"
+                  placeholder="Full Name"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  formControlName="email"
+                  placeholder="Email Address"
+                  required
+                />
+                <div *ngIf="emailExists" class="text-danger">
+                  Email already exists
+                </div>
+                <!-- Error message for invalid email -->
+                <div
+                  *ngIf="
+                    emailControl?.invalid &&
+                    (emailControl?.touched || emailControl?.dirty)
+                  "
+                  class="text-danger"
+                >
+                  <div *ngIf="emailControl?.errors?.['required']">
+                    Email is required.
+                  </div>
+                  <div *ngIf="emailControl?.errors?.['email']">
+                    Please enter a valid email address.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  formControlName="password"
+                  placeholder="Password"
+                  minlength="6"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-login btn-block"
+                [disabled]="loding"
+              >
+                Sign Up
+              </button>
+            </form>
+            <p class="text-center mt-3">
+              Already have an account?
+              <a (click)="goToLogin()" style="cursor: pointer" class="text-dark"
+                >Login</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #confirmationTemplate>
+  <div class="container">
+    <div class="confirmation-box">
+      <i class="fas fa-check-circle"></i>
+      <div>
+        <h5>Confirmation email sent</h5>
+        <p>
+          You should soon receive an email allowing you to confirm your Email.
+          Please make sure to check your spam and trash if you can't find the
+          email.
+        </p>
+      </div>
+    </div>
+  </div>
+</ng-template>

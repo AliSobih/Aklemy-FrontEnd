@@ -1,0 +1,44 @@
+<div class="row" appPreventCopyPaste>
+  <div class="col-md-3 sidebar" *ngIf="isSidebarOpen">
+    <app-sidebar-exam
+      [exam]="exams"
+      [sectionId]="sectionId"
+      [courseId]="courseId"
+    >
+    </app-sidebar-exam>
+  </div>
+  <div [ngClass]="isSidebarOpen ? 'col-md-9 content' : 'col-md-12 content'">
+    <button class="btn-toggle-sidebar ml-4" (click)="toggleSidebar()">
+      <i
+        class="fas"
+        [ngClass]="
+          isSidebarOpen ? 'fa-solid fa-circle-chevron-left' : 'fa-bars'
+        "
+      ></i>
+    </button>
+    <button class="btn-toggle-home ml-4" routerLink="/home">
+      <i class="fa-solid fa-house"></i>
+    </button>
+    <button
+      class="btn-toggle-home"
+      style="margin-left: 75px"
+      (click)="switchLanguage()"
+    >
+      <img
+        *ngIf="language == 'en'"
+         src="https://cdn.jsdelivr.net/gh/hjnilsson/country-flags/svg/us.svg"
+        alt="English Flag"
+        width="20"
+      />
+      <img
+        *ngIf="language == 'ar'"
+        src="https://cdn.jsdelivr.net/gh/hjnilsson/country-flags/svg/sa.svg"
+        alt="Arabic Flag"
+        width="20"
+      />
+      <i class="fa-solid fa-globe" *ngIf="!language"></i>
+      <!-- Globe Icon as Default -->
+    </button>
+    <router-outlet></router-outlet>
+  </div>
+</div>

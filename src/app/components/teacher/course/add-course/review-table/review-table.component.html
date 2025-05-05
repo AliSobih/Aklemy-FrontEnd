@@ -1,0 +1,63 @@
+<div class="row">
+
+  <div class="container col-md-12 Table-nationality mt-5">
+    <h2 class="main-section-title" style="font-family:var(--font-stack-heading-serif) ; font-size: 24px; font-weight: 600;">Reviewes</h2>
+    <div class="main-section-header" style="font-family: var(--font-stack-heading-serif) ; font-size: 20px;">
+      <div class="search mb-2">
+        <!-- <input type="text" placeholder="Search " /> -->
+      </div>
+
+    </div>
+    
+
+        <ul class="responsive-table" style="font-family: var(--font-stack-heading-serif) ; font-size: 20px; color: black;">
+          <li class="table-header">
+            <div class="column column-1">ID</div>
+            <div class="column column-2">User Name</div>
+            <div class="column column-3">Course Name En</div>
+            <div class="column column-4">Course Name Ar</div>
+            <div class="column column-3">Comment</div>
+            <div class="column column-3">Comment Ar</div>
+            <div class="column column-3">Rating</div>
+            <div class="column column-3">Review Date</div>
+            <div class="column column-3">Actions</div>
+
+          </li>
+          @for (item of reviewData;  track $index) {
+          <li class="table-row">
+            <div class="column column-1" data-label="الكود">{{  $index + 1}}</div>
+            <div class="column column-2" data-label="الوصف">{{ item.userName }}</div>
+            <div class="column column-3" data-label="الأسم">{{ item.courseNameEn }}</div>
+            <div class="column column-4" data-label="الأسم">{{ item.courseNameAr }}</div>
+            <div class="column column-3" data-label="الوصف">{{ item.comment }}</div>
+            <div class="column column-3" data-label="الوصف">{{ item.commentAr }}</div>
+            <div class="column column-3" data-label="الوصف">{{ item.rating }}</div>
+            <div class="column column-3" data-label="الوصف">{{ item.reviewDate | date :'MMM d, y' }}</div>
+
+            <div class="column column-3 action">
+              <a
+                class="btn btn-sm text-danger ml-1"
+                (click)="confirmDelete(item.id)"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Delete"
+              >
+                <i class="fas fa-trash"></i>
+              </a>
+            </div>
+          </li>
+          }
+
+        </ul>
+
+
+
+  </div>
+</div>
+<mat-paginator
+  style="font-family:var(--font-stack-heading-serif) ; font-size: 16px; font-weight: 500;"
+    [length]="totalReview"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="onPageChange($event)"
+  ></mat-paginator>

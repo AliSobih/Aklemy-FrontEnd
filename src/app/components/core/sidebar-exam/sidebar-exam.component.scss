@@ -1,0 +1,108 @@
+.sidebar {
+
+  padding: 15px;
+  border-right: 1px solid #ccc;
+  height: 100vmax;
+  background-color: #fff;
+  transition: all 0.3s;
+}
+ @media (max-width: 767px) {
+  .sidebar  {
+    height: 100%;
+  }
+  }
+
+.app-design-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 10px;
+  padding: 10px 5px;
+
+  color: #7C7C7C;
+  font-size: 16px;
+  width: 100%;
+  transition: all 0.3s;
+
+}
+
+
+.nav-link:hover {
+
+  color: #28A745;
+}
+
+.title {
+  font-weight: normal;
+}
+
+.count {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.arrow {
+  font-size: 18px;
+}
+
+.custom-menu-item {
+  background-color: #fff;
+  border-radius: 15px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  padding: 20px 20px;
+  cursor: pointer;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 14px;
+  color: #7c7c7c;
+  font-weight: 500;
+}
+
+.header-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  /* عدد السطور التي تريد إظهارها */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 1.75rem;
+  /* التحكم في أقصى ارتفاع (يعتمد على حجم الخط) */
+  line-height: 1.75rem;
+  /* ارتفاع السطر */
+}
+
+.header-count {
+  font-size: 20px;
+  color: #7c7c7c;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.header-count i {
+  margin: 0px 5px;
+  color: black;
+}
+
+.dropdown-menu-video {
+  margin-top: 10px;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+}
+
+.dropdown-item-video {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}

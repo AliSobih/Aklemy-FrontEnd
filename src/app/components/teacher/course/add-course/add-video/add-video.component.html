@@ -1,0 +1,65 @@
+<div class="container mt-5">
+  <h2 class="text-center">Add Video</h2>
+  <form (submit)="onSubmit($event)" id="uploadForm">
+    <div class="form-group">
+      <label for="fileInput" class="d-block"
+        >Choose a video or PDF to upload</label
+      >
+      <div
+        id="dropZone"
+        class="border border-success rounded p-3 text-center"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+        [class.dragging]="isDragging"
+      >
+        <ng-container *ngIf="filePreview; else uploadPrompt">
+          <ng-container [ngSwitch]="fileType">
+            <video
+              *ngSwitchCase="'video'"
+              [src]="filePreview"
+              controls
+              class="uploaded-video"
+            ></video>
+            <ng-container *ngSwitchCase="'application/pdf'">
+              <iframe [src]="filePreview" class="uploaded-pdf"></iframe>
+            </ng-container>
+            <p *ngSwitchDefault>Preview not available for this file type</p>
+          </ng-container>
+          <ng-container
+            *ngIf="fileType?.startsWith('video/') && videoDuration !== null"
+          >
+            <p>Duration: {{ videoDuration | secondsToTime }} seconds</p>
+          </ng-container>
+        </ng-container>
+        <ng-template #uploadPrompt>
+          <p>Drag and drop a video or PDF file here</p>
+        </ng-template>
+      </div>
+      <input
+        type="file"
+        #fileInput
+        accept="video/*,application/pdf"
+        class="d-none"
+        (change)="onFileSelect($event)"
+      />
+      <button
+        type="button"
+        class="btn all-btn btn-block mt-3"
+        style="overflow: hidden"
+        (click)="fileInput?.click()"
+      >
+        Upload File
+      </button>
+    </div>
+    <button type="submit" class="btn all-btn btn-block">Submit</button>
+  </form>
+  @if (isUploaded !== null) {
+  <div style="overflow: hidden; margin-top: 20px">
+    @if (isUploaded) {
+    <p>Uploading.....</p>
+    <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
+    }
+  </div>
+  }
+</div>

@@ -1,0 +1,88 @@
+
+<div class="container p-4 ">
+  <div class="row">
+    <div class="col-12">
+      <!-- Header -->
+      <h1 class="text-center text-head mb-4">{{categoryToEdit? "Updete Category" : "Add Category"}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <!-- Form -->
+      <form [formGroup]="myform" (ngSubmit)="onSubmit()">
+        @if (imagePreview) {
+          <p (click)="removeImage()" style="cursor: pointer;">x</p>
+        }
+
+        <div class="drag-drop-box mb-3 col-6 offset-3"
+        [class.dragging]="isDragging"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)">
+          <ng-container *ngIf="imagePreview; else uploadPrompt">
+            <img [src]="imagePreview" alt="Image Preview" class="uploaded-photo" />
+          </ng-container>
+          <ng-template #uploadPrompt>
+            <div style="display: block; margin: auto;">
+              <p >Drag and drop a file here</p>
+              <div >
+                <button type="button" class="btn btn-light" (click)="fileInput.click()">Choose File</button>
+              </div>
+            </div>
+            <input type="file" (change)="onFileSelect($event)" style="display: none;" #fileInput />
+          </ng-template>
+        </div>
+
+
+
+        <!-- Title -->
+        <div class="form-group">
+          <label for="Name">Name In English</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="name"
+            id="Name"
+            placeholder="Enter Name In English"
+          />
+        </div>
+        <div class="form-group">
+          <label for="NameAr">Name In Arabic</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nameAr"
+            id="NameAr"
+            placeholder="Enter Name In Arabic"
+          />
+        </div>
+        <!-- Description -->
+        <div class="form-group">
+          <label for="descriptionAr">Description In English</label>
+          <textarea
+            class="form-control"
+            id="description"
+            rows="3"
+            formControlName="description"
+            placeholder="Enter Description In English"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="description">Description In Arabic</label>
+          <textarea
+            class="form-control"
+            id="descriptionAr"
+            rows="3"
+            formControlName="descriptionAr"
+            placeholder="Enter Description In Arabic"
+          ></textarea>
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success">{{ categoryToEdit ? 'Update' : 'Save' }}</button>
+          <button type="button" style="margin-left: 5px;" (click)="onclose()" class="btn btn-danger">
+            close
+          </button>
+      </form>
+    </div>
+  </div>
+</div>

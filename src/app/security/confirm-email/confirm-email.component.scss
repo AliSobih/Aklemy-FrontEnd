@@ -1,0 +1,40 @@
+.success-box {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 400px;
+  margin: 100px auto;
+  text-align: center;
+}
+
+.success-box h2 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.success-box p {
+  font-size: 14px;
+  color: #0f5132;
+}
+
+.success-box .btn-home {
+  background-color: #28A745;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+  border: none;
+  width: 100%;
+}
+
+.success-box .btn-home:hover {
+  background-color: #1c8735;
+}
+
+.success-box i {
+  font-size: 48px;
+  color: #0f5132;
+  margin-bottom: 20px;
+}

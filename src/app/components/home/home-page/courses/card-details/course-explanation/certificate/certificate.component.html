@@ -1,0 +1,24 @@
+<!-- Certificate Container -->
+<div class="certificate-container" id="certificate">
+  <!-- Certificate Content -->
+  <img
+    src="../../../../../../../../assets/img/certificate img new.jpg"
+    alt="Certificate"
+    class="certificate-image"
+  />
+  <div class="text-overlay">
+    <div class="student-name">{{ certificate?.studentName }}</div>
+    <div class="hours">{{ certificate?.totalHours }}</div>
+    <div class="course-name">{{ certificate?.courseName }}</div>
+    <div class="date">{{ certificate?.issuedDate | date : "M/d/yy" }}</div>
+    <div class="ceo-name">Mr. Hany Elshafie</div>
+    <div class="signature">
+      <img src="../../../../../../../../assets/img/hany-Photoroom.png" alt="" />
+    </div>
+  </div>
+</div>
+<div class="text-center align-items-center">
+  <button class="btn text-center my-5 all-btn" (click)="generatePDF()">
+    {{ "Download_Certificate" | translate }}
+  </button>
+</div>

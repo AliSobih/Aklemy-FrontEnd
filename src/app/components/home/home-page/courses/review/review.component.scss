@@ -1,0 +1,247 @@
+.select-rating {
+  max-width: 600px;
+  margin: 50px auto;
+
+  .card {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 2px solid #fdeed7d1;
+    border-radius: 0.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-header {
+    background-color: #fdeed7d1;
+    color: var(--main-color);
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .rating {
+    display: flex;
+    justify-content: flex-end;
+    direction: rtl;
+    margin-bottom: 10px;
+
+    .star {
+      cursor: pointer;
+      font-size: 20px;
+      transition: color 0.2s;
+
+      &:hover,
+      &.highlighted {
+        color: orange;
+      }
+    }
+  }
+
+  .review-textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+
+  .btn-select-rating {
+    background-color: transparent;
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
+    padding: 7px 10px;
+
+    &:hover {
+      background-color: var(--main-color);
+      color: white;
+    }
+  }
+}
+
+.user-review {
+  background-color: #fdeed7d1;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+
+  .media-body {
+    color: #333;
+    flex-grow: 1;
+  }
+
+  .review-text {
+    font-size: 16px;
+  }
+
+  .stars {
+    color: var(--main-color);
+    font-size: 25px;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+
+    .action-item {
+      margin-right: 20px;
+      color: #333;
+      transition: 0.3s;
+
+      &:hover {
+        color: var(--main-color);
+      }
+
+      i {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .reply {
+    color: #666;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    border: none;
+
+    .reply-item {
+      margin-right: 20px;
+    }
+  }
+}
+
+.text-head {
+  font-size: 50px;
+  color: var(--main-color);
+}
+::ng-deep p-rating .p-rating-item .p-hidden-accessible {
+  display: none;
+}
+::ng-deep .p-rating-icon.p-rating-icon-active {
+  color: gold;
+}
+::ng-deep .p-rating-item:hover .p-rating-icon {
+  color: gold;
+}
+.starColor {
+  --star-color: var(--gold-color) ;
+}
+.review-video-textarea::placeholder {
+  font-size: 14px;
+}
+.review-video-textarea {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #7c7c7c;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 20px;
+  color: #444444;
+  font-size: 16px;
+  /* Adjust font size */
+}
+ .review-video-button {
+   color: #ffffff;
+   border: none;
+
+   cursor: pointer;
+
+   text-align: left;
+   margin: 0;
+
+   font-family: var(--font-family);
+   background-color: var(--primary-color);
+   border: 2px solid var(--primary-color);
+   border-radius: 10px;
+   padding: 10px 30px;
+   font-size: 18px;
+   color: #fff;
+   cursor: pointer;
+ }
+    .review-video-stars {
+      margin-bottom: 20px;
+    }
+
+
+
+
+
+
+
+        .review-video {
+            font-family: 'Roboto', sans-serif;
+            background-color: #FFFFFF;
+            color: #444444;
+            padding: 20px 20px;
+            border-radius: 8px;
+
+            width: 100%; /* Adjust this value as needed */
+            margin: auto;
+            margin-top: 50px; /* Adjust this value as needed */
+            text-align: left;
+
+        }
+
+        .review-video h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #5D5D5D;
+        }
+
+        .review-video p {
+            margin-bottom: 10px;
+            color: #7C7C7C;
+        }
+
+        .review-video-stars {
+            margin-bottom: 20px;
+        }
+
+        .review-video-star, .review-video-star-empty {
+            font-size: 24px;
+            color: #FFE923;
+        }
+
+        .review-video-textarea {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #CECECE;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 20px;
+            color: #444444;
+            font-size: 16px; /* Adjust font size */
+            box-shadow: 0px 0px 4px 0px #00000040;
+        }
+
+        .review-video-button {
+            background-color: #28A745;
+            color: #FFFFFF;
+            display: block;
+            text-align: left ;
+
+
+
+
+
+            font-family: var(--font-family);
+            background-color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 10px 30px;
+            font-size: 18px;
+            color: #fff;
+            cursor: pointer;
+            margin: 0 10px;
+
+        }
+

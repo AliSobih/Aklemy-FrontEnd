@@ -1,0 +1,68 @@
+.sign-up {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .08), 0 4px 12px rgba(0, 0, 0, .08)
+}
+.sign-up h2 {
+  color: black;
+}
+.sign-up .card {
+  border: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.sign-up .form-control {
+  border-radius: 0.3rem;
+}
+
+.sign-up .btn-login {
+  border-radius: 0.3rem;
+  background-color: #28A745;
+  border-color:#28A745;
+  color: white;
+  transition: 0.25s;
+  color: lightyellow;
+}
+
+.sign-up .btn-login:hover {
+  background-color: #1c8735;
+  border-color:#1c8735;
+  color: white;
+  font-weight: 550;
+}
+
+.sign-up .text-dark {
+  color: #1c8735 !important;
+}
+
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.confirmation-box {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+  margin: 100px auto;
+}
+
+.confirmation-box i {
+  font-size: 24px;
+  margin-right: 15px;
+  color: #0f5132;
+}
+
+.confirmation-box h5 {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.confirmation-box p {
+  margin: 0;
+  font-size: 14px;
+  color: #0f5132;
+}

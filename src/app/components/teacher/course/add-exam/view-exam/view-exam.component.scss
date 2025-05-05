@@ -1,0 +1,30 @@
+.actions-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.actions-cell .btn {
+  margin-right: 5px;
+}
+
+.actions-cell .btn-edit {
+  color: #28a745;
+  /* اللون الأخضر */
+}
+
+.actions-cell .btn-view {
+  color: #40e0d0;
+  /* اللون التركوازي */
+}
+
+.table th,
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table td i,
+.table th i {
+  margin-right: 5px;
+}

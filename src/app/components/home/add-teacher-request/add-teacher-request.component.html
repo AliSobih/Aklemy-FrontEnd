@@ -1,0 +1,138 @@
+<div #scrollTarget class="container mt-5 mb-5" style="max-width: 600px">
+  <div class="form-container">
+    <h1>Join Us as a Teacher</h1>
+    <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name *</label>
+        <input
+          formControlName="name"
+          type="text"
+          class="form-control"
+          id="name"
+          required
+        />
+        <div
+          *ngIf="
+            teacherForm.get('name')?.invalid && teacherForm.get('name')?.touched
+          "
+          class="invalid-feedback"
+        >
+          Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control"
+          id="email"
+          required
+        />
+        <div
+          *ngIf="
+            teacherForm.get('email')?.invalid &&
+            teacherForm.get('email')?.touched
+          "
+          class="invalid-feedback"
+        >
+          Valid email is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number *</label>
+        <input
+          formControlName="phone"
+          type="number"
+          class="form-control"
+          id="phoneNumber"
+          required
+        />
+        <div
+          *ngIf="
+            teacherForm.get('phone')?.invalid &&
+            teacherForm.get('phone')?.touched
+          "
+          class="invalid-feedback"
+        >
+          Valid phone number is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="country">Country *</label>
+        <div class="card flex justify-content-center form-control">
+          <p-dropdown
+            [options]="countries"
+            [(ngModel)]="selectedCity"
+            [checkmark]="true"
+            optionLabel="name"
+            [showClear]="true"
+            [editable]="true"
+            formControlName="city"
+            placeholder="Select a City"
+            class="full-width-dropdown"
+          >
+          </p-dropdown>
+        </div>
+
+        <div
+          *ngIf="
+            teacherForm.get('city')?.invalid && teacherForm.get('city')?.touched
+          "
+          class="invalid-feedback"
+        >
+          Country is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="courseName">Courses Name *</label>
+        <input
+          formControlName="coursesName"
+          type="text"
+          class="form-control"
+          id="courseName"
+          required
+        />
+        <div
+          *ngIf="
+            teacherForm.get('coursesName')?.invalid &&
+            teacherForm.get('coursesName')?.touched
+          "
+          class="invalid-feedback"
+        >
+          Course name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="numberOfPeople">Number of People Trained *</label>
+        <input
+          formControlName="trainerNumber"
+          type="number"
+          class="form-control"
+          id="numberOfPeople"
+          required
+        />
+        <div
+          *ngIf="
+            teacherForm.get('trainerNumber')?.invalid &&
+            teacherForm.get('trainerNumber')?.touched
+          "
+          class="invalid-feedback"
+        >
+          Valid number is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="notes">Notes (Optional)</label>
+        <textarea
+          formControlName="notes"
+          class="form-control"
+          id="notes"
+          rows="4"
+        ></textarea>
+      </div>
+      <button type="submit" class="btn all-btn submit-btn">Submit</button>
+    </form>
+  </div>
+</div>

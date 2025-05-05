@@ -1,0 +1,310 @@
+.hidden-button {
+  visibility: hidden;
+}
+
+.visible-button {
+  visibility: visible;
+}
+
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+
+/*  start form-add-courses */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  padding: 0;
+  margin: 0;
+}
+
+.modal-title {
+  color: var(--black-color);
+  font-size: 25px;
+}
+
+.container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+
+.modal-content h2 {
+  color: var(--main-color);
+  /* Purple color */
+}
+
+.form-control {
+  border-color: var(--main-color);
+  /* Light purple color */
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(156, 39, 176, 0.25);
+  /* Purple focus color */
+}
+
+.btn-primary {
+  background-color: var(--main-color);
+  /* Purple button color */
+  border-color: var(--main-color);
+}
+
+.btn-primary:hover {
+  background-color: #006928;
+  /* Darker purple on hover */
+  border-color: #036610;
+}
+
+.form-row .form-group {
+  margin-bottom: 15px;
+  /* Adjust spacing between form groups */
+}
+
+.form-row .col-md-6 {
+  padding-right: 10px;
+  /* Adjust spacing between columns */
+  padding-left: 10px;
+}
+
+.same-class {
+  display: flex;
+  align-items: center;
+}
+
+.same-class label {
+  margin-right: 10px;
+  /* Space between label and input */
+}
+
+/*end  form-add-courses */
+
+
+
+/* start add-section */
+.modal-content {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+/* The custom-container */
+.custom-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.custom-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #c0c0c0;
+
+}
+
+/* On mouse-over, add a grey background color */
+.custom-container:hover input~.checkmark {
+  background-color: rgb(31, 20, 4);
+}
+
+/* When the checkbox is checked, add a blue background */
+.custom-container input:checked~.checkmark {
+  background-color: rgb(0, 163, 30);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.custom-container input:checked~.checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.custom-container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* add-question.component.scss */
+
+
+
+.card {
+  margin-bottom: 5px;
+}
+
+.drag-drop-box {
+  width: 100%;
+  height: 150px;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.drag-drop-box.dragging {
+  border-color: #000;
+}
+
+.uploaded-photo {
+  width: 100%;
+  max-height: 100%;
+}
+
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.question-box {
+  background-color: #e6e6e6;
+  border: 1px solid #cccccc;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.question {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.choices {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+
+.choices p {
+  margin: 0 0 5px;
+}
+
+.form-check {
+  margin-bottom: 10px;
+}
+
+.form-check input[type="checkbox"],
+.form-check input[type="radio"] {
+  margin-right: 10px;
+}
+
+.form-check-label {
+  font-size: 16px;
+}
+
+.explanation-box {
+  background-color: #f2f2f2;
+  border: 1px solid #cccccc;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.explanation-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.explanation-box p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.explanation-box .reference {
+  font-size: 12px;
+  color: #666666;
+  margin-top: 10px;
+}
+
+/* Arabic Styling */
+.arabic-question {
+  direction: rtl;
+
+}
+
+.english-question {
+  direction: ltr;
+}
+
+.arabic-question .question {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.arabic-question .form-check input[type="checkbox"],
+.arabic-question .form-check input[type="radio"] {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+.arabic-question .form-check-label {
+  font-size: 16px;
+}
+
+.arabic-question .choices {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+
+
+

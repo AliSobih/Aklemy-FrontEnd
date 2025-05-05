@@ -1,0 +1,44 @@
+@if(  loaddata===true  && sliders.length > 0) {
+
+<ul class="responsive-table">
+  <li class="table-header">
+    <div class="column column-1">ID</div>
+    <div class="column column-2">Photo</div>
+    <div class="column column-4">Actions</div>
+  </li>
+
+  @for (slider of sliders;  track $index) {
+    <li class="table-row">
+      <div class="column column-1" data-label="Code">{{  $index + 1}}</div>
+      <div class="column column-2" data-label="Image"><img [src]="dounloadImageApi + slider.imageUrl" alt="Slider Image" class="responsive-image"></div>
+      <div class="column column-3 action">
+        <a
+          class="btn btn-sm text-danger ml-1"
+          (click)="deleteSlider(slider.id)"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Delete"
+        >
+          <i class="fas fa-trash"></i>
+        </a>
+      </div>
+    </li>
+  }
+
+</ul>
+}
+@else if (!loadError && loaddata && sliders.length==0) {
+  <div class="empty-container">
+  <p>No Content Available</p>
+</div>
+}
+@else if (!loaddata && !loadError) {
+  <div class="slider-placeholder">
+  <p-skeleton width="100%" height="200px" />
+</div>
+}
+@else if (loadError) {
+  <div class="empty-container">
+  <p>Error In Server</p>
+</div>
+}

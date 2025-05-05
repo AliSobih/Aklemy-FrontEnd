@@ -1,0 +1,159 @@
+<div>
+  <br /><br />
+  <h2
+    class="main-section-title"
+    style="
+      font-family: var(--font-stack-heading-serif);
+      font-size: 24px;
+      font-weight: 600;
+    "
+  >
+    Enrollments
+  </h2>
+  <div>
+    <div
+      class="main-section-header"
+      style="font-family: var(--font-stack-heading-serif); font-size: 20px"
+    >
+      <div class="search mb-2">
+        <input
+          type="text"
+          placeholder="Search"
+          (keyup)="search($event)"
+          [value]="searchValue"
+        />
+      </div>
+
+      <div class="form-floating mb-2 p-3 d-flex">
+        <label for="fromDate">From Date:</label>
+        <input
+          type="date"
+          id="fromDate"
+          class="datepicker_input form-control border-2"
+          (change)="onFromDateChange($event)"
+          name="fromDate"
+        />
+      </div>
+      <div class="form-floating mb-2 p-3 d-flex">
+        <label for="toDate">To Date:</label>
+        <input
+          type="date"
+          id="toDate"
+          class="datepicker_input form-control border-2"
+          (change)="onToDateChange($event)"
+          name="toDate"
+        />
+      </div>
+
+      <button
+        type="reset"
+        class="form-control all-btn mb-2"
+        style="width: 90px"
+        (click)="resetFilter()"
+      >
+        Reset
+      </button>
+    </div>
+    @if(loaddata && enrollments && enrollments.length > 0) { @defer (on
+    viewport; prefetch on idle) {
+    <div>
+      <ul
+        class="responsive-table"
+        style="font-family: var(--font-stack-heading); font-size: 20px"
+      >
+        <li class="table-header">
+          <div class="column column-1">NO.</div>
+          <div class="column column-3">Student Name</div>
+          <div class="column column-4">Course Name Ar</div>
+          <div class="column column-4">Course Name En</div>
+          <div class="column column-5">Enrollment Date</div>
+          <div class="column column-5">Approve</div>
+        </li>
+        @for (item of enrollments; track $index) {
+        <li class="table-row">
+          <div class="column column-1" data-label="التسلسل">{{ $index + 1 }}</div>
+          <div class="column column-2" data-label="الإسم">
+            {{ item.studentName }}
+          </div>
+          <div class="column column-3" data-label="الوصف">
+            {{ item.course.titleAr }}
+          </div>
+          <div class="column column-4" data-label="الوصف">
+            {{ item.course.title }}
+          </div>
+          <div class="column column-5" data-label="التاريخ">
+            {{ item.enrollmentDate }}
+          </div>
+          <div class="column column-5" data-label="التاريخ">
+            <p-inputSwitch [(ngModel)]="item.approve" (onChange)="onSwitchChange(item.id!)" />
+          </div>
+        </li>
+        }
+      </ul>
+
+    </div>
+    } @placeholder {
+    <div>
+      <ul
+        class="responsive-table"
+        style="font-family: var(--font-stack-heading); font-size: 20px"
+      >
+        <li class="table-header">
+          <div class="column column-1">NO.</div>
+          <div class="column column-3">Student Name</div>
+          <div class="column column-4">Course Name Ar</div>
+          <div class="column column-4">Course Name En</div>
+          <div class="column column-5">Enrollment Date</div>
+        </li>
+        <li class="table-row">
+          <div class="column column-1" data-label="التسلسل">
+            <p-skeleton width="50%" />
+          </div>
+          <div class="column column-2" data-label="الإسم">
+            <p-skeleton width="100%" />
+          </div>
+          <div class="column column-3" data-label="الوصف">
+            <p-skeleton width="100%" />
+          </div>
+          <div class="column column-4" data-label="الوصف">
+            <p-skeleton width="100%" />
+          </div>
+          <div class="column column-5" data-label="التاريخ">
+            <p-skeleton width="100%" />
+          </div>
+        </li>
+      </ul>
+      <mat-paginator
+        [length]="totalEnrollments"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20]"
+        (page)="onPageChange($event)"
+      ></mat-paginator>
+    </div>
+    } @error {
+    <div>
+      <p>Error loading enrollments data.</p>
+    </div>
+    } }@else if (!loadError && loaddata && enrollments && enrollments.length==0)
+    {
+    <div class="empty-container">
+      <p>No Content Available</p>
+    </div>
+    } @else if (!loaddata && !loadError) {
+    <div class="slider-placeholder">
+      <p-skeleton width="100%" height="200px" />
+    </div>
+    }
+    @else if (loadError) {
+    <div class="empty-container">
+      <p>Error In Server</p>
+    </div>
+    }
+       <mat-paginator
+        [length]="totalEnrollments"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20]"
+        (page)="onPageChange($event)"
+      ></mat-paginator>
+  </div>
+</div>

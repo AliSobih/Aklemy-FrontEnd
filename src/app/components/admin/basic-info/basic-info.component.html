@@ -1,0 +1,181 @@
+<div class="container mt-5">
+  <div class="form-container">
+    <h3 class="text-center mb-4">Edit Basic Information</h3>
+    <form [formGroup]="basicInfoForm" (ngSubmit)="onSubmit()">
+      <input
+      type="number"
+      formControlName="id"
+      style="display: none;"
+    />
+      <div class="mb-3 form-group">
+        <label for="facebook">Facebook Account Link</label>
+        <input
+          type="text"
+          class="form-control"
+          id="facebook"
+          formControlName="facebook"
+          placeholder="Facebook"
+        />
+        <div
+          *ngIf="
+            formControls['facebook'].invalid && formControls['facebook'].touched
+          "
+          class="text-danger"
+        >
+          Please enter a valid Facebook URL.
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="instagram">Instagram Account Link</label>
+        <input
+          type="text"
+          class="form-control"
+          id="instagram"
+          formControlName="instagram"
+          placeholder="Instagram"
+        />
+        <div
+          *ngIf="
+            formControls['instagram'].invalid &&
+            formControls['instagram'].touched
+          "
+          class="text-danger"
+        >
+          Please enter a valid Instagram URL.
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="twitter">X Account Link</label>
+        <input
+          type="text"
+          class="form-control"
+          id="twitter"
+          formControlName="twitter"
+          placeholder="X"
+        />
+        <div
+          *ngIf="
+            formControls['twitter'].invalid && formControls['twitter'].touched
+          "
+          class="text-danger"
+        >
+          Please enter a valid X URL.
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="tiktok">Tiktok Account Link</label>
+        <input
+          type="text"
+          class="form-control"
+          id="tiktok"
+          formControlName="tiktok"
+          placeholder="Tiktok"
+        />
+        <div
+          *ngIf="
+            formControls['tiktok'].invalid && formControls['tiktok'].touched
+          "
+          class="text-danger"
+        >
+          Please enter a valid Tiktok URL.
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="youtube">youtube Account Link</label>
+        <input
+          type="text"
+          class="form-control"
+          id="youtube"
+          formControlName="youtube"
+          placeholder="youtube"
+        />
+        <div
+          *ngIf="
+            formControls['youtube'].invalid && formControls['youtube'].touched
+          "
+          class="text-danger"
+        >
+          Please enter a valid youtube URL.
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="telegram">Telegram Account Link</label>
+        <input
+          type="text"
+          class="form-control"
+          id="telegram"
+          formControlName="telegram"
+          placeholder="Telegram"
+        />
+        <div
+          *ngIf="
+            formControls['telegram'].invalid && formControls['telegram'].touched
+          "
+          class="text-danger"
+        >
+          Please enter a valid Telegram URL.
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="messenger">Messenger Account Link</label>
+        <input
+          type="text"
+          class="form-control"
+          id="messenger"
+          formControlName="messenger"
+          placeholder="Messenger"
+        />
+        <div
+          *ngIf="
+            formControls['messenger'].invalid &&
+            formControls['messenger'].touched
+          "
+          class="text-danger"
+        >
+          Please enter a valid Messenger URL.
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="whatsapp">WhatsApp Number</label>
+        <input
+          type="text"
+          class="form-control"
+          id="whatsapp"
+          formControlName="whatsapp"
+          placeholder="https://wa.me/0100000000"
+        />
+        <div
+          *ngIf="
+            formControls['whatsapp'].invalid && formControls['whatsapp'].touched
+          "
+          class="text-danger"
+        >
+          Please enter a valid WhatsApp link.
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="phone">Phone Number</label>
+        <input
+          type="text"
+          class="form-control"
+          id="phone"
+          formControlName="phone"
+          placeholder="0100000000"
+        />
+        <div
+          *ngIf="formControls['phone'].invalid && formControls['phone'].touched"
+          class="text-danger"
+        >
+          Please enter a valid phone number.
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-custom btn-block w-100"
+
+      >
+        {{ isEditMode ? "Update" : "Save" }}
+      </button>
+    </form>
+  </div>
+</div>

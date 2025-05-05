@@ -1,0 +1,139 @@
+<h2
+  class="main-section-title m-5"
+  style="
+    font-family: var(--font-stack-heading-serif);
+    font-size: 24px;
+    font-weight: 600;
+  "
+>
+  Description Master
+</h2>
+<div
+  class="main-section-header"
+  style="font-family: var(--font-stack-heading-serif); font-size: 20px"
+>
+  <!-- Search Content -->
+  <div class="search mb-2">
+    <!-- <input type="text" placeholder="Search" /> -->
+  </div>
+  <div class="add-btn" data-toggle="modal" data-target="#categoryModal">
+    <button
+      class="btn all-btn"
+      style="color: white"
+      (click)="openAddDescriptionMasterModal()"
+    >
+      +
+    </button>
+  </div>
+</div>
+<div
+  class="container modal-content"
+  style="
+    font-family: var(--font-stack-heading-serif);
+    font-size: 20px;
+    color: black;
+  "
+>
+
+
+
+
+@if (descriptionLoaded === true && descriptionMaster.length > 0) {
+  @defer (on immediate) {
+    <div class="container mt-5">
+      <!-- Description Master Table -->
+      <div class="table-container table-responsive">
+        <div class="scrollable-table">
+          <table class="table table-bordered">
+            @for (item of descriptionMaster; track $index) {
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Description (English)</th>
+                <th scope="col">Description (Arabic)</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ item.note }}</td>
+                <td>{{ item.noteAr }}</td>
+                <td class="actions">
+                  <button
+                    (click)="openEditDescriptionMasterModal(item)"
+                    class="btn btn-sm btn-update"
+                  >
+                    Update
+                  </button>
+                  <button
+                    (click)="deleteDescriptionMaster(item.id)"
+                    class="btn btn-sm btn-delete"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              @for (detail of item.details; track $index) {
+              <tr>
+                <td colspan="4">
+                  <div class="nested-table-container">
+                    <table class="table table-bordered nested-table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Code</th>
+                          <th scope="col">Note (English)</th>
+                          <th scope="col">Note (Arabic)</th>
+                          <th scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{ $index + 1 }}</td>
+                          <td>{{ detail.note }}</td>
+                          <td>{{ detail.noteAr }}</td>
+                          <td class="actions">
+                            <button
+                              (click)="openEditDescriptionMasterModal(detail)"
+                              class="btn btn-sm btn-update"
+                            >
+                              Update
+                            </button>
+                            <button
+                              (click)="deleteDetails(detail.id)"
+                              class="btn btn-sm btn-delete"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+              }
+            </tbody>
+            }
+          </table>
+        </div>
+      </div>
+    </div>
+  } @error {
+    <p style="width: fit-content; margin: auto;">An error occurred while loading the courses. Please try again later.</p>
+  }
+} @else if (!descriptionError && descriptionLoaded && descriptionMaster.length === 0) {
+  <div class="empty-container">
+    <p>No Content Available</p>
+  </div>
+} @else if (!descriptionLoaded && !descriptionError) {
+  <div class="slider-placeholder">
+    <p-skeleton width="100%" height="200px" />
+  </div>
+} @else if (descriptionError) {
+  <div class="empty-container">
+    <p>Error In Server</p>
+  </div>
+}
+
+</div>

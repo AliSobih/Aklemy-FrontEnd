@@ -1,0 +1,825 @@
+// Start Exam Header
+:root {
+  --main-green: #4CAF50;
+  --light-green: #f0fff0;
+  --button-red: #ff5722;
+  --button-green: #4CAF50;
+  --button-hover: #45a049;
+  --gray-border: #ccc;
+}
+
+body {
+  background-color: var(--light-green);
+  font-family: Arial, sans-serif;
+}
+
+.Multichoice .card-header {
+  background-color: var(--main-green);
+  color: white;
+}
+
+.Multichoice .card {
+  margin-bottom: 20px;
+  border: none;
+}
+
+.Multichoice .list-group-item.active {
+  background-color: var(--main-green);
+  border-color: var(--main-green);
+  color: white;
+}
+
+.Multichoice .question-card {
+  padding: 15px;
+  background-color: #F2FFF5;
+}
+
+.Multichoice .question-card .btn {
+  margin: 5px;
+}
+
+.Multichoice .question-card .btn-success {
+  box-shadow: 0px 0px 4px 2px #28A74533;
+  border-radius: 20px;
+}
+
+.Multichoice .question-card .btn-flag {
+  padding: 0 15px;
+  background-color: #ff5722;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0px 0px 4px 2px #FF480033;
+}
+
+.Multichoice .question-card .Multichoice .btn-flag:hover,
+.Multichoice .question-card .Multichoice .btn-view:hover,
+.Multichoice .question-card .Multichoice .btn-prev:hover,
+.Multichoice .question-card .Multichoice .btn-next:hover {
+  opacity: 0.8;
+}
+
+.Multichoice .question-header {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 15px solid #00000033;
+  align-items: center;
+}
+
+.Multichoice .question-content {
+  display: flex;
+  align-items: center;
+}
+
+.Multichoice .question-content h5 {
+  margin: 0;
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+
+.Multichoice .question-number-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--main-green);
+  color: var(--main-green);
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.Multichoice .question-number-circle h5 {
+  margin: 0;
+}
+
+.Multichoice .arrow-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--main-green);
+  color: var(--main-green);
+  background: none;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.Multichoice .btn-icon {
+  padding: 0;
+  border: 2px solid var(--main-green);
+}
+
+.Multichoice .question-options label {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Multichoice .question-options label:hover {
+  background-color: #B9FFC9;
+  box-shadow: 0px 0px 4px 2px #28A74566;
+}
+
+.Multichoice .question-options input[type="checkbox"] {
+  display: none;
+}
+
+.Multichoice .question-options input[type="checkbox"]:checked+span {
+  background-color: var(--main-green);
+  color: white;
+}
+
+.Multichoice .question-options span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 2px solid var(--main-green);
+  color: var(--main-green);
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+//  End Exam Header
+
+
+// start exam button controllers
+
+.exam-start {
+  font-family: 'Roboto', sans-serif;
+  background-color: #F2FFF5;
+  margin: 20px 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.exam-section {
+  width: 100%;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.buttons-left {
+  display: flex;
+  gap: 10px;
+}
+
+.buttons button {
+  background-color: #28A745;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.buttons .pause {
+  border: 1px solid #FFE923;
+  background-color: #FFF8B8;
+  padding: 10px 20px;
+  margin: 0;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.buttons button.report {
+  background-color: white;
+  color: #28A745;
+  border: none;
+}
+
+.line {
+  height: 2px;
+  background-color: #28A745;
+  margin-bottom: 20px;
+}
+
+.text {
+  color: #7C7C7C;
+  font-size: 14px;
+}
+
+.text strong {
+  color: #28A745;
+}
+
+// end exam controller
+
+// start question card
+
+.card-header {
+  background-color: var(--main-green);
+  color: white;
+}
+
+.card {
+  margin-bottom: 20px;
+  border: none;
+}
+
+.list-group-item.active {
+  background-color: var(--main-green);
+  border-color: var(--main-green);
+  color: white;
+}
+
+.question-card {
+
+  padding: 5px 15px;
+  background-color: #F2FFF5;
+}
+
+.question-card .btn {
+  margin: 5px;
+}
+
+.question-card .btn-success {
+  box-shadow: 0px 0px 4px 2px #28A74533;
+  border-radius: 20px;
+}
+
+.question-card .btn-flag {
+  padding: 0 15px;
+  background-color: #ff5722;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0px 0px 4px 2px #FF480033;
+}
+
+.question-card .btn-flag:hover,
+.question-card .btn-view:hover,
+.question-card .btn-prev:hover,
+.question-card .btn-next:hover {
+  opacity: 0.8;
+}
+
+.question-header {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 15px solid #00000033;
+  align-items: center;
+}
+
+.question-content {
+  display: flex;
+  align-items: center;
+}
+
+.question-content h5 {
+  margin: 0;
+  font-size: 1rem;
+  margin-left: 10px;
+}
+
+.question-number-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--main-green);
+  color: var(--main-green);
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.question-number-circle h5 {
+  margin: 0;
+
+}
+
+.arrow-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--main-green);
+  color: var(--main-green);
+  background: none;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-icon {
+  padding: 0;
+  border: 2px solid var(--main-green);
+}
+
+.question-options label {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.question-options label:hover {
+  background-color: #B9FFC9;
+  box-shadow: 0px 0px 4px 2px #28A74566;
+}
+
+.question-options input[type="radio"] {
+  display: none;
+}
+
+.question-options input[type="radio"]:checked+span {
+  background-color: var(--main-green);
+  color: white;
+}
+
+.select-answer {
+  background-color: #B9FFC9 !important;
+  box-shadow: 0px 0px 4px 2px #28A74566 !important;
+}
+
+.warning-answer {
+  background-color: #f01717 !important;
+  box-shadow: 0px 0px 4px 2px #c5111a66 !important;
+}
+
+.question-options span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--main-green);
+  color: var(--main-green);
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// end question card
+
+.incorrect {
+  background-color: #FF480066 !important;
+    border-color: #FF480066 !important;
+    box-shadow: 0px 0px 4px 2px #FF480033 !important;
+}
+
+// Buttons
+.btn-flagged {
+  background-color: #FF4800;
+  color: white;
+  border: none;
+  box-shadow: 0px 0px 4px 2px #FF480033;
+  border-radius: 10px;
+}
+
+.btn-flagged:hover {
+  background-color: #FF4800;
+  color: white;
+  border: none;
+  box-shadow: 0px 0px 4px 2px #FF480033;
+  border-radius: 10px;
+}
+
+.btn-view-all {
+  border: 0.5px solid #FF4800;
+  color: #FF4800;
+  background-color: transparent;
+  box-shadow: 0px 0px 4px 2px #FF480033;
+  border-radius: 10px;
+}
+
+.btn-view-all:hover {
+  border: 0.5px solid #FF4800;
+  color: #FF4800;
+  background-color: transparent;
+  box-shadow: 0px 0px 4px 2px #FF480033;
+  border-radius: 10px;
+}
+
+.btn-prev {
+  border: 1px solid #28A745;
+  color: #28A745;
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+.btn-prev:hover {
+  border: 1px solid #28A745;
+  color: #28A745;
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+.btn-next {
+  background-color: #28A745;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+.btn-next:hover {
+  background-color: #28A745;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+.btn {
+  font-size: 14px;
+  padding: 10px 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.button-group .left-buttons,
+.button-group .right-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* ضبط العرض الثابت للأزرار */
+.btn {
+  font-size: 16px;
+  padding: 10px 20px;
+  width: 200px;
+  /* عرض ثابت */
+  text-align: center;
+  white-space: nowrap;
+  margin-top: 10px;
+  /* منع انقسام النص */
+}
+
+/* تأكد من أن الحاوية تبقى متناسقة ولا يتم تغييرها */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  /* للسماح بانتقال العناصر عند الحاجة */
+}
+
+.button-group .left-buttons,
+.button-group .right-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: nowrap;
+  /* منع انتقال الأزرار إلى السطر التالي */
+}
+
+@media (max-width: 1000px) {
+  .button-group {
+    justify-content: center;
+    /* توسيط الأزرار */
+    flex-wrap: wrap;
+  }
+
+  .button-group .left-buttons,
+  .button-group .right-buttons {
+    justify-content: center;
+
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    flex: 1 1 45%;
+    /* عرض كل زر يكون 45% لتناسب زرين في الصف */
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    /* توسيط النص داخل الزر */
+  }
+}
+
+@media (max-width: 1000px) {
+  .button-group {
+    justify-content: center;
+    /* توسيط الأزرار */
+    flex-wrap: wrap;
+    /* السماح للأزرار بالانتقال لصف جديد إذا لزم الأمر */
+  }
+
+  .button-group .left-buttons,
+  .button-group .right-buttons {
+    justify-content: center;
+    /* توسيط الأزرار داخل كل مجموعة */
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    flex: 1 1 45%;
+    /* عرض كل زر يكون 45% لتناسب زرين في الصف */
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    /* توسيط النص داخل الزر */
+  }
+}
+
+
+/* Media Query: عند عرض الشاشة أقل من 500 بكسل */
+@media (max-width: 500px) {
+  .button-group {
+    justify-content: center;
+    /* توسيط الأزرار */
+    flex-direction: column;
+    /* كل زر في سطر */
+    flex-wrap: wrap;
+  }
+
+  .button-group .left-buttons,
+  .button-group .right-buttons {
+    justify-content: center;
+    /* توسيط الأزرار في كل مجموعة */
+    flex-direction: column;
+    /* كل زر في سطر */
+  }
+
+  .btn {
+    flex: 1 1 100%;
+    /* عرض الزر يأخذ السطر بالكامل */
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    /* توسيط النص داخل الزر */
+  }
+}
+
+
+// drag and drop
+
+:host ::ng-deep {
+  [pDraggable] {
+    cursor: move;
+  }
+}
+
+.drag-card,
+.drop-card {
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  width: 20rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  position: relative;
+}
+
+.drag-card p,
+.drop-card p {
+  text-align: center;
+  border-bottom: 2px solid #28A745;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: #343a40;
+}
+
+.drag-card ul li,
+.drop-card ul li {
+  padding: 0.75rem;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.5rem;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.drag-card:hover,
+.drop-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.drag-card ul li:active,
+.drop-card ul li:active {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.drop-card button {
+  width: 30px;
+  height: 30px;
+  background-color: #ff4800;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.drop-card button:hover {
+  background-color: #d83700;
+}
+
+
+.drag-card,
+.drop-card {
+  width: 25rem;
+  max-width: 100%;
+}
+
+
+.drag-card p,
+.drop-card p {
+  text-align: center;
+  border-bottom: 2px solid #28A745;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: #343a40;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.drag-card ul li,
+.drop-card ul li {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+
+
+.btn-flag {
+  padding: 0 15px;
+  background-color: var(--button-red);
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0px 0px 4px 2px #FF480033;
+}
+
+.btn-success {
+  box-shadow: 0px 0px 4px 2px #28A74533;
+  border-radius: 20px;
+  background: #28A745;
+}
+
+.btn-success:hover {
+  box-shadow: 0px 0px 4px 2px #28A74533;
+  border-radius: 20px;
+  background-color: #28A745;
+}
+
+
+.btn-flagged {
+  background-color: #FF4800;
+  color: white;
+  border: none;
+  box-shadow: 0px 0px 4px 2px #FF480033;
+  border-radius: 10px;
+}
+
+.btn-flagged:hover {
+  background-color: #FF4800;
+  color: white;
+  border: none;
+  box-shadow: 0px 0px 4px 2px #FF480033;
+  border-radius: 10px;
+}
+
+.btn-view-all {
+  border: 0.5px solid #FF4800;
+  color: #FF4800;
+  background-color: transparent;
+  box-shadow: 0px 0px 4px 2px #FF480033;
+  border-radius: 10px;
+}
+
+.btn-view-all:hover {
+  border: 0.5px solid #FF4800;
+  color: #FF4800;
+  background-color: transparent;
+  box-shadow: 0px 0px 4px 2px #FF480033;
+  border-radius: 10px;
+}
+
+.btn-prev {
+  border: 1px solid #28A745;
+  color: #28A745;
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+.btn-prev:hover {
+  border: 1px solid #28A745;
+  color: #28A745;
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+.btn-next {
+  background-color: #28A745;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+.btn-next:hover {
+  background-color: #28A745;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+.btn {
+  font-size: 14px;
+  padding: 10px 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-group .left-buttons,
+.button-group .right-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.question-number-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--main-green);
+  color: var(--main-green);
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-align: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  /* Prevents the circle from shrinking */
+  margin-right: 10px;
+  /* Adds spacing between the circle and text */
+}
+
+.question-number-circle h5 {
+  margin: 0;
+}
+
+.question-content {
+  display: flex;
+  align-items: center;
+  /* Aligns the circle and text vertically */
+}
+
+
+.line {
+  height: 2px;
+  background-color: #28A745;
+  margin-bottom: 20px;
+}

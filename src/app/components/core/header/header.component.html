@@ -1,0 +1,415 @@
+<div>
+  <div class="top-header position-relative">
+    <div
+      class="container-fluid d-flex justify-content-between align-items-center"
+    >
+      <div class="search-bar text-center">
+        <input
+          type="text"
+          [value]="searchValue"
+          (keyup)="search($event)"
+          class="form-control py-2"
+          placeholder="{{ 'SEARCH' | translate }}"
+        />
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <style>
+        .value-container {
+          position: absolute;
+          top: 120px;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100%;
+          max-width: 500px;
+          text-align: center;
+          align-items: center;
+          z-index: 1000;
+        }
+
+        .value-suggestions {
+          position: relative;
+          background-color: white;
+          border: 1px solid #d1d7dc;
+          width: 100%;
+          z-index: 1000;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-suggestions ul {
+          padding: 0;
+          margin: 0;
+        }
+
+        .value-suggestions li {
+          padding: 10px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+        }
+
+        .value-suggestions li:hover {
+          background-color: #f0f0f0;
+        }
+
+        .value-suggestions li i {
+          margin-right: 10px;
+        }
+
+        .course-list {
+          border-top: 1px solid #ddd;
+          padding: 10px;
+        }
+
+        .course-name {
+          color: black;
+        }
+
+        .course-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+          cursor: pointer;
+          transition: all 0.1s;
+        }
+
+        .course-item:hover {
+          background-color: #f5f3f38e;
+        }
+
+        .course-img {
+          width: 50px;
+          height: 50px;
+          margin-right: 10px;
+          object-fit: cover;
+        }
+
+        .course-details p {
+          margin: 0;
+          font-weight: bold;
+        }
+
+        .course-details span {
+          font-size: 12px;
+          color: gray;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .course-name {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 400px;
+        }
+        @media (max-width: 750px) {
+          .value-container {
+            max-width: 100%;
+          }
+        }
+        /* Media Queries for responsiveness */
+      </style>
+
+      <div class="value-container" *ngIf="courses.length > 0 && isSearchActive">
+        <div class="value-suggestions">
+          <div class="course-list">
+            <div
+              class="course-item"
+              *ngFor="let item of courses; let i = index"
+              (click)="viewCardDetails(item)"
+            >
+              <img
+                [src]="item.imageDownload"
+                alt="Course Image"
+                class="course-img"
+              />
+              <div class="course-details text-left">
+                <p class="course-name">
+                  {{ language === "ar" ? item.titleAr : item.title }}
+                </p>
+                <span>{{ item.instructorNameEn }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center">
+        <div style="width: fit-content">
+          @if (language == 'en') {
+          <a>
+            <img
+              src="https://cdn.jsdelivr.net/gh/hjnilsson/country-flags/svg/us.svg"
+              alt="English"
+              style="width: 24px; height: 24px; margin-left: 10px"
+            />
+          </a>
+          }
+          <a (click)="switchLanguage()" style="cursor: pointer">
+            <i
+              style="font-size: 24px; margin-left: 10px"
+              class="fas text-light fa-globe"
+            ></i>
+          </a>
+          @if (language == 'ar') {
+          <a>
+            <img
+              src="https://cdn.jsdelivr.net/gh/hjnilsson/country-flags/svg/sa.svg"
+              alt="Arabic"
+              style="width: 24px; height: 24px; margin-left: 10px"
+            />
+          </a>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .top-header .container-fluid {
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .search-bar {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+  <!-- header section strats -->
+  <header class="header_section">
+    <div class="container-fluid">
+      <nav
+        class="navbar navbar-expand-lg custom_nav-container"
+        style="align-items: center; place-items: center"
+      >
+        <a
+          class="navbar-brand"
+          style="color: var(--main-color); font-weight: 800; font-size: 26px"
+          href="#"
+          ><img
+            class="w-100"
+            style="width: 100px; height: 50px"
+            src="assets/img/logo.ico"
+            alt=""
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class=""> </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav" style="width: 100%">
+            <div class="navbar-left">
+              <li
+                class="nav-item"
+                [routerLinkActive]="'active'"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <a
+                  class="nav-link"
+                  [routerLink]="['/home']"
+                  style="font-size: 16px; font-weight: 400"
+                  >{{ "HOME" | translate }}
+                  <span class="sr-only">(current)</span></a
+                >
+              </li>
+              <li class="nav-link"></li>
+
+              <li
+                class="nav-item dropdown"
+                [routerLinkActive]="'active'"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <a
+                  class="nav-link dropdown-toggle"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="true"
+                >
+                  <span
+                    class="nav-label"
+                    style="font-size: 16px; font-weight: 400"
+                    >{{ "CATEGORIES" | translate }}</span
+                  >
+                </a>
+                <ul
+                  class="dropdown-menu custom-dropdown-menu"
+                  [ngClass]="
+                    language === 'ar' ? 'dropdown-menuAr' : 'dropdown-menu '
+                  "
+                >
+                  @for (item of categoryList; track $index) {
+                  <li class="dropdown-item">
+                    <a
+                      (click)="onNavigateToCategory(item)"
+                      [ngStyle]="{
+                        'text-align': language === 'ar' ? 'right' : 'left'
+                      }"
+                      style="cursor: pointer"
+                      >{{ language === "ar" ? item.nameAr : item.name }}</a
+                    >
+                  </li>
+                  }
+                </ul>
+              </li>
+              @if (user.id != 0 && this.user.role == 'ROLE_STUDENT'||this.user.role == 'ROLE_TEACHER') {
+              <li
+                class="nav-item dropdown"
+                [routerLinkActive]="'active'"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <a
+                  class="nav-link dropdown-toggle"
+                  routerLink="myLearning"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="true"
+                >
+                  <span
+                    class="nav-label"
+                    style="font-size: 16px; font-weight: 400"
+                    >{{ "MY_LEARNING" | translate }}</span
+                  >
+                </a>
+                <ul
+                  class="dropdown-menu custom-dropdown-menu"
+                  [ngClass]="
+                    language === 'ar' ? 'dropdown-menuAr' : 'dropdown-menu '
+                  "
+                >
+                  @for (item of coursesEnrollment.slice(0, 3); track $index) {
+                  <li class="dropdown-item">
+                    <a
+                      (click)="viewCard(item); $event.stopPropagation()"
+                      [ngStyle]="{
+                        'text-align': language === 'ar' ? 'right' : 'left'
+                      }"
+                      style="cursor: pointer"
+                    >
+                      {{ language === "ar" ? item.titleAr : item.title }}
+                    </a>
+                  </li>
+                  }
+                </ul>
+              </li>
+            }
+            @if (this.user.role === 'ROLE_ADMIN') {
+
+              <!-- style="display: none;" -->
+              <li
+                class="nav-item"
+                [routerLinkActive]="'active'"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <a
+                  class="nav-link"
+                  style="font-size: 16px; font-weight: 400"
+                  routerLink="/admin"
+                  >{{ "Dashboard" | translate }}</a
+                >
+              </li>
+            } @else if (this.user.role === 'ROLE_TEACHER') {
+              <li
+                class="nav-item"
+                [routerLinkActive]="'active'"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <a
+                  class="nav-link"
+                  style="font-size: 16px; font-weight: 400"
+                  routerLink="/teacher"
+                  >{{ "Dashboard" | translate }}</a
+                >
+              </li>
+            }@else {
+              <li
+                class="nav-item"
+                [routerLinkActive]="'active'"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <a
+                  class="nav-link"
+                  style="font-size: 16px; font-weight: 400"
+                  routerLink="join-us"
+                  >{{ "JOIN_US" | translate }}</a
+                >
+              </li>
+            }
+
+            </div>
+
+            <!-- العناصر الثلاثة المتبقية -->
+            <div class="navbar-right">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  style="font-size: 16px; font-weight: 400"
+                  href="#"
+                >
+                  <svg
+                    style="font-size: 24px"
+                    width="50"
+                    height="50"
+                    viewBox="0 0 50 50"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M41.3015 50C39.5334 50 38.1279 48.5909 38.1279 46.8182C38.1279 45.0455 39.5334 43.6364 41.3015 43.6364C43.0696 43.6364 44.475 45.0455 44.475 46.8182C44.475 48.5909 43.0243 50 41.3015 50ZM15.9131 50C14.145 50 12.7395 48.5909 12.7395 46.8182C12.7395 45.0455 14.145 43.6364 15.9131 43.6364C17.6812 43.6364 19.0866 45.0455 19.0866 46.8182C19.0866 48.5909 17.6359 50 15.9131 50ZM15.4144 40.9091C13.0116 40.9091 10.9261 39 10.6541 36.5909L7.57118 14.8636L5.80306 4.72727C5.66705 3.63636 4.71499 2.72727 3.67225 2.72727H1.36009C0.589373 2.72727 0 2.13636 0 1.36364C0 0.590909 0.589373 0 1.36009 0H3.67225C6.07508 0 8.20589 1.90909 8.52325 4.31818L10.2914 14.4545L13.3742 36.2273C13.4649 37.2727 14.417 38.1818 15.4144 38.1818H44.8831C45.6538 38.1818 46.2432 38.7727 46.2432 39.5455C46.2432 40.3182 45.6538 40.9091 44.8831 40.9091H15.4144ZM17.6812 33.6364C16.9558 33.6364 16.3664 33.0909 16.3211 32.3636C16.2758 32 16.4118 31.6364 16.6385 31.3636C16.8651 31.0909 17.2278 30.9091 17.5452 30.9091L42.1629 29.0909C43.2509 29.0909 44.203 28.2273 44.339 27.1818L47.1952 10.8182C47.2859 10.0455 47.0592 9.22727 46.6058 8.72727C46.2885 8.36364 45.8805 8.18182 45.3818 8.18182H14.0543C13.2836 8.18182 12.6942 7.59091 12.6942 6.81818C12.6942 6.04545 13.2836 5.45455 14.0543 5.45455H45.4724C46.7419 5.45455 47.8753 6 48.7367 6.90909C49.6887 8 50.1421 9.59091 49.9607 11.1818L47.1045 27.5455C46.8325 29.9091 44.7017 31.7727 42.3442 31.7727L17.8626 33.5909C17.7719 33.6364 17.7265 33.6364 17.6812 33.6364Z"
+                      fill="#1E1E1E"
+                    />
+                  </svg>
+                </a>
+              </li>
+              @if (user.id == 0) {
+              <li class="nav-item">
+                <button
+                  class="btn-nav border-0"
+                  (click)="login()"
+                  [ngClass]="language === 'ar' ? 'btn-navAr' : 'btn-nav'"
+                  style="font-size: 14px; font-weight: 400"
+                >
+                  {{ "LOGIN" | translate }}
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  (click)="signUp()"
+                  class="btn-nav border-0"
+                  [ngClass]="language === 'ar' ? 'btn-navAr' : 'btn-nav'"
+                  style="
+                    background-color: var(--second-color);
+                    font-size: 14px;
+                    font-weight: 400;
+                  "
+                >
+                  {{ "SIGN_UP" | translate }}
+                </button>
+              </li>
+              }@else{
+              <li class="nav-item">
+                <button
+                  class="btn-nav border-0"
+                  (click)="logout()"
+                  [ngClass]="language === 'ar' ? 'btn-navAr' : 'btn-nav'"
+                  style="font-size: 14px; font-weight: 400"
+                >
+                  {{ "LOGOUT" | translate }}
+                </button>
+              </li>
+              }
+            </div>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+</div>

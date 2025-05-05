@@ -1,0 +1,45 @@
+<div>
+  <!-- <div class="col-1 col-md-2">
+    <app-sidebar (mouseenter)="onSidebarHover()" (mouseleave)="onSidebarLeave()"></app-sidebar>
+  </div> -->
+  <h2 class="main-section-title">Slider</h2>
+  <div [ngClass]="{'offset-lg-2 ': isSidebarHovered}" style="transition: 0.3s;">
+    <div class="main-section-header">
+      <!-- Search Content -->
+      <div class="search mb-2">
+        <!-- <input type="text" placeholder="Search" /> -->
+      </div>
+      <div class="add-btn mb-2" data-toggle="modal" data-target="#categoryModal">
+        <button class="btn add-btn all-btn" style="color: white;" (click)="openAddSliderImageModal()">+</button>
+      </div>
+    </div>
+
+    <!-- Deferred loading of the slider table -->
+    @defer (on viewport; prefetch on idle) {
+      <app-slider-table></app-slider-table>
+    } @placeholder {
+      <!-- Placeholder while loading the slider table -->
+      <div>
+        <ul class="responsive-table">
+          <li class="table-header">
+            <div class="column column-1">ID</div>
+            <div class="column column-2">Photo</div>
+            <div class="column column-4">Actions</div>
+          </li>
+          <li class="table-row">
+            <div class="column column-1" data-label="Code"><p-skeleton width="50%" /></div>
+            <div class="column column-2" data-label="Image"><p-skeleton width="100%" height="100px" /></div>
+            <div class="column column-3 action">
+              <p-skeleton width="20px" height="20px" class="mr-1" />
+            </div>
+          </li>
+        </ul>
+      </div>
+    } @error {
+      <!-- Error message if loading fails -->
+      <div>
+        <p>Error loading slider data.</p>
+      </div>
+    }
+  </div>
+</div>

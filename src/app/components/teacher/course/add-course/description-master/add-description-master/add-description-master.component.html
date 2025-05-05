@@ -1,0 +1,92 @@
+<div class="container modal-content">
+  <div class="modal-header">
+    <h2 class="modal-title" >
+      {{ isEditMode ? "Update Description" : "Add Description" }}
+    </h2>
+  </div>
+  <form [formGroup]="myform" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="h5" for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="title"
+          placeholder="Title"
+          name="title"
+          required
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label class="h5" for="titleAr">Title Ar</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="titleAr"
+          placeholder="Title Ar"
+          name="titleAr"
+          required
+        />
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+
+    <button
+      type="button"
+      class="btn  all-btn mr-2"
+      (click)="addDescription()"
+      style="font-size: 14px;"
+    >
+      Add Description Details
+    </button>
+    <button  type="submit" class="btn all-btn " style="font-size: 14px;" > {{ isEditMode ? "Update Description" : "Add Description" }}</button>
+
+
+    </div>
+
+    <mat-accordion formArrayName="description">
+      <div class=" mt-1 mb-2 pb-3"
+        *ngFor="let item of description.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="mt-3 h5 mb-3">Note </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="modal-body">
+            <!-- Section fields -->
+            <div class="form-group">
+              <label class="h5" for="note">Description</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="note"
+                placeholder="Enter Description"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="h5" for="noteAr">Description Ar</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="noteAr"
+                placeholder="Enter Description in Arabic"
+                required
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-danger  "
+              style="color:red; color: white;"
+              (click)="removeDescription(i)"
+            >
+              Remove Note <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </mat-expansion-panel>
+      </div>
+    </mat-accordion>
+  </form>
+</div>

@@ -1,0 +1,8 @@
+.form-control:focus {
+  border-color: #28a745; /* Green color on focus */
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* Green shadow */
+}
+
+.form-control:not(:placeholder-shown) {
+  border-color: #28a745; /* Green color when content is filled */
+}

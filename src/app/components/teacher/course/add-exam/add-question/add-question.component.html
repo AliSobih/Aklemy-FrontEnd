@@ -1,0 +1,561 @@
+<div
+  class="container modal-content"
+  style="
+    font-family: var(--font-stack-heading-serif);
+    font-size: 20px;
+    color: black;
+  "
+>
+  <div class="modal-header">
+    <h5
+      class="modal-title"
+      style="
+        font-family: var(--font-stack-heading-serif);
+        font-size: 24px;
+        font-weight: 600;
+      "
+      id="addQuestionModalLabel"
+    >
+      {{ isEditMode ? "Update" : "Add" }} Question
+    </h5>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <form [formGroup]="questionForm" (ngSubmit)="submitQuestionForm()">
+    <div class="modal-body">
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="form-group col-md-9">
+                <label for="subject">Subject:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="subject"
+                  placeholder="Enter Subject"
+                  required
+                />
+                <div
+                  *ngIf="
+                    questionForm.get('subject')?.invalid &&
+                    questionForm.get('subject')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Subject is required and must be at least 3 characters long.
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="level">Level:</label>
+                <select class="form-control" formControlName="level" required>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="difficult">Difficult</option>
+                </select>
+                <div
+                  *ngIf="
+                    questionForm.get('level')?.invalid &&
+                    questionForm.get('level')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Level is required.
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-9">
+                <label for="chapter">Chapter:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="chapter"
+                  placeholder="Enter Chapter"
+                  required
+                />
+                <div
+                  *ngIf="
+                    questionForm.get('chapter')?.invalid &&
+                    questionForm.get('chapter')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Chapter is required and must be at least 3 characters long.
+                </div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label for="status">Type:</label>
+                <select
+                  class="form-control"
+                  formControlName="status"
+                  required
+                  (change)="onTypeChange()"
+                >
+                  <option value="SINGLE">Choice</option>
+                  <option value="MULTIPLE">Multiple Choice</option>
+                  <option value="DRAG_DROP">Drag and Drops</option>
+                </select>
+                <div
+                  *ngIf="
+                    questionForm.get('status')?.invalid &&
+                    questionForm.get('status')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Type is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4" style="margin-bottom: 100px">
+            <div
+              class="addCourse-img"
+              style="
+                width: 250px;
+                height: 125px;
+                border-radius: 50%;
+                margin: auto;
+              "
+            >
+              <!-- <app-drag-drop-upload formControlName="photo"></app-drag-drop-upload> -->
+              @if (imagePreview) {
+              <p (click)="removeImage()" style="cursor: pointer">x</p>
+              }
+
+              <div
+                class="drag-drop-box mb-2 col-6"
+                [class.dragging]="isDragging"
+                (dragover)="onDragOver($event)"
+                (dragleave)="onDragLeave($event)"
+                (drop)="onDrop($event)"
+              >
+                <ng-container *ngIf="imagePreview; else uploadPrompt">
+                  <img
+                    [src]="imagePreview"
+                    alt="Image Preview"
+                    class="uploaded-photo"
+                  />
+                </ng-container>
+                <ng-template #uploadPrompt>
+                  <div style="display: block; margin: auto">
+                    <p>Drag and drop a file here</p>
+                    <div>
+                      <button
+                        type="button"
+                        class="btn btn-light"
+                        (click)="fileInput.click()"
+                      >
+                        Choose File
+                      </button>
+                    </div>
+                  </div>
+                  <input
+                    type="file"
+                    (change)="onFileSelect($event)"
+                    style="display: none"
+                    #fileInput
+                  />
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <label for="question">Question (English):</label>
+        <textarea
+          type="text"
+          class="form-control"
+          formControlName="question"
+          placeholder="Enter question in English"
+        ></textarea>
+        <div
+          *ngIf="
+            questionForm.get('question')?.invalid &&
+            questionForm.get('question')?.touched
+          "
+          class="text-danger"
+        >
+          Question in English is required and must be at least 10 characters
+          long.
+        </div>
+      </div>
+
+      <div *ngIf="isChoiceType()">
+        <div formArrayName="answers" class="mt-3">
+          <div
+            *ngFor="let answer of answers.controls; let j = index"
+            [formGroupName]="j"
+          >
+            <div class="form-row">
+              <label class="custom-container mt-2">
+                <input
+                  type="checkbox"
+                  (change)="handleCorrectAnswerSelection(j)"
+                  formControlName="isCorrect"
+                />
+                <span class="checkmark"></span>
+              </label>
+              <p class="mt-2 mr-1">{{ getEnglishLetter(j) }})</p>
+
+              <div class="form-group col-md-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="answer"
+                  placeholder="Enter answer in English"
+                />
+                <div
+                  *ngIf="
+                    answer.get('answer')?.invalid &&
+                    answer.get('answer')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Answer in English is required and must be at least 3
+                  characters long.
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="btn all-red-btn btn-danger"
+              *ngIf="j === answers.length - 1 && j >= 4"
+              (click)="removeAnswer(j)"
+            >
+              Remove Choice
+            </button>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn btn-success all-btn mt-3"
+          (click)="addAnswer()"
+        >
+          Add Choice
+        </button>
+        <div formArrayName="answers">
+          <div
+            *ngFor="let answer of answers.controls; let j = index"
+            [formGroupName]="0"
+          >
+            <div *ngIf="j === answers.length - 1 && j >= 3">
+              <div *ngIf="hasCorrectAnswer()" class="form-group">
+                <label for="description">Description:</label>
+                <textarea
+                  type="text"
+                  class="form-control"
+                  formControlName="description"
+                  placeholder="Enter description"
+                ></textarea>
+                <div
+                  *ngIf="
+                    answers.get('description')?.invalid &&
+                    answers.get('description')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Description is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isDragDropType()">
+        <div formArrayName="dragAndDrops">
+          <div
+            *ngFor="let dragAndDrop of dragAndDrops.controls; let j = index"
+            [formGroupName]="j"
+          >
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="dragItem">Drag Item (English):</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="dragItem"
+                  placeholder="Enter drag item in English"
+                  required
+                />
+                <div
+                  *ngIf="
+                    dragAndDrop.get('dragItem')?.invalid &&
+                    dragAndDrop.get('dragItem')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Drag item in English is required and must be at least 3
+                  characters long.
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="dropItem">Drop Item (English):</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="dropItem"
+                  placeholder="Enter drop item in English"
+                  required
+                />
+                <div
+                  *ngIf="
+                    dragAndDrop.get('dropItem')?.invalid &&
+                    dragAndDrop.get('dropItem')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Drop item in English is required and must be at least 3
+                  characters long.
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="randomDropItem">Random Drop (English):</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="randomDropItem"
+                  placeholder="Enter drop item in English"
+                  required
+                />
+                <div
+                  *ngIf="
+                    dragAndDrop.get('randomDropItem')?.invalid &&
+                    dragAndDrop.get('randomDropItem')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Random drop item in English is required and must be at least 3
+                  characters long.
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn btn-danger all-red-btn mr-3"
+              *ngIf="j === dragAndDrops.length - 1 && j >= 4"
+              (click)="removeDragAndDrop(j)"
+            >
+              Remove Drag and Drop
+            </button>
+          </div>
+          <button
+            type="button"
+            class="btn btn-success all-btn mt-3"
+            (click)="addDragAndDrop()"
+          >
+            Add Drag and Drop
+          </button>
+        </div>
+      </div>
+      <div style="direction: rtl; text-align: start">
+        <label for="questionAr " style="width: fit-content">السؤال عربي </label>
+        <textarea
+          type="text"
+          class="form-control"
+          formControlName="questionAr"
+          placeholder="السؤال باللغة العربية"
+        ></textarea>
+        <div
+          *ngIf="
+            questionForm.get('questionAr')?.invalid &&
+            questionForm.get('questionAr')?.touched
+          "
+          class="text-danger"
+        >
+          Question in Arabic is required and must be at least 10 characters
+          long.
+        </div>
+
+        <div *ngIf="isChoiceType()" style="direction: rtl" class="mt-3">
+          <div formArrayName="answers">
+            <div
+              *ngFor="let answer of answers.controls; let j = index"
+              [formGroupName]="j"
+            >
+              <div class="form-row">
+                <label class="custom-container mt-2">
+                  <input
+                    type="checkbox"
+                    (change)="handleCorrectAnswerSelection(j)"
+                    formControlName="isCorrect"
+                  />
+                  <span class="checkmark"></span>
+                </label>
+                <p
+                  style="width: 20px"
+                  class="mt-2 mr-2 d-flex justify-content-between"
+                >
+                  <span>{{ getArabicLetter(j) }} </span><span>)</span>
+                </p>
+
+                <div class="form-group col-md-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="answerAr"
+                    placeholder="الاجابة باللغة العربية "
+                  />
+                  <div
+                    *ngIf="
+                      answer.get('answerAr')?.invalid &&
+                      answer.get('answerAr')?.touched
+                    "
+                    class="text-danger"
+                  >
+                    الإجابة باللغة الإنجليزية مطلوبة ويجب أن تتكون من 3 أحرف على
+                    الأقل.
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                class="btn all-red-btn btn-danger"
+                *ngIf="j === answers.length - 1 && j >= 4"
+                (click)="removeAnswer(j)"
+              >
+                Remove Choice
+              </button>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-success all-btn mt-3"
+            (click)="addAnswer()"
+          >
+            Add Choice
+          </button>
+          <div formArrayName="answers">
+            <div
+              *ngFor="let answer of answers.controls; let j = index"
+              [formGroupName]="0"
+            >
+              <div *ngIf="j === answers.length - 1 && j >= 3">
+                <div *ngIf="hasCorrectAnswer()" class="form-group">
+                  <label for="descriptionAr">
+                    وصف الاجابة باللغة العربية :</label
+                  >
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    formControlName="descriptionAr"
+                    placeholder="وصف الاجابة باللغة العربية"
+                  ></textarea>
+                  <div
+                    *ngIf="
+                      answers.get('descriptionAr')?.invalid &&
+                      answers.get('descriptionAr')?.touched
+                    "
+                    class="text-danger"
+                  >
+                    الوصف مطلوب.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="isDragDropType()">
+          <div formArrayName="dragAndDrops" class="mt-3">
+            <div
+              *ngFor="let dragAndDrop of dragAndDrops.controls; let j = index"
+              [formGroupName]="j"
+            >
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="dragItemAr">سحب</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="dragItemAr"
+                    placeholder="أدخل العنصر السحب "
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      dragAndDrop.get('dragItemAr')?.invalid &&
+                      dragAndDrop.get('dragItemAr')?.touched
+                    "
+                    class="text-danger"
+                  >
+                    يجب إدخال العنصر السحب
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="dropItemAr"> إفلات </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="dropItemAr"
+                    placeholder="أدخل العنصر إفلات  "
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      dragAndDrop.get('dropItemAr')?.invalid &&
+                      dragAndDrop.get('dropItemAr')?.touched
+                    "
+                    class="text-danger"
+                  >
+                    يجب إدخال إفلات
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="randomDropItemAr"> إفلات عشوائي :</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="randomDropItemAr"
+                    placeholder="أدخل  إفلات  "
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      dragAndDrop.get('randomDropItemAr')?.invalid &&
+                      dragAndDrop.get('randomDropItemAr')?.touched
+                    "
+                    class="text-danger"
+                  >
+                    يجب إدخال إفلات العشوائي وأن يكون طوله لا يقل عن 3 أحرف.
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-danger all-red-btn mr-3"
+                *ngIf="j === dragAndDrops.length - 1 && j >= 4"
+                (click)="removeDragAndDrop(j)"
+              >
+                إزالة العنصر السحب والإفلات
+              </button>
+            </div>
+            <button
+              type="button"
+              class="btn btn-success all-btn mt-3"
+              (click)="addDragAndDrop()"
+            >
+              إضافة عنصر مسحوب وملقى
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-success all-btn mt-3" type="submit">
+      {{ isEditMode ? "Update" : "Submit" }}
+    </button>
+  </form>
+</div>

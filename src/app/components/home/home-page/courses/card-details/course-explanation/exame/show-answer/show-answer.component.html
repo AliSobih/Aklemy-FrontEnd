@@ -1,0 +1,36 @@
+<div class="container mt-5" appPreventCopyPaste>
+  <h2 class="text-center text-light bg-success d-block mb-4">{{ getHeader() }}</h2>
+  <table class="table table-bordered">
+      <thead>
+          @if (correctAnswer.answerDTOS != null && correctAnswer.answerDTOS.length > 0) {
+            <tr>
+              <th>{{  "ANSWER"|translate }}</th>
+              <th>{{ "DESCRIPTION"|translate }}</th>
+            </tr>
+          } @else if (correctAnswer.dragAndDropDTOS != null && correctAnswer.dragAndDropDTOS.length > 0) {
+            <tr>
+              <th>{{ "QUESTION"|translate }}</th>
+              <th>{{ "ANSWER"|translate }}</th>
+            </tr>
+          }
+
+      </thead>
+      <tbody>
+        @for (answer of correctAnswer.answerDTOS; track $index) {
+          <tr>
+            <td>{{ getAnswer(answer)}}</td>
+            <td>{{ getAnswerDescription(answer) }}</td>
+          </tr>
+        }
+        @for (dragDrop of correctAnswer.dragAndDropDTOS; track $index) {
+          <tr>
+            <td>{{ getDragAnswer(dragDrop)}}</td>
+            <td>{{ getDropAnswer(dragDrop) }}</td>
+          </tr>
+        }
+      </tbody>
+  </table>
+</div>
+
+
+

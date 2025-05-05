@@ -1,0 +1,40 @@
+ <div class="container mt-5">
+        <h2>Shopping Cart</h2>
+        <p>{{cartItems.length}}</p>
+        <div class="row">
+          @for (item of cartItems; track $index) {
+            <div class="col-md-8 shopping-list">
+                <div class="cart-item mb-3 p-3 "  style="box-shadow: var(--box-shadow5);">
+                    <div class="row w-100">
+                        <div class="col-md-2">
+                            <img [src]=" path+item.imageURL" alt="SolidWorks Course" class="img-fluid">
+                        </div>
+                        <div class="col-md-8">
+                            <h5>{{item.title}}</h5>
+                            <p>By/ {{ item.instructorNameEn }}</p>
+                            <p><span class="badge badge-success">New </span> <span class="text-warning"> ★★★★☆</span> (193 ratings)</p>
+                            <p>{{ item.totalHours}} • {{sectionCount}} lectures</p>
+                            <p><strong>{{item.formattedAmountEn}}    </strong><del>{{ item.formattedAmountEnBeforeDiscount }}</del></p>
+                        </div>
+                        <div class="col-md-2 action-buttons text-center">
+                            <button (click)="removeProduct(item.id)" class="btn btn-link text-danger">Remove</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+          }
+
+
+
+            <div class="col-md-4 Checkout">
+                <div class=" p-3" style="box-shadow: var(--box-shadow5);">
+                    <h4>Total: £{{ totalPrice }}</h4>
+                    <p><del>£2,609.98</del></p>
+                    <p>78% off</p>
+                    <button  style="background-color: var(--main-color); border: none; border-radius: 0;" class="btn btn-secondary btn-block py-2">Checkout</button>
+                  
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="container col-12 Table-nationality mt-5">
+    <h2
+      class="main-section-title"
+      style="
+        font-family: var(--font-stack-heading-serif);
+        font-size: 24px;
+        font-weight: 600;
+      "
+    >
+    Coupons
+    </h2>
+    <div
+      class="main-section-header"
+      style="font-family: var(--font-stack-heading-serif); font-size: 20px"
+    >
+      <!-- Search Content -->
+      <div class="search mb-2">
+        <!-- <input type="text" placeholder="عن ماذا تبحث ؟" /> -->
+      </div>
+      <div class="add-btn" data-toggle="modal" data-target="#categoryModal">
+        <button
+          class="btn all-btn"
+          style="color: white"
+          (click)="openAddCouponModal()"
+        >
+          +
+        </button>
+      </div>
+    </div>
+
+    @if (couponsLoaded === true && couponEdit.length > 0) {
+      @defer (on immediate) {
+        <div class="mt-5">
+          <div class="table-container">
+            <table class="table table-bordered table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Discount Code</th>
+                  <th>Discount Value</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Active</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of couponEdit; track $index) {
+                <tr>
+                  <td>{{ $index + 1 }}</td>
+                  <td>{{ item.code }}</td>
+                  <td>{{ item.discountPercentage }}%</td>
+                  <td>{{ item.validFrom | date : "M/d/yy" }}</td>
+                  <td>{{ item.validTo | date : "M/d/yy" }}</td>
+                  <td>{{ item.isActive ? "Active" : "Not Active" }}</td>
+                  <td>
+                    <a
+                      class="btn btn-sm text-warning ml-1"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Edit"
+                      (click)="onUpdate(item)"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a
+                      class="btn btn-sm text-danger ml-1"
+                      (click)="confirmDelete(item.id)"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Delete"
+                    >
+                      <i class="fas fa-trash" style="color: red"></i>
+                    </a>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      } @error {
+        <p style="width: fit-content; margin: auto;">An error occurred while loading the courses. Please try again later.</p>
+      }
+    } @else if (!couponsError && couponsLoaded && couponEdit.length === 0) {
+      <div class="empty-container">
+        <p>No Content Available</p>
+      </div>
+    } @else if (!couponsLoaded && !couponsError) {
+      <div class="slider-placeholder">
+        <p-skeleton width="100%" height="200px" />
+      </div>
+    } @else if (couponsError) {
+      <div class="empty-container">
+        <p>Error In Server</p>
+      </div>
+    }
+
+
+  </div>
+</div>

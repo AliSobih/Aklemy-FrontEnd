@@ -1,0 +1,9 @@
+<section *ngIf="showHeaderFooter">
+  <app-header></app-header>
+</section>
+<section>
+  <router-outlet></router-outlet>
+</section>
+<section *ngIf="showHeaderFooter">
+  <app-footer></app-footer>
+</section>

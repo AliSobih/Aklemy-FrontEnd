@@ -1,0 +1,26 @@
+.table thead th {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.table tbody td {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.description {
+  font-style: italic;
+  color: #666;
+
+}
+
+
+img {
+  width: auto;
+    height: auto;
+    max-width: 400px;
+    max-height: 400px;
+    object-fit: contain;
+}

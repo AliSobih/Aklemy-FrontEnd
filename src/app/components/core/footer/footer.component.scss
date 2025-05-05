@@ -1,0 +1,160 @@
+body,
+.footer h5,
+.footer p,
+.footer a {
+  font-family: var(--font-family);
+  /* استبدال Podkova بـ Arial أو Roboto */
+  font-size: 14px;
+  /* تقليل حجم الخط */
+  color: #6c757d;
+  /* اللون الرمادي الفاتح للمطابقة */
+}
+
+.footer h5 {
+  font-size: 20px;
+  /* تقليل حجم عنوان الفوتر */
+  font-weight: 600;
+  /* تخفيف سماكة الخط */
+}
+
+.footer p,
+.footer a {
+  font-size: 13px;
+  /* تقليل حجم النصوص العادية */
+  line-height: 1.6;
+  /* تحسين المسافات بين الأسطر */
+}
+
+.footer {
+  background-color: #fff;
+  padding: 20px 0;
+  z-index: 100;
+  /* تقليل المسافة بين الفوتر والعناصر الأخرى */
+
+}
+
+.footer .col-md-3 {
+  margin-bottom: 15px;
+  /* تقليل المسافة بين الأعمدة */
+}
+
+.footer .btn-language {
+  background-color: transparent;
+  color: var(--third-color);
+  border: 1px solid var(--third-color);
+  border-radius: 50px;
+  padding: 5px 25px;
+  font-weight: 600;
+}
+
+.footer .btn-language:hover {
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+}
+
+.footer .btn-contact-us {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  /* تعديل مسافات الأزرار */
+  font-size: 12px;
+  /* تقليل حجم النص داخل الأزرار */
+  font-weight: 600;
+}
+
+.footer .list-unstyled {
+  list-style: none;
+  padding-left: 0;
+}
+
+.footer .list-unstyled li {
+  margin-bottom: 10px;
+}
+
+.footer .list-unstyled li a {
+  color: var(--fourth-color);
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.footer .list-unstyled li a:hover {
+  color: #000;
+}
+
+.footer .social-icons {
+  margin-bottom: 20px;
+}
+
+.footer .social-icons a {
+  display: inline-block;
+  color: #6c757d;
+  // border: 1px solid #6c757d;
+  // border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  // line-height: 35px;
+  text-align: center;
+  margin: 5px 5px;
+
+}
+.footer .social-icons a img {
+  width: 100%;
+  margin: 5px;
+}
+.footer .social-icons a:hover {
+  color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.footer .copyright {
+  background-color: var(--main-color);
+  color: #fff;
+  padding: 10px 0;
+  /* تقليل المسافة العلوية والسفلية */
+  text-align: center;
+  /* تعديل التوسيط ليكون في المنتصف */
+  font-size: 14px;
+  /* تصغير حجم النص */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .footer .col-md-3 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .footer .btn-language,
+  .footer .btn-contact-us {
+    display: block;
+    margin: 10px auto;
+    width: 100%;
+  }
+
+  .footer .social-icons {
+    text-align: center;
+  }
+
+  .footer .social-icons a {
+    margin: 0 5px;
+  }
+
+  .footer .copyright {
+    text-align: center;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer .col-md-3 {
+    width: 100%;
+  }
+
+  .footer .social-icons a {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+  }
+}

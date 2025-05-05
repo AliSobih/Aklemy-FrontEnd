@@ -1,0 +1,143 @@
+.hidden-button {
+  visibility: hidden;
+}
+
+.visible-button {
+  visibility: visible;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+/* General Styles */
+body {
+  background-color: #f5f5f5;
+}
+
+.container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.modal-title {
+  color: var(--black-color);
+  font-size: 25px;
+}
+
+.modal-content {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.form-control {
+  border-color: var(--main-color);
+  /* Light purple color */
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(156, 39, 176, 0.25);
+  /* Purple focus color */
+}
+
+/* Adjust spacing between form groups */
+.form-row .form-group {
+  margin-bottom: 15px;
+}
+
+.form-row .col-md-6 {
+  padding-right: 10px;
+  /* Adjust spacing between columns */
+  padding-left: 10px;
+}
+
+.same-class {
+  display: flex;
+  align-items: center;
+}
+
+.same-class label {
+  margin-right: 10px;
+  /* Space between label and input */
+}
+
+/* Specific Styles for Add Course Form */
+.drag-drop-box {
+  width: 100%;
+  height: 200px;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.drag-drop-box.dragging {
+  border-color: #000;
+}
+
+.uploaded-photo {
+  width: 100%;
+  max-height: 100%;
+}
+
+/* Textarea default height to 2 lines */
+textarea {
+  min-height: 2em;
+  /* Approximate height for 2 lines */
+  resize: vertical;
+  /* Allow vertical resize */
+}
+
+/* Modal and Form Titles */
+.modal-content h2 {
+  color: var(--main-color);
+  /* Purple color */
+}
+
+
+
+
+
+
+
+.addCourse-img {
+  position: relative;
+}
+
+.drag-drop-box {
+  border: 2px dashed #aaa;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  transition: border-color 0.3s ease;
+}
+
+.drag-drop-box.dragging {
+  border-color: #07c911;
+}
+
+.uploaded-photo {
+  max-width: 100%;
+  height: auto;
+  object-fit: fill;
+  border: 2px solid #0ad225;
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.uploaded-photo:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+

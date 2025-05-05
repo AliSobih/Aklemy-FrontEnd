@@ -1,0 +1,448 @@
+<section class="exam-page body" appPreventCopyPaste>
+  <!-- exam description -->
+  <div class="exam-details container mt-5">
+    <div>
+      <span class="label">{{ "Quiz_Title" | translate }}</span>
+      <span> {{ language == "en" ? exam?.title : exam?.titleAr }}</span>
+    </div>
+    <div>
+      <span class="label">{{ "Number_of_Questions" | translate }}</span>
+      <span> {{ exam?.questions?.length }}</span>
+    </div>
+    <div>
+      <span style="font-size: 14px"  class=""
+        >{{ "Your_Progress" | translate }} {{ questionIndex + 1 }}
+        {{ "OF" | translate }} {{ exam?.questions?.length }}</span
+      >
+    </div>
+    <div>
+      <span class="label">{{ "Duration" | translate }}</span>
+      <span>
+        {{ exam?.time ?? 0 | secondsToTime }} {{ "min" | translate }}</span
+      >
+    </div>
+    <style>
+      .exam-page.body {
+        padding: 20px 20px 0 20px;
+      }
+
+      .exam-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .exam-details span {
+        font-weight: 500;
+        color: #333;
+      }
+
+      .exam-details .label {
+        font-weight: 400;
+        color: #555;
+      }
+    </style>
+  </div>
+  <!-- end Exam description -->
+
+  <!-- exam buttons for controll -->
+  <div class="container">
+    <div class="exam-start">
+      <div class="exam-section">
+        <div class="buttons">
+          <div class="buttons-left">
+            <button>{{ "EXAM" | translate }}</button>
+          </div>
+          <div>
+            @if (isStartExam) { @if (pause) {
+            <button
+              class="pause mx-1"
+              (click)="pauseTimer()"
+              style="color: var(--button-green)"
+            >
+              {{ "Continue" | translate }}
+            </button>
+            } @else {
+            <button class="pause mx-1" (click)="pauseTimer()">
+              <svg
+                width="70"
+                height="20"
+                viewBox="0 0 107 28"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 5.6C0 2.96013 -8.59008e-08 1.6402 0.844227 0.820106C1.68844 -8.34465e-08 3.04719 0 5.76471 0C8.48222 0 9.84097 -8.34465e-08 10.6852 0.820106C11.5294 1.6402 11.5294 2.96013 11.5294 5.6V22.4C11.5294 25.0398 11.5294 26.3598 10.6852 27.1799C9.84097 28 8.48222 28 5.76471 28C3.04719 28 1.68844 28 0.844227 27.1799C-8.59008e-08 26.3598 0 25.0398 0 22.4V5.6Z"
+                  fill="#28A745"
+                />
+                <path
+                  opacity="0.5"
+                  d="M16.4707 5.6C16.4707 2.96013 16.4707 1.6402 17.3149 0.820106C18.1592 -8.34465e-08 19.5179 0 22.2354 0C24.9529 0 26.3116 -8.34465e-08 27.1559 0.820106C28.0001 1.6402 28.0001 2.96013 28.0001 5.6V22.4C28.0001 25.0398 28.0001 26.3598 27.1559 27.1799C26.3116 28 24.9529 28 22.2354 28C19.5179 28 18.1592 28 17.3149 27.1799C16.4707 26.3598 16.4707 25.0398 16.4707 22.4V5.6Z"
+                  fill="#28A745"
+                />
+                <path
+                  d="M46.2734 15.3086H41.7148V13.4688H46.2734C47.1562 13.4688 47.8711 13.3281 48.418 13.0469C48.9648 12.7656 49.3633 12.375 49.6133 11.875C49.8711 11.375 50 10.8047 50 10.1641C50 9.57812 49.8711 9.02734 49.6133 8.51172C49.3633 7.99609 48.9648 7.58203 48.418 7.26953C47.8711 6.94922 47.1562 6.78906 46.2734 6.78906H42.2422V22H39.9805V4.9375H46.2734C47.5625 4.9375 48.6523 5.16016 49.543 5.60547C50.4336 6.05078 51.1094 6.66797 51.5703 7.45703C52.0312 8.23828 52.2617 9.13281 52.2617 10.1406C52.2617 11.2344 52.0312 12.168 51.5703 12.9414C51.1094 13.7148 50.4336 14.3047 49.543 14.7109C48.6523 15.1094 47.5625 15.3086 46.2734 15.3086ZM62.6089 19.832V13.3047C62.6089 12.8047 62.5073 12.3711 62.3042 12.0039C62.1089 11.6289 61.812 11.3398 61.4136 11.1367C61.0152 10.9336 60.523 10.832 59.937 10.832C59.3902 10.832 58.9097 10.9258 58.4956 11.1133C58.0894 11.3008 57.7691 11.5469 57.5347 11.8516C57.3081 12.1562 57.1948 12.4844 57.1948 12.8359H55.0269C55.0269 12.3828 55.1441 11.9336 55.3784 11.4883C55.6128 11.043 55.9487 10.6406 56.3862 10.2812C56.8316 9.91406 57.3628 9.625 57.98 9.41406C58.605 9.19531 59.3003 9.08594 60.0659 9.08594C60.9878 9.08594 61.8003 9.24219 62.5034 9.55469C63.2144 9.86719 63.7691 10.3398 64.1675 10.9727C64.5737 11.5977 64.7769 12.3828 64.7769 13.3281V19.2344C64.7769 19.6562 64.812 20.1055 64.8823 20.582C64.9605 21.0586 65.0737 21.4688 65.2222 21.8125V22H62.9605C62.8511 21.75 62.7652 21.418 62.7027 21.0039C62.6402 20.582 62.6089 20.1914 62.6089 19.832ZM62.9839 14.3125L63.0073 15.8359H60.8159C60.1987 15.8359 59.648 15.8867 59.1636 15.9883C58.6792 16.082 58.273 16.2266 57.9448 16.4219C57.6167 16.6172 57.3667 16.8633 57.1948 17.1602C57.023 17.4492 56.937 17.7891 56.937 18.1797C56.937 18.5781 57.0269 18.9414 57.2066 19.2695C57.3862 19.5977 57.6558 19.8594 58.0152 20.0547C58.3823 20.2422 58.8316 20.3359 59.3628 20.3359C60.0269 20.3359 60.6128 20.1953 61.1206 19.9141C61.6284 19.6328 62.0308 19.2891 62.3277 18.8828C62.6323 18.4766 62.7964 18.082 62.8198 17.6992L63.7456 18.7422C63.6909 19.0703 63.5425 19.4336 63.3003 19.832C63.0581 20.2305 62.7339 20.6133 62.3277 20.9805C61.9292 21.3398 61.4527 21.6406 60.898 21.8828C60.3511 22.1172 59.7339 22.2344 59.0464 22.2344C58.187 22.2344 57.4331 22.0664 56.7847 21.7305C56.1441 21.3945 55.6441 20.9453 55.2847 20.3828C54.9331 19.8125 54.7573 19.1758 54.7573 18.4727C54.7573 17.793 54.8902 17.1953 55.1558 16.6797C55.4214 16.1562 55.8042 15.7227 56.3042 15.3789C56.8042 15.0273 57.4058 14.7617 58.1089 14.582C58.812 14.4023 59.5972 14.3125 60.4644 14.3125H62.9839ZM76.4248 19.0703V9.32031H78.6045V22H76.5303L76.4248 19.0703ZM76.835 16.3984L77.7373 16.375C77.7373 17.2188 77.6475 18 77.4678 18.7188C77.2959 19.4297 77.0147 20.0469 76.6241 20.5703C76.2334 21.0938 75.7217 21.5039 75.0889 21.8008C74.4561 22.0898 73.6866 22.2344 72.7803 22.2344C72.1631 22.2344 71.5967 22.1445 71.0811 21.9648C70.5733 21.7852 70.1358 21.5078 69.7686 21.1328C69.4014 20.7578 69.1162 20.2695 68.9131 19.668C68.7178 19.0664 68.6202 18.3438 68.6202 17.5V9.32031H70.7881V17.5234C70.7881 18.0938 70.8506 18.5664 70.9756 18.9414C71.1084 19.3086 71.2842 19.6016 71.503 19.8203C71.7295 20.0312 71.9795 20.1797 72.253 20.2656C72.5342 20.3516 72.8233 20.3945 73.1202 20.3945C74.042 20.3945 74.7725 20.2188 75.3116 19.8672C75.8506 19.5078 76.2373 19.0273 76.4717 18.4258C76.7139 17.8164 76.835 17.1406 76.835 16.3984ZM89.772 18.6367C89.772 18.3242 89.7017 18.0352 89.5611 17.7695C89.4283 17.4961 89.1509 17.25 88.7291 17.0312C88.315 16.8047 87.69 16.6094 86.8541 16.4453C86.1509 16.2969 85.5142 16.1211 84.9439 15.918C84.3814 15.7148 83.9009 15.4688 83.5025 15.1797C83.1119 14.8906 82.8111 14.5508 82.6002 14.1602C82.3892 13.7695 82.2837 13.3125 82.2837 12.7891C82.2837 12.2891 82.3931 11.8164 82.6119 11.3711C82.8384 10.9258 83.1548 10.5312 83.5611 10.1875C83.9752 9.84375 84.4712 9.57422 85.0494 9.37891C85.6275 9.18359 86.272 9.08594 86.983 9.08594C87.9986 9.08594 88.8658 9.26562 89.5845 9.625C90.3033 9.98438 90.8541 10.4648 91.2369 11.0664C91.6197 11.6602 91.8111 12.3203 91.8111 13.0469H89.6431C89.6431 12.6953 89.5377 12.3555 89.3267 12.0273C89.1236 11.6914 88.8228 11.4141 88.4244 11.1953C88.0337 10.9766 87.5533 10.8672 86.983 10.8672C86.3814 10.8672 85.8931 10.9609 85.5181 11.1484C85.1509 11.3281 84.8814 11.5586 84.7095 11.8398C84.5455 12.1211 84.4634 12.418 84.4634 12.7305C84.4634 12.9648 84.5025 13.1758 84.5806 13.3633C84.6666 13.543 84.815 13.7109 85.0259 13.8672C85.2369 14.0156 85.5337 14.1562 85.9166 14.2891C86.2994 14.4219 86.7877 14.5547 87.3814 14.6875C88.4205 14.9219 89.2759 15.2031 89.9478 15.5312C90.6197 15.8594 91.1197 16.2617 91.4478 16.7383C91.7759 17.2148 91.94 17.793 91.94 18.4727C91.94 19.0273 91.8228 19.5352 91.5884 19.9961C91.3619 20.457 91.0298 20.8555 90.5923 21.1914C90.1627 21.5195 89.647 21.7773 89.0455 21.9648C88.4517 22.1445 87.7837 22.2344 87.0416 22.2344C85.9244 22.2344 84.9791 22.0352 84.2056 21.6367C83.4322 21.2383 82.8462 20.7227 82.4478 20.0898C82.0494 19.457 81.8502 18.7891 81.8502 18.0859H84.0298C84.0611 18.6797 84.233 19.1523 84.5455 19.5039C84.858 19.8477 85.2408 20.0938 85.6939 20.2422C86.147 20.3828 86.5962 20.4531 87.0416 20.4531C87.6353 20.4531 88.1314 20.375 88.5298 20.2188C88.9361 20.0625 89.2447 19.8477 89.4556 19.5742C89.6666 19.3008 89.772 18.9883 89.772 18.6367ZM100.529 22.2344C99.6466 22.2344 98.8458 22.0859 98.127 21.7891C97.4161 21.4844 96.8028 21.0586 96.2872 20.5117C95.7794 19.9648 95.3887 19.3164 95.1153 18.5664C94.8419 17.8164 94.7052 16.9961 94.7052 16.1055V15.6133C94.7052 14.582 94.8575 13.6641 95.1622 12.8594C95.4669 12.0469 95.8809 11.3594 96.4044 10.7969C96.9278 10.2344 97.5216 9.80859 98.1856 9.51953C98.8497 9.23047 99.5372 9.08594 100.248 9.08594C101.154 9.08594 101.936 9.24219 102.592 9.55469C103.256 9.86719 103.799 10.3047 104.221 10.8672C104.643 11.4219 104.955 12.0781 105.158 12.8359C105.361 13.5859 105.463 14.4062 105.463 15.2969V16.2695H95.9942V14.5H103.295V14.3359C103.264 13.7734 103.147 13.2266 102.943 12.6953C102.748 12.1641 102.436 11.7266 102.006 11.3828C101.576 11.0391 100.99 10.8672 100.248 10.8672C99.7559 10.8672 99.3028 10.9727 98.8887 11.1836C98.4747 11.3867 98.1192 11.6914 97.8223 12.0977C97.5255 12.5039 97.295 13 97.1309 13.5859C96.9669 14.1719 96.8848 14.8477 96.8848 15.6133V16.1055C96.8848 16.707 96.9669 17.2734 97.1309 17.8047C97.3028 18.3281 97.5489 18.7891 97.8692 19.1875C98.1973 19.5859 98.5919 19.8984 99.0528 20.125C99.5216 20.3516 100.053 20.4648 100.647 20.4648C101.412 20.4648 102.061 20.3086 102.592 19.9961C103.123 19.6836 103.588 19.2656 103.986 18.7422L105.299 19.7852C105.025 20.1992 104.678 20.5938 104.256 20.9688C103.834 21.3438 103.315 21.6484 102.697 21.8828C102.088 22.1172 101.365 22.2344 100.529 22.2344Z"
+                  fill="#28A745"
+                />
+              </svg>
+            </button>
+            }
+
+            <button class="time mx-1">
+              {{ remainingTime! | secondsToTime }}
+            </button>
+            <!-- <button class="time mx-1 ">{{"Retake_exam"|translate}}</button> -->
+            } @else {
+            <button class="time mx-1" (click)="startExam()">
+              {{ "START_EXAM" | translate }}
+            </button>
+            }
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="text text-left">
+          @if (isStartExam && examLoaded){ @if (questionLoaded) { @if
+          (userQuestion?.status === 'SINGLE') {
+          <strong>{{ "Choose" | translate }} </strong>
+          {{ "Submit_the_answer" | translate }}
+          } @else if (userQuestion?.status === 'MULTIPLE') {
+          <strong>{{ "Choose_One_or_More" | translate }} </strong>
+          {{ "answer_then_Submit" | translate }}
+          } @else if (userQuestion?.status === 'DRAG_DROP') {
+          <strong>{{ "Drag_And_Drop" | translate }} </strong>
+          {{ "Submit_the_answer" | translate }}
+          } } }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Exam Header -->
+
+@if (isStartExam && examLoaded) {
+<form
+  [formGroup]="questionForm!"
+  (ngSubmit)="onSubmit()"
+  class="mb-5"
+  appPreventCopyPaste
+>
+  <div class="container">
+    <div class="" style="border: 1px solid #cecece">
+      <div
+        class="question-content container"
+        style="
+          display: flex;
+          justify-content: space-between;
+          padding: 15px;
+          background-color: white;
+          border-bottom: 15px solid #00000033;
+        "
+      >
+      @if (language==='en') {
+
+        <div class="question-content">
+          <div class="question-number-circle" >
+            <h5 > {{ questionIndex + 1 }}</h5>
+          </div>
+          <h5  >{{ getQuestionText(userQuestion!) }}</h5>
+        </div>
+        <div>
+          @if (tag) {
+
+          <span style="margin: 5px; color: var(--main-color2)">
+            <i class="fas fa-bookmark" style="font-size: 30px"></i>
+          </span>
+
+          }
+        </div>
+      }
+      @else {
+        <div>
+          @if (tag) {
+
+          <span style="margin: 5px; color: var(--main-color2)">
+            <i class="fas fa-bookmark" style="font-size: 30px"></i>
+          </span>
+
+          }
+        </div>
+        <div class="question-content">
+          <h5  >{{ getQuestionText(userQuestion!) }}</h5>
+          <div class="question-number-circle ml-2" >
+            <h5 > {{ questionIndex + 1 }}</h5>
+          </div>
+        </div>
+
+      }
+      </div>
+      @if (imagePreview !== null || imagePreview !== undefined) {
+      <div class="text-center mx-2 question-img">
+        <img [src]="imagePreview" class="img-thumbnail fixed-image" />
+      </div>
+      } @if (questionLoaded){
+        @if (userQuestion?.status === 'SINGLE') {
+      <!-- choice -->
+      <div class="question-card container">
+        <div class="question-options my-3">
+          @for (answer of answersList; track $index) {
+            @if (language==='en') {
+
+              <label
+                (click)="onSelectAnswer(answer.id!)"
+                [ngClass]="{
+                  'select-answer':
+                    questionForm!.controls['answer'].value === answer.id,
+                  correct: answer.isCorrect && showAnswer,
+                  incorrect: !answer.isCorrect && showAnswer
+                }"
+              >
+                <input
+                  formControlName="answer"
+                  type="radio"
+                  name="answer"
+                  name="answer"
+                  id="answer{{ $index }}"
+                  [value]="answer.id"
+                  [checked]="answer.isCorrect && showAnswer"
+                />
+                <span>{{ getEnglishLetter($index) }}</span>
+                {{ language == 'en' ? answer.answer : answer.answerAr }}
+              </label>
+            }@else if (language==='ar') {
+              <label
+              style="justify-content: end;"
+            (click)="onSelectAnswer(answer.id!)"
+            [ngClass]="{
+              'select-answer':
+                questionForm!.controls['answer'].value === answer.id,
+              correct: answer.isCorrect && showAnswer,
+              incorrect: !answer.isCorrect && showAnswer
+            }"
+          >
+          <input
+            formControlName="answer"
+            type="radio"
+            name="answer"
+            name="answer"
+            id="answer{{ $index }}"
+            [value]="answer.id"
+            [checked]="answer.isCorrect && showAnswer"
+          />
+          {{ answer.answerAr }}
+          <span class="ml-2">{{ getEnglishLetter($index) }}</span>
+          </label>
+            }
+          }
+        </div>
+      </div>
+      } @else if (userQuestion?.status === 'MULTIPLE') {
+      <div class="question-card container Multichoice">
+        <div class="question-options my-3" formArrayName="answers">
+          @for (answer of answersList; track $index) {
+          @if (language==='en') {
+            <label
+            (click)="toggleCheckbox(answer.id!, $event)"
+            [ngClass]="{
+              'select-answer':
+                questionForm!.controls['answers'].value[$index] === answer.id,
+              correct: answer.isCorrect && showAnswer,
+              incorrect: !answer.isCorrect && showAnswer
+            }"
+          >
+            <input
+              #checkbox
+              type="checkbox"
+              [formControlName]="$index"
+              id="answer{{ $index }}"
+              [value]="answer.id"
+              [checked]="answer.isCorrect && showAnswer"
+              (change)="onCheckboxChange(answer.id!, $event)"
+            />
+            <span>{{ getEnglishLetter($index) }}</span>
+            {{ language == 'en' ? answer.answer : answer.answerAr }}
+          </label>
+          }@else if (language==='ar') {
+            <label
+            style="justify-content: end;"
+            (click)="toggleCheckbox(answer.id!, $event)"
+            [ngClass]="{
+              'select-answer':
+                questionForm!.controls['answers'].value[$index] === answer.id,
+              correct: answer.isCorrect && showAnswer,
+              incorrect: !answer.isCorrect && showAnswer
+            }"
+          >
+            <input
+              #checkbox
+              type="checkbox"
+              [formControlName]="$index"
+              id="answer{{ $index }}"
+              [value]="answer.id"
+              [checked]="answer.isCorrect && showAnswer"
+              (change)="onCheckboxChange(answer.id!, $event)"
+            />
+            {{ answer.answerAr }}
+            <span class="ml-2">{{ getEnglishLetter($index) }}</span>
+          </label>
+          }
+          }
+        </div>
+      </div>
+      } @else if (userQuestion?.status === 'DRAG_DROP') {
+      <div class="container question-card">
+        <div class="row">
+          <div class="col-6">
+            @for (item of dropItems; track $index) {
+            <div
+              class="drop-card p-2 border-1 surface-border border-round w-15rem"
+              pDroppable
+              (onDrop)="drop(item)"
+            >
+              <button (click)="removeDrop(item)" type="button">
+                <i class="fa-regular fa-circle-xmark"></i>
+              </button>
+              <p class="text-center surface-border border-bottom-1">
+                {{language == 'en' ? item.dragItem : item.dragItemAr}}
+              </p>
+              <ul class="list-none flex flex-column gap-2 p-0 m-0">
+                <li class="p-2 border-round shadow-1 text-center">
+                  {{language == 'en' ? item.answer : item.answerAr}}
+                </li>
+              </ul>
+            </div>
+            }
+          </div>
+
+          <div class="col-6">
+            @for (item of dragItems; track $index) {
+            <div
+              class="drag-card my-4 p-2 border-1 surface-border border-round w-15rem"
+            >
+              <ul class="list-none flex flex-column gap-2 p-0 m-0">
+                <li
+                  class="p-2 border-round shadow-1 text-center"
+                  pDraggable
+                  (onDragStart)="dragStart(item)"
+                  (onDragEnd)="dragEnd()"
+                >
+                  {{language == 'en' ? item.randomDropItem : item.randomDropItemAr}}
+                </li>
+              </ul>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+      } }
+      <div class="d-flex justify-content-start px-3 pb-2 container">
+        @if (userExameQuestions[questionIndex].tag) {
+        <button
+          class="btn mx-2 btn-flag"
+          type="button"
+          (click)="toggleTag()"
+          style="background-color: #ff5722; color: white"
+        >
+          <svg
+            width="13"
+            height="18"
+            viewBox="0 0 21 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19.6861 0H1.31391C0.592105 0 0 0.56875 0 1.27422V28L10.5 17.8172L21 28V1.27422C21 0.56875 20.4135 0 19.6861 0Z"
+              fill="white"
+            />
+          </svg>
+          {{ "UNFlag_this_Question" | translate }}
+        </button>
+        } @else {
+        <button
+          class="btn mx-2 btn-flag"
+          type="button"
+          (click)="toggleTag()"
+          style="background-color: #ff5722; color: white"
+        >
+          <svg
+            width="13"
+            height="18"
+            viewBox="0 0 21 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19.6861 0H1.31391C0.592105 0 0 0.56875 0 1.27422V28L10.5 17.8172L21 28V1.27422C21 0.56875 20.4135 0 19.6861 0Z"
+              fill="white"
+            />
+          </svg>
+          {{ "Flag_this_Question" | translate }}
+        </button>
+        }
+        <button
+          class="btn btn-success"
+          type="button"
+          (click)="openShowAnswer()"
+        >
+          {{ "SHOW_ANSWER" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center mt-1">
+    <div class="button-group">
+      <div class="left-buttons">
+        <button
+          class="btn btn-flagged"
+          type="button"
+          (click)="openShowAllExamQuestion(true)"
+        >
+          <svg
+            width="13"
+            class="mr-2"
+            height="18"
+            viewBox="0 0 21 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19.6861 0H1.31391C0.592105 0 0 0.56875 0 1.27422V28L10.5 17.8172L21 28V1.27422C21 0.56875 20.4135 0 19.6861 0Z"
+              fill="white"
+            /></svg
+          >{{ "Flagged_Questions" | translate }}
+        </button>
+        <button
+          class="btn btn-view-all"
+          type="button"
+          (click)="openShowAllExamQuestion(false)"
+        >
+          {{ "View_All_Questions" | translate }}
+        </button>
+      </div>
+
+      <div class="right-buttons">
+        <button
+          class="btn btn-prev"
+          type="button"
+          [disabled]="this.questionIndex <= 0 || this.pause"
+          (click)="previous()"
+        >
+          {{ "PREVIOUS_QUESTION" | translate }}
+        </button>
+        <button class="btn btn-next" [disabled]="isNextDisabled()">
+          {{
+            questionIndex == userExameQuestions.length - 1
+              ? ("FINISH" | translate)
+              : ("NEXT_QUESTION" | translate)
+          }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+}

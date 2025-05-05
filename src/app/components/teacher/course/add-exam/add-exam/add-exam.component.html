@@ -1,0 +1,260 @@
+<div
+  class="container modal-content mt-5"
+  style="
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+      rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  "
+>
+  <h1
+    class="modal-title py-5 m-auto"
+    id="addExamModalLabel"
+    style="
+      font-family: var(--font-stack-heading-serif);
+      font-size: 24px;
+      font-weight: 600;
+    "
+  >
+    {{ isEditMode ? "Updete Exam" : "Add Exam" }}
+  </h1>
+
+  <form
+    [formGroup]="examForm"
+    (ngSubmit)="submitExamForm()"
+    style="
+      font-family: var(--font-stack-heading-serif);
+      font-size: 16px;
+      color: black;
+      overflow: hidden;
+    "
+  >
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="examTitleEnglish">Title (English):</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="examTitleEnglish"
+          placeholder="Enter exam title in English"
+        />
+        <div
+          *ngIf="
+            examForm.get('examTitleEnglish')?.invalid &&
+            (examForm.get('examTitleEnglish')?.touched ||
+              examForm.get('examTitleEnglish')?.dirty)
+          "
+        >
+          <small class="text-danger">Title in English is required.</small>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="examTitleArabic">Title (Arabic):</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="examTitleArabic"
+          placeholder="Enter exam title in Arabic"
+        />
+        <div
+          *ngIf="
+            examForm.get('examTitleArabic')?.invalid &&
+            (examForm.get('examTitleArabic')?.touched ||
+              examForm.get('examTitleArabic')?.dirty)
+          "
+        >
+          <small class="text-danger">Title in Arabic is required.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="examDescriptionEnglish">Description (English):</label>
+        <textarea
+          class="form-control"
+          formControlName="examDescriptionEnglish"
+          rows="3"
+          placeholder="Enter exam description in English"
+        ></textarea>
+        <div
+          *ngIf="
+            examForm.get('examDescriptionEnglish')?.invalid &&
+            (examForm.get('examDescriptionEnglish')?.touched ||
+              examForm.get('examDescriptionEnglish')?.dirty)
+          "
+        >
+          <small class="text-danger">Description in English is required.</small>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="examDescriptionArabic">Description (Arabic):</label>
+        <textarea
+          class="form-control"
+          formControlName="examDescriptionArabic"
+          rows="3"
+          placeholder="Enter exam description in Arabic"
+        ></textarea>
+        <div
+          *ngIf="
+            examForm.get('examDescriptionArabic')?.invalid &&
+            (examForm.get('examDescriptionArabic')?.touched ||
+              examForm.get('examDescriptionArabic')?.dirty)
+          "
+        >
+          <small class="text-danger">Description in Arabic is required.</small>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="time">Time:</label>
+
+        <input
+          type="number"
+          class="form-control"
+          formControlName="time"
+          placeholder="Enter Exam Time"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="questionsNumber">Questions Number:</label>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="questionsNumber"
+        />
+      </div>
+    </div>
+
+    <div class="table-container mt-2">
+      <table class="table table-bordered table-hover mt-5">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col" class="col-1">
+              <i class="fa-solid fa-hashtag"></i>
+            </th>
+            <th scope="col" class="col-6">Question</th>
+            <th scope="col" class="col-2">Level</th>
+            <th scope="col" class="col-1">Chapter</th>
+
+            <th scope="col" class="col-2">Subject</th>
+            <th scope="col" class="col-2">Question type</th>
+            <th scope="col" class="col-1">Select</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of selectedQuestions; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.question }}</td>
+            <td>{{ item.level }}</td>
+            <td>{{ item.chapter }}</td>
+            <td>{{ item.subject }}</td>
+            <td>{{ item.status }}</td>
+            <td>
+              <button
+                class="btn all-red-btn"
+                (click)="removeSelectedQuestion(i)"
+              >
+                <i class="fas fa-trash" style="color: white"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button type="submit" class="btn btn-block mr-3 mt-3 mb-3 all-btn">
+      {{ isEditMode ? "Update Exam" : "Add Exam" }}
+    </button>
+  </form>
+</div>
+
+<div
+  class="container mt-5"
+  style="
+    font-family: var(--font-stack-heading-serif);
+    font-size: 16px;
+    color: black;
+  "
+>
+  <div class="form-row mb-2">
+    <div class="col-md-3">
+      <label for="subject">Subject:</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter Subject"
+        [value]="searchValue"
+        (keyup)="search($event)"
+      />
+    </div>
+    <div class="col-md-3">
+      <label for="chapter">Chapter:</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter Chapter"
+        [value]="chapterValue"
+        (keyup)="filterChapter($event)"
+      />
+    </div>
+    <div class="form-group col-md-3">
+      <label for="level">Level:</label>
+      <select
+        class="form-control"
+        id="level"
+        [value]="level"
+        (change)="filterLevel($event)"
+      >
+        <option value="all">All</option>
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="difficult">Difficult</option>
+      </select>
+    </div>
+  </div>
+  <table class="table table-bordered table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col" class="col-1">
+          <i class="fa-solid fa-hashtag"></i>
+        </th>
+        <th scope="col" class="col-6">Question</th>
+        <th scope="col" class="col-2">Level</th>
+        <th scope="col" class="col-1">Chapter</th>
+        <th scope="col" class="col-2">Subject</th>
+
+        <th scope="col" class="col-2">Question type</th>
+
+        <th scope="col" class="col-1">Select</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let item of questions; let i = index"
+        [hidden]="isQuestionSelected(item)"
+      >
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.question }}</td>
+        <td>{{ item.level }}</td>
+        <td>{{ item.chapter }}</td>
+        <td>{{ item.subject }}</td>
+        <td>{{ item.status }}</td>
+
+        <td>
+          <button
+            class="btn btn-success all-btn"
+            (click)="selectQuestion(item)"
+          >
+            Select
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <mat-paginator
+    [length]="totalQuestions"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+</div>

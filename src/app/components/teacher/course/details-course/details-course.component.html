@@ -1,0 +1,57 @@
+<section class='main-section'>
+  <div class="container">
+    <div >
+      <div style="z-index: -1">
+              <div class="row mt-5">
+                <div class="col-12">
+                  @if (courseLoaded === true) {
+                    @defer (on immediate) {
+                      <mat-accordion>
+                        @for (item of Course?.sections; track item; let index =
+                        $index) {
+                        <mat-expansion-panel
+                          (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false"
+                        >
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              Section {{ index + 1 }}: {{ item.title }}
+                            </mat-panel-title>
+
+                          </mat-expansion-panel-header>
+                          @for (itemLesson of item.lessons; track $index) {
+                            <div class="d-flex justify-content-between lesson" (click)="viewvideo(itemLesson)" style="cursor: pointer;">
+                              <h6 class="d-flex align-items-center">
+                                <a style="font-size: 16px;">
+                                  <i class="fas fa-video mr-2"></i>{{ itemLesson.title }}
+                                </a>
+                              </h6>
+                              <span class="m-2">
+                                <span class="m-2">
+                                  {{ itemLesson.duration | secondsToTime }}
+                                </span>
+                              </span>
+                            </div>
+
+                          }
+                        </mat-expansion-panel>
+                        }
+                      </mat-accordion>
+                    } @error {
+                      <p style="width: fit-content; margin: auto;">An error occurred while loading the courses. Please try again later.</p>
+                    }
+                  } @else if (!courseLoaded && !courseError) {
+                    <div class="slider-placeholder">
+                      <p-skeleton width="100%" height="400px" />
+                    </div>
+                  } @else if (courseError) {
+                    <div class="empty-container">
+                      <p>Error In Server</p>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+    </div>
+  </div>
+</section>

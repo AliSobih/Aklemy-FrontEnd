@@ -1,0 +1,167 @@
+<div class="row">
+
+  <div class="container mt-5 col-12"  style="font-family: var(--font-stack-heading-serif) ; font-size: 16px; color: black;">
+    <div class="form-row mb-2">
+      <div class="col-md-3">
+        <label for="subject">Subject:</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Subject"
+          [value]="searchValue"
+          (keyup)="search($event)"
+        />
+      </div>
+       <div class="col-md-3">
+        <label for="chapter">Chapter:</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Chapter"
+          [value]="chapterValue"
+          (keyup)="filterChapter($event)"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="level">Level:</label>
+        <select
+          class="form-control"
+          id="level"
+          [value]="level"
+          (change)="filterLevel($event)"
+        >
+          <option value="all">All</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="difficult">Difficult</option>
+        </select>
+      </div>
+    </div>
+
+    @if (questionLoaded === true && questions.length > 0) {
+      @defer (on immediate) {
+        <table class="table table-bordered table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" class="col-1">#</th>
+              <th scope="col" class="col-3">Question</th>
+              <th scope="col" class="col-1">Level</th>
+              <th scope="col" class="col-1">Chapter</th>
+              <th scope="col" class="col-2">Subject</th>
+              <th scope="col" class="col-1">Status</th>
+              <th scope="col" class="col-1">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of questions; let $index = index">
+              <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ item.question }}</td>
+                <td>{{ item.level }}</td>
+                <td>{{ item.chapter }}</td>
+                <td>{{ item.subject }}</td>
+                <td>{{ item.status }}</td>
+                <td class="actions-cell">
+                  <button
+                    class="btn btn-sm text-warning btn-edit"
+                    (click)="updateQuestion(item)"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                    class="btn btn-sm text-info"
+                    (click)="toggleAnswers($index)"
+                  >
+                    <i
+                      class="fas fa-eye"
+                      [ngClass]="{ 'text-primary': selectedIndex === $index }"
+                    ></i>
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="selectedIndex === $index && oppning">
+                <td colspan="6">
+                  <ng-container
+                    *ngIf="
+                      item.dragAndDrops && item.dragAndDrops.length > 0;
+                      else showAnswers
+                    "
+                  >
+                    <table class="table table-sm">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>ID</th>
+                          <th>Drag (Arabic)</th>
+                          <th>Drag (English)</th>
+                          <th>Drop (Arabic)</th>
+                          <th>Drop (English)</th>
+                          <th>Random Drop (Arabic)</th>
+                          <th>Random Drop (English)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let dragAndDrops of item.dragAndDrops">
+                          <td>{{ dragAndDrops.id }}</td>
+                          <td>{{ dragAndDrops.dragItem }}</td>
+                          <td>{{ dragAndDrops.dragItemAr }}</td>
+                          <td>{{ dragAndDrops.dropItem }}</td>
+                          <td>{{ dragAndDrops.dropItemAr }}</td>
+                          <td>{{ dragAndDrops.randomDropItem }}</td>
+                          <td>{{ dragAndDrops.randomDropItemAr }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </ng-container>
+                  <ng-template #showAnswers>
+                    <table class="table table-sm">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>ID</th>
+                          <th>Answer Name (Arabic)</th>
+                          <th>Answer Name (English)</th>
+                          <th>Description</th>
+                          <th>Is Correct</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let answer of item.answers">
+                          <td>{{ answer.id }}</td>
+                          <td>{{ answer.answerAr }}</td>
+                          <td>{{ answer.answer }}</td>
+                          <td>{{ answer.description }}</td>
+                          <td>{{ answer.isCorrect ? "✅" : "❌" }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </ng-template>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+
+      } @error {
+        <p style="width: fit-content; margin: auto;">An error occurred while loading the courses. Please try again later.</p>
+      }
+    } @else if (!questionError && questionLoaded && questions.length === 0) {
+      <div class="empty-container">
+        <p>No Content Available</p>
+      </div>
+    } @else if (!questionLoaded && !questionError) {
+      <div class="slider-placeholder">
+        <p-skeleton width="100%" height="200px" />
+      </div>
+    } @else if (questionError) {
+      <div class="empty-container">
+        <p>Error In Server</p>
+      </div>
+    }
+      <mat-paginator
+          [length]="totalQuestions"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 20]"
+          (page)="onPageChange($event)"
+        ></mat-paginator>
+  </div>
+
+</div>

@@ -1,0 +1,55 @@
+<div class="sidebar">
+  @if (courseExams.length > 0) {
+  <div class="custom-menu-item" [class.active]="activeIndex === 1">
+    <div class="header-container" (click)="toggleDropdown(1)">
+      <div class="header-title"> 
+        {{ "CHAPTERS" | translate }}
+      </div>
+      <div class="header-count">
+        @if (activeIndex === 1) {
+        <i class="fas fa-chevron-down"></i>
+        } @else {
+        <i class="fas fa-chevron-up"></i>
+        }
+      </div>
+    </div>
+    <div class="dropdown-menu-video" *ngIf="activeIndex === 1">
+      @for (exam of courseExams; track $index) {
+      <a class="nav-link pointer" (click)="examDetails(exam.id!)">{{
+        getExamTitle({ examTitle: exam.title, examTitleAr: exam.titleAr })
+      }}</a>
+      }
+    </div>
+  </div>
+
+  } @if (chapters.length > 0) {
+  <div class="custom-menu-item" [class.active]="activeIndex === 1">
+    <div class="header-container" (click)="toggleDropdown(1)">
+      <div class="header-title">
+        {{ "COURSE_EXAMS" | translate }}
+      </div>
+      <div class="header-count">
+        @if (activeIndex === 1) {
+        <i class="fas fa-chevron-down"></i>
+        } @else {
+        <i class="fas fa-chevron-up"></i>
+        }
+      </div>
+    </div>
+    <div class="dropdown-menu-video" *ngIf="activeIndex === 1">
+      @for (exam of chapters; track $index) {
+      <a
+        class="nav-link"
+        style="cursor: pointer"
+        (click)="examDetails(exam.id!)"
+        ><i class="fa-solid fa-file-circle-check mx-2"></i
+        >{{
+          getExamTitle({ examTitle: exam.title, examTitleAr: exam.titleAr })
+        }}</a
+      >
+      }
+    </div>
+  </div>
+
+  }
+</div>

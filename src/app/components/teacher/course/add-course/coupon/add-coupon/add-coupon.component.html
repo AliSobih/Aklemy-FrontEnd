@@ -1,0 +1,86 @@
+<div class="container p-4">
+  <div class="row">
+    <div class="col-12">
+      <!-- Header -->
+      <h1 class="text-center text-head mb-4">
+        {{ couponEdit ? "Update Coupon" : "Add Coupon" }}
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <!-- Form -->
+      <form [formGroup]="myform" (ngSubmit)="onSubmit()">
+        <!-- Code -->
+        <div class="form-group">
+          <label for="code">Code</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="code"
+            id="code"
+            placeholder="Enter Code"
+          />
+        </div>
+
+        <!-- Discount Percentage -->
+        <div class="form-group">
+          <label for="discountPercentage">Discount Percentage</label>
+          <input
+            type="number"
+            class="form-control"
+            formControlName="discountPercentage"
+            id="discountPercentage"
+            placeholder="Enter Discount Percentage"
+          />
+        </div>
+
+        <!-- Valid From -->
+        <div class="form-group">
+          <label for="validFrom">Valid From</label>
+          <input
+            type="date"
+            class="form-control"
+            formControlName="validFrom"
+            id="validFrom"
+          />
+        </div>
+
+        <!-- Valid To -->
+        <div class="form-group">
+          <label for="validTo">Valid To</label>
+          <input
+            type="date"
+            class="form-control"
+            formControlName="validTo"
+            id="validTo"
+          />
+        </div>
+
+        <!-- Is Active -->
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            formControlName="isActive"
+            id="isActive"
+          />
+          <label class="form-check-label" for="isActive">Active</label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn all-btn">
+          {{ couponEdit ? 'Update' : 'Save' }}
+        </button>
+        <button
+          type="button"
+          style="margin-left: 5px;"
+          (click)="onclose()"
+          class="btn all-red-btn"
+        >
+          Close
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
